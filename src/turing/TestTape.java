@@ -3,7 +3,7 @@ package turing;
 // A test program for the Tape class that calls most of the methods in that class.
 //
 // The output from this program should be:  Tape Contents:  Hello World
-//                                          Final position at the W
+//   can you see????                        Final position at the W
 
 public class TestTape {
 

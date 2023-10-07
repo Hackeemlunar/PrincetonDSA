@@ -1,6 +1,5 @@
 package turing;
 
-import turing.Cell;
 public class Tape {
      private Cell currentCell; // cell is not defined in the project as well
     private Cell head;
@@ -10,7 +9,7 @@ public class Tape {
         currentCell = new Cell(); // create a new cell when the tape is initialized
         currentCell.content = ' ';// set the current cells content to an empty char
         head = currentCell;
-    }
+    } //????
 
     // Returns the pointer that points to the current cell
     public Cell getCurrentCell() {
@@ -42,7 +41,7 @@ public class Tape {
                 currentCell = cell;
             }
         }
-        head = currentCell;
+        if (currentCell.prev == null) head = currentCell;
 
     }
 
