@@ -10,8 +10,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code DirectedCycleX} class represents a data type for
  *  determining whether a digraph has a directed cycle.
@@ -40,7 +38,7 @@ import algs4IMPL.AB.*;
  */
 
 public class DirectedCycleX {
-    private algs4IMPL.AB.Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
+    private Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
 
     public DirectedCycleX(Digraph G) {
 
@@ -51,7 +49,7 @@ public class DirectedCycleX {
         }
 
         // initialize queue to contain all vertices with indegree = 0
-        algs4IMPL.AB.Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new Queue<Integer>();
         for (int v = 0; v < G.V(); v++)
             if (indegree[v] == 0) queue.enqueue(v);
 
@@ -146,25 +144,25 @@ public class DirectedCycleX {
 
         // add F extra edges
         for (int i = 0; i < F; i++) {
-            int v = algs4IMPL.AB.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
             G.addEdge(v, w);
         }
 
-        algs4IMPL.AB.StdOut.println(G);
+        StdOut.println(G);
 
 
         DirectedCycleX finder = new DirectedCycleX(G);
         if (finder.hasCycle()) {
-            algs4IMPL.AB.StdOut.print("Directed cycle: ");
+            StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
 
         else {
-            algs4IMPL.AB.StdOut.println("No directed cycle");
+            StdOut.println("No directed cycle");
         }
         StdOut.println();
     }

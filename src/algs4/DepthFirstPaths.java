@@ -30,11 +30,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Graph;
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DepthFirstPaths} class represents a data type for finding
  *  paths from a source vertex <em>s</em> to every other vertex
@@ -65,7 +60,7 @@ public class DepthFirstPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstPaths(algs4IMPL.AB.Graph G, int s) {
+    public DepthFirstPaths(Graph G, int s) {
         this.s = s;
         edgeTo = new int[G.V()];
         marked = new boolean[G.V()];
@@ -74,7 +69,7 @@ public class DepthFirstPaths {
     }
 
     // depth first search from v
-    private void dfs(algs4IMPL.AB.Graph G, int v) {
+    private void dfs(Graph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
             if (!marked[w]) {
@@ -106,7 +101,7 @@ public class DepthFirstPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
+        Stack<Integer> path = new Stack<Integer>();
         for (int x = v; x != s; x = edgeTo[x])
             path.push(x);
         path.push(s);
@@ -126,19 +121,19 @@ public class DepthFirstPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.Graph G = new Graph(in);
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
         int s = Integer.parseInt(args[1]);
         DepthFirstPaths dfs = new DepthFirstPaths(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (dfs.hasPathTo(v)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d:  ", s, v);
+                StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
-                    if (x == s) algs4IMPL.AB.StdOut.print(x);
-                    else        algs4IMPL.AB.StdOut.print("-" + x);
+                    if (x == s) StdOut.print(x);
+                    else        StdOut.print("-" + x);
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
 
             else {

@@ -24,9 +24,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code BinaryInsertion} class provides a static method for sorting an
  *  array using an optimized binary insertion sort with half exchanges.

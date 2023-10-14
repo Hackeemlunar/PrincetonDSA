@@ -19,12 +19,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.ClosestPair;
-import edu.princeton.cs.algs4.GrahamScan;
-import edu.princeton.cs.algs4.Point2D;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code FarthestPair} data type computes the farthest pair of points
  *  in a set of <em>n</em> points in the plane and provides accessor methods
@@ -36,7 +30,7 @@ import edu.princeton.cs.algs4.StdOut;
  *  and the farthest pair.
  *  It runs in O(<em>n</em> log <em>n</em>) time in the worst case and uses
  *  O(<em>N</em>) extra space.
- *  See also {@link ClosestPair} and {@link edu.princeton.cs.algs4.GrahamScan}.
+ *  See also {@link ClosestPair} and {@link GrahamScan}.
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
@@ -47,7 +41,7 @@ import edu.princeton.cs.algs4.StdOut;
 public class FarthestPair {
 
     // farthest pair of points and distance
-    private edu.princeton.cs.algs4.Point2D best1, best2;
+    private Point2D best1, best2;
     private double bestDistanceSquared = Double.NEGATIVE_INFINITY;
 
     /**
@@ -57,26 +51,26 @@ public class FarthestPair {
      * @throws IllegalArgumentException if {@code points} is {@code null} or if any
      *         entry in {@code points[]} is {@code null}
      */
-    public FarthestPair(edu.princeton.cs.algs4.Point2D[] points) {
+    public FarthestPair(Point2D[] points) {
         if (points == null) throw new IllegalArgumentException("constructor argument is null");
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) throw new IllegalArgumentException("array element " + i + " is null");
         }
 
-        edu.princeton.cs.algs4.GrahamScan graham = new GrahamScan(points);
+        GrahamScan graham = new GrahamScan(points);
 
         // single point
         if (points.length <= 1) return;
 
         // number of points on the hull
         int m = 0;
-        for (edu.princeton.cs.algs4.Point2D p : graham.hull())
+        for (Point2D p : graham.hull())
             m++;
 
         // the hull, in counterclockwise order hull[1] to hull[m]
-        edu.princeton.cs.algs4.Point2D[] hull = new edu.princeton.cs.algs4.Point2D[m+1];
+        Point2D[] hull = new Point2D[m+1];
         m = 1;
-        for (edu.princeton.cs.algs4.Point2D p : graham.hull()) {
+        for (Point2D p : graham.hull()) {
             hull[m++] = p;
         }
         m--;
@@ -94,7 +88,7 @@ public class FarthestPair {
 
         // k = farthest vertex from edge from hull[1] to hull[m]
         int k = 2;
-        while (edu.princeton.cs.algs4.Point2D.area2(hull[m], hull[1], hull[k+1]) > edu.princeton.cs.algs4.Point2D.area2(hull[m], hull[1], hull[k])) {
+        while (Point2D.area2(hull[m], hull[1], hull[k+1]) > Point2D.area2(hull[m], hull[1], hull[k])) {
             k++;
         }
 
@@ -106,7 +100,7 @@ public class FarthestPair {
                 best2 = hull[j];
                 bestDistanceSquared = hull[i].distanceSquaredTo(hull[j]);
             }
-            while ((j < m) && edu.princeton.cs.algs4.Point2D.area2(hull[i], hull[i+1], hull[j+1]) > edu.princeton.cs.algs4.Point2D.area2(hull[i], hull[i+1], hull[j])) {
+            while ((j < m) && Point2D.area2(hull[i], hull[i+1], hull[j+1]) > Point2D.area2(hull[i], hull[i+1], hull[j])) {
                 j++;
                 // StdOut.println(hull[i] + " and " + hull[j] + " are antipodal");
                 double distanceSquared = hull[i].distanceSquaredTo(hull[j]);
@@ -125,7 +119,7 @@ public class FarthestPair {
      * @return one of the two points in the farthest pair of points;
      *         {@code null} if no such point (because there are fewer than 2 points)
      */
-    public edu.princeton.cs.algs4.Point2D either() {
+    public Point2D either() {
         return best1;
     }
 
@@ -135,7 +129,7 @@ public class FarthestPair {
      * @return the other point in the farthest pair of points
      *         {@code null} if no such point (because there are fewer than 2 points)
      */
-    public edu.princeton.cs.algs4.Point2D other() {
+    public Point2D other() {
         return best2;
     }
 
@@ -161,10 +155,10 @@ public class FarthestPair {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int n = edu.princeton.cs.algs4.StdIn.readInt();
-        edu.princeton.cs.algs4.Point2D[] points = new edu.princeton.cs.algs4.Point2D[n];
+        int n = StdIn.readInt();
+        Point2D[] points = new Point2D[n];
         for (int i = 0; i < n; i++) {
-            int x = edu.princeton.cs.algs4.StdIn.readInt();
+            int x = StdIn.readInt();
             int y = StdIn.readInt();
             points[i] = new Point2D(x, y);
         }

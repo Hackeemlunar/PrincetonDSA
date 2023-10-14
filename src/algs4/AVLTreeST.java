@@ -25,8 +25,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -605,7 +603,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table following an in-order traversal
      */
     public Iterable<Key> keysInOrder() {
-        algs4IMPL.AB.Queue<Key> queue = new algs4IMPL.AB.Queue<Key>();
+        Queue<Key> queue = new Queue<Key>();
         keysInOrder(root, queue);
         return queue;
     }
@@ -616,7 +614,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @param x the subtree
      * @param queue the queue
      */
-    private void keysInOrder(Node x, algs4IMPL.AB.Queue<Key> queue) {
+    private void keysInOrder(Node x, Queue<Key> queue) {
         if (x == null) return;
         keysInOrder(x.left, queue);
         queue.enqueue(x.key);
@@ -629,9 +627,9 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table following a level-order traversal.
      */
     public Iterable<Key> keysLevelOrder() {
-        algs4IMPL.AB.Queue<Key> queue = new algs4IMPL.AB.Queue<Key>();
+        Queue<Key> queue = new Queue<Key>();
         if (!isEmpty()) {
-            algs4IMPL.AB.Queue<Node> queue2 = new algs4IMPL.AB.Queue<Node>();
+            Queue<Node> queue2 = new Queue<Node>();
             queue2.enqueue(root);
             while (!queue2.isEmpty()) {
                 Node x = queue2.dequeue();
@@ -660,7 +658,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
     public Iterable<Key> keys(Key lo, Key hi) {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
-        algs4IMPL.AB.Queue<Key> queue = new algs4IMPL.AB.Queue<Key>();
+        Queue<Key> queue = new Queue<Key>();
         keys(root, queue, lo, hi);
         return queue;
     }
@@ -707,10 +705,10 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      * @return {@code true} if the AVL tree invariants are fine
      */
     private boolean check() {
-        if (!isBST()) algs4IMPL.AB.StdOut.println("Symmetric order not consistent");
-        if (!isAVL()) algs4IMPL.AB.StdOut.println("AVL property not consistent");
-        if (!isSizeConsistent()) algs4IMPL.AB.StdOut.println("Subtree counts not consistent");
-        if (!isRankConsistent()) algs4IMPL.AB.StdOut.println("Ranks not consistent");
+        if (!isBST()) StdOut.println("Symmetric order not consistent");
+        if (!isAVL()) StdOut.println("AVL property not consistent");
+        if (!isSizeConsistent()) StdOut.println("Subtree counts not consistent");
+        if (!isRankConsistent()) StdOut.println("Ranks not consistent");
         return isBST() && isAVL() && isSizeConsistent() && isRankConsistent();
     }
 
@@ -802,12 +800,12 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
      */
     public static void main(String[] args) {
         AVLTreeST<String, Integer> st = new AVLTreeST<String, Integer>();
-        for (int i = 0; !algs4IMPL.AB.StdIn.isEmpty(); i++) {
+        for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);
         }
         for (String s : st.keys())
-            algs4IMPL.AB.StdOut.println(s + " " + st.get(s));
+            StdOut.println(s + " " + st.get(s));
         StdOut.println();
     }
 }

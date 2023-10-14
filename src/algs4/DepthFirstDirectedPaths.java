@@ -29,10 +29,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DepthFirstDirectedPaths} class represents a data type for
  *  finding directed paths from a source vertex <em>s</em> to every
@@ -106,7 +102,7 @@ public class DepthFirstDirectedPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
+        Stack<Integer> path = new Stack<Integer>();
         for (int x = v; x != s; x = edgeTo[x])
             path.push(x);
         path.push(s);
@@ -126,7 +122,7 @@ public class DepthFirstDirectedPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
         // StdOut.println(G);
 
@@ -135,12 +131,12 @@ public class DepthFirstDirectedPaths {
 
         for (int v = 0; v < G.V(); v++) {
             if (dfs.hasPathTo(v)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d:  ", s, v);
+                StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
-                    if (x == s) algs4IMPL.AB.StdOut.print(x);
-                    else        algs4IMPL.AB.StdOut.print("-" + x);
+                    if (x == s) StdOut.print(x);
+                    else        StdOut.print("-" + x);
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
 
             else {

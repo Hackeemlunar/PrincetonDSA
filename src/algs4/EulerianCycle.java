@@ -15,13 +15,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.EulerianPath;
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code EulerianCycle} class represents a data type
  *  for finding an Eulerian cycle or path in a graph.
@@ -49,7 +42,7 @@ import edu.princeton.cs.algs4.StdRandom;
  *  @author Nate Liu
  */
 public class EulerianCycle {
-    private edu.princeton.cs.algs4.Stack<Integer> cycle = new edu.princeton.cs.algs4.Stack<Integer>();  // Eulerian cycle; null if no such cycle
+    private Stack<Integer> cycle = new Stack<Integer>();  // Eulerian cycle; null if no such cycle
 
     // an undirected edge, with a field to indicate whether the edge has already been used
     private static class Edge {
@@ -76,7 +69,7 @@ public class EulerianCycle {
      *
      * @param G the graph
      */
-    public EulerianCycle(edu.princeton.cs.algs4.Graph G) {
+    public EulerianCycle(Graph G) {
 
         // must have at least one edge
         if (G.E() == 0) return;
@@ -89,7 +82,7 @@ public class EulerianCycle {
 
         // create local view of adjacency lists, to iterate one vertex at a time
         // the helper Edge data type is used to avoid exploring both copies of an edge v-w
-        edu.princeton.cs.algs4.Queue<Edge>[] adj = (edu.princeton.cs.algs4.Queue<Edge>[]) new edu.princeton.cs.algs4.Queue[G.V()];
+        Queue<Edge>[] adj = (Queue<Edge>[]) new Queue[G.V()];
         for (int v = 0; v < G.V(); v++)
             adj[v] = new Queue<Edge>();
 
@@ -115,7 +108,7 @@ public class EulerianCycle {
 
         // initialize stack with any non-isolated vertex
         int s = nonIsolatedVertex(G);
-        edu.princeton.cs.algs4.Stack<Integer> stack = new edu.princeton.cs.algs4.Stack<Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
         stack.push(s);
 
         // greedily search through edges in iterative DFS style
@@ -161,7 +154,7 @@ public class EulerianCycle {
     }
 
     // returns any non-isolated vertex; -1 if no such vertex
-    private static int nonIsolatedVertex(edu.princeton.cs.algs4.Graph G) {
+    private static int nonIsolatedVertex(Graph G) {
         for (int v = 0; v < G.V(); v++)
             if (G.degree(v) > 0)
                 return v;
@@ -179,7 +172,7 @@ public class EulerianCycle {
     //    - at least one edge
     //    - degree(v) is even for every vertex v
     //    - the graph is connected (ignoring isolated vertices)
-    private static boolean satisfiesNecessaryAndSufficientConditions(edu.princeton.cs.algs4.Graph G) {
+    private static boolean satisfiesNecessaryAndSufficientConditions(Graph G) {
 
         // Condition 0: at least 1 edge
         if (G.E() == 0) return false;
@@ -200,7 +193,7 @@ public class EulerianCycle {
     }
 
     // check that solution is correct
-    private boolean certifySolution(edu.princeton.cs.algs4.Graph G) {
+    private boolean certifySolution(Graph G) {
 
         // internal consistency check
         if (hasEulerianCycle() == (cycle() == null)) return false;
@@ -228,22 +221,22 @@ public class EulerianCycle {
         return true;
     }
 
-    private static void unitTest(edu.princeton.cs.algs4.Graph G, String description) {
-        edu.princeton.cs.algs4.StdOut.println(description);
-        edu.princeton.cs.algs4.StdOut.println("-------------------------------------");
-        edu.princeton.cs.algs4.StdOut.print(G);
+    private static void unitTest(Graph G, String description) {
+        StdOut.println(description);
+        StdOut.println("-------------------------------------");
+        StdOut.print(G);
 
         EulerianCycle euler = new EulerianCycle(G);
 
-        edu.princeton.cs.algs4.StdOut.print("Eulerian cycle: ");
+        StdOut.print("Eulerian cycle: ");
         if (euler.hasEulerianCycle()) {
             for (int v : euler.cycle()) {
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println();
         }
         else {
-            edu.princeton.cs.algs4.StdOut.println("none");
+            StdOut.println("none");
         }
         StdOut.println();
     }
@@ -259,31 +252,31 @@ public class EulerianCycle {
         int E = Integer.parseInt(args[1]);
 
         // Eulerian cycle
-        edu.princeton.cs.algs4.Graph G1 = GraphGenerator.eulerianCycle(V, E);
+        Graph G1 = GraphGenerator.eulerianCycle(V, E);
         unitTest(G1, "Eulerian cycle");
 
         // Eulerian path
-        edu.princeton.cs.algs4.Graph G2 = GraphGenerator.eulerianPath(V, E);
+        Graph G2 = GraphGenerator.eulerianPath(V, E);
         unitTest(G2, "Eulerian path");
 
         // empty graph
-        edu.princeton.cs.algs4.Graph G3 = new edu.princeton.cs.algs4.Graph(V);
+        Graph G3 = new Graph(V);
         unitTest(G3, "empty graph");
 
         // self loop
-        edu.princeton.cs.algs4.Graph G4 = new edu.princeton.cs.algs4.Graph(V);
-        int v4 = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+        Graph G4 = new Graph(V);
+        int v4 = StdRandom.uniformInt(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 
         // union of two disjoint cycles
-        edu.princeton.cs.algs4.Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
-        edu.princeton.cs.algs4.Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
+        Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
+        Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
         int[] perm = new int[V];
         for (int i = 0; i < V; i++)
             perm[i] = i;
         StdRandom.shuffle(perm);
-        edu.princeton.cs.algs4.Graph G5 = new edu.princeton.cs.algs4.Graph(V);
+        Graph G5 = new Graph(V);
         for (int v = 0; v < H1.V(); v++)
             for (int w : H1.adj(v))
                 G5.addEdge(perm[v], perm[w]);

@@ -14,8 +14,6 @@
 package algs4;
 
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code Bipartite} class represents a data type for
  *  determining whether an undirected graph is <em>bipartite</em> or whether
@@ -46,7 +44,7 @@ public class Bipartite {
     private boolean[] color;       // color[v] gives vertices on one side of bipartition
     private boolean[] marked;      // marked[v] = true iff v has been visited in DFS
     private int[] edgeTo;          // edgeTo[v] = last edge on path to v
-    private algs4IMPL.AB.Stack<Integer> cycle;  // odd-length cycle
+    private Stack<Integer> cycle;  // odd-length cycle
 
     /**
      * Determines whether an undirected graph is bipartite and finds either a
@@ -54,7 +52,7 @@ public class Bipartite {
      *
      * @param  G the graph
      */
-    public Bipartite(algs4IMPL.AB.Graph G) {
+    public Bipartite(Graph G) {
         isBipartite = true;
         color  = new boolean[G.V()];
         marked = new boolean[G.V()];
@@ -68,7 +66,7 @@ public class Bipartite {
         assert check(G);
     }
 
-    private void dfs(algs4IMPL.AB.Graph G, int v) {
+    private void dfs(Graph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
 
@@ -134,7 +132,7 @@ public class Bipartite {
         return cycle;
     }
 
-    private boolean check(algs4IMPL.AB.Graph G) {
+    private boolean check(Graph G) {
         // graph is bipartite
         if (isBipartite) {
             for (int v = 0; v < G.V(); v++) {
@@ -186,25 +184,25 @@ public class Bipartite {
         // V2 vertices on right side, and E edges; then add F random edges
         Graph G = GraphGenerator.bipartite(V1, V2, E);
         for (int i = 0; i < F; i++) {
-            int v = algs4IMPL.AB.StdRandom.uniformInt(V1 + V2);
+            int v = StdRandom.uniformInt(V1 + V2);
             int w = StdRandom.uniformInt(V1 + V2);
             G.addEdge(v, w);
         }
 
-        algs4IMPL.AB.StdOut.println(G);
+        StdOut.println(G);
 
 
         Bipartite b = new Bipartite(G);
         if (b.isBipartite()) {
-            algs4IMPL.AB.StdOut.println("Graph is bipartite");
+            StdOut.println("Graph is bipartite");
             for (int v = 0; v < G.V(); v++) {
-                algs4IMPL.AB.StdOut.println(v + ": " + b.color(v));
+                StdOut.println(v + ": " + b.color(v));
             }
         }
         else {
-            algs4IMPL.AB.StdOut.print("Graph has an odd-length cycle: ");
+            StdOut.print("Graph has an odd-length cycle: ");
             for (int x : b.oddCycle()) {
-                algs4IMPL.AB.StdOut.print(x + " ");
+                StdOut.print(x + " ");
             }
             StdOut.println();
         }

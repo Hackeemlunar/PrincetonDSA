@@ -33,8 +33,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code DepthFirstOrder} class represents a data type for
  *  determining depth-first search ordering of the vertices in a digraph
@@ -58,8 +56,8 @@ public class DepthFirstOrder {
     private boolean[] marked;          // marked[v] = has v been marked in dfs?
     private int[] pre;                 // pre[v]    = preorder  number of v
     private int[] post;                // post[v]   = postorder number of v
-    private algs4IMPL.AB.Queue<Integer> preorder;   // vertices in preorder
-    private algs4IMPL.AB.Queue<Integer> postorder;  // vertices in postorder
+    private Queue<Integer> preorder;   // vertices in preorder
+    private Queue<Integer> postorder;  // vertices in postorder
     private int preCounter;            // counter or preorder numbering
     private int postCounter;           // counter for postorder numbering
 
@@ -70,8 +68,8 @@ public class DepthFirstOrder {
     public DepthFirstOrder(Digraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new algs4IMPL.AB.Queue<Integer>();
-        preorder  = new algs4IMPL.AB.Queue<Integer>();
+        postorder = new Queue<Integer>();
+        preorder  = new Queue<Integer>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
@@ -83,10 +81,10 @@ public class DepthFirstOrder {
      * Determines a depth-first order for the edge-weighted digraph {@code G}.
      * @param G the edge-weighted digraph
      */
-    public DepthFirstOrder(algs4IMPL.AB.EdgeWeightedDigraph G) {
+    public DepthFirstOrder(EdgeWeightedDigraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new algs4IMPL.AB.Queue<Integer>();
+        postorder = new Queue<Integer>();
         preorder  = new Queue<Integer>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
@@ -165,7 +163,7 @@ public class DepthFirstOrder {
      * @return the vertices in reverse postorder, as an iterable of vertices
      */
     public Iterable<Integer> reversePost() {
-        algs4IMPL.AB.Stack<Integer> reverse = new Stack<Integer>();
+        Stack<Integer> reverse = new Stack<Integer>();
         for (int v : postorder)
             reverse.push(v);
         return reverse;
@@ -179,7 +177,7 @@ public class DepthFirstOrder {
         int r = 0;
         for (int v : post()) {
             if (post(v) != r) {
-                algs4IMPL.AB.StdOut.println("post(v) and post() inconsistent");
+                StdOut.println("post(v) and post() inconsistent");
                 return false;
             }
             r++;
@@ -189,7 +187,7 @@ public class DepthFirstOrder {
         r = 0;
         for (int v : pre()) {
             if (pre(v) != r) {
-                algs4IMPL.AB.StdOut.println("pre(v) and pre() inconsistent");
+                StdOut.println("pre(v) and pre() inconsistent");
                 return false;
             }
             r++;
@@ -211,31 +209,31 @@ public class DepthFirstOrder {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
 
         DepthFirstOrder dfs = new DepthFirstOrder(G);
-        algs4IMPL.AB.StdOut.println("   v  pre post");
-        algs4IMPL.AB.StdOut.println("--------------");
+        StdOut.println("   v  pre post");
+        StdOut.println("--------------");
         for (int v = 0; v < G.V(); v++) {
-            algs4IMPL.AB.StdOut.printf("%4d %4d %4d\n", v, dfs.pre(v), dfs.post(v));
+            StdOut.printf("%4d %4d %4d\n", v, dfs.pre(v), dfs.post(v));
         }
 
-        algs4IMPL.AB.StdOut.print("Preorder:  ");
+        StdOut.print("Preorder:  ");
         for (int v : dfs.pre()) {
-            algs4IMPL.AB.StdOut.print(v + " ");
+            StdOut.print(v + " ");
         }
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println();
 
-        algs4IMPL.AB.StdOut.print("Postorder: ");
+        StdOut.print("Postorder: ");
         for (int v : dfs.post()) {
-            algs4IMPL.AB.StdOut.print(v + " ");
+            StdOut.print(v + " ");
         }
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println();
 
-        algs4IMPL.AB.StdOut.print("Reverse postorder: ");
+        StdOut.print("Reverse postorder: ");
         for (int v : dfs.reversePost()) {
-            algs4IMPL.AB.StdOut.print(v + " ");
+            StdOut.print(v + " ");
         }
         StdOut.println();
 

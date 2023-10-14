@@ -51,11 +51,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Graph;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.SymbolGraph;
-
 /**
  *  The {@code DegreesOfSeparation} class provides a client for finding
  *  the degree of separation between one distinguished individual and
@@ -103,27 +98,27 @@ public class DegreesOfSeparation {
 
         // StdOut.println("Source: " + source);
 
-        algs4IMPL.AB.SymbolGraph sg = new SymbolGraph(filename, delimiter);
+        SymbolGraph sg = new SymbolGraph(filename, delimiter);
         Graph G = sg.graph();
         if (!sg.contains(source)) {
-            algs4IMPL.AB.StdOut.println(source + " not in database.");
+            StdOut.println(source + " not in database.");
             return;
         }
 
         int s = sg.indexOf(source);
         BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
 
-        while (!algs4IMPL.AB.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String sink = StdIn.readLine();
             if (sg.contains(sink)) {
                 int t = sg.indexOf(sink);
                 if (bfs.hasPathTo(t)) {
                     for (int v : bfs.pathTo(t)) {
-                        algs4IMPL.AB.StdOut.println("   " + sg.nameOf(v));
+                        StdOut.println("   " + sg.nameOf(v));
                     }
                 }
                 else {
-                    algs4IMPL.AB.StdOut.println("Not connected");
+                    StdOut.println("Not connected");
                 }
             }
             else {

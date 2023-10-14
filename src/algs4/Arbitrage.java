@@ -24,10 +24,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Arbitrage} class provides a client that finds an arbitrage
  *  opportunity in a currency exchange table by constructing a
@@ -68,13 +64,13 @@ public class Arbitrage {
     public static void main(String[] args) {
 
         // V currencies
-        int V = algs4IMPL.AB.StdIn.readInt();
+        int V = StdIn.readInt();
         String[] name = new String[V];
 
         // create complete network
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
         for (int v = 0; v < V; v++) {
-            name[v] = algs4IMPL.AB.StdIn.readString();
+            name[v] = StdIn.readString();
             for (int w = 0; w < V; w++) {
                 double rate = StdIn.readDouble();
                 DirectedEdge e = new DirectedEdge(v, w, -Math.log(rate));
@@ -87,9 +83,9 @@ public class Arbitrage {
         if (spt.hasNegativeCycle()) {
             double stake = 1000.0;
             for (DirectedEdge e : spt.negativeCycle()) {
-                algs4IMPL.AB.StdOut.printf("%10.5f %s ", stake, name[e.from()]);
+                StdOut.printf("%10.5f %s ", stake, name[e.from()]);
                 stake *= Math.exp(-e.weight());
-                algs4IMPL.AB.StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
+                StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
             }
         }
         else {

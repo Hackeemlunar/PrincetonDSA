@@ -24,19 +24,12 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.Edge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.NoSuchElementException;
 
 /**
  *  The {@code EdgeWeightedGraph} class represents an edge-weighted
  *  graph of vertices named 0 through <em>V</em> – 1, where each
- *  undirected edge is of type {@link edu.princeton.cs.algs4.Edge} and has a real-valued weight.
+ *  undirected edge is of type {@link Edge} and has a real-valued weight.
  *  It supports the following two primary operations: add an edge to the graph,
  *  iterate over all of the edges incident to a vertex. It also provides
  *  methods for returning the degree of a vertex, the number of vertices
@@ -47,7 +40,7 @@ import java.util.NoSuchElementException;
  *  of <em>v</em>.
  *  <p>
  *  This implementation uses an <em>adjacency-lists representation</em>, which
- *  is a vertex-indexed array of {@link edu.princeton.cs.algs4.Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
  *  the number of edges and <em>V</em> is the number of vertices.
  *  All instance methods take &Theta;(1) time. (Though, iterating over
@@ -70,7 +63,7 @@ public class EdgeWeightedGraph {
 
     private final int V;
     private int E;
-    private edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge>[] adj;
+    private Bag<Edge>[] adj;
 
     /**
      * Initializes an empty edge-weighted graph with {@code V} vertices and 0 edges.
@@ -82,9 +75,9 @@ public class EdgeWeightedGraph {
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be non-negative");
         this.V = V;
         this.E = 0;
-        adj = (edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<Edge>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge>();
+            adj[v] = new Bag<Edge>();
         }
     }
 
@@ -100,10 +93,10 @@ public class EdgeWeightedGraph {
         this(V);
         if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
         for (int i = 0; i < E; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(0, 100);
-            edu.princeton.cs.algs4.Edge e = new edu.princeton.cs.algs4.Edge(v, w, weight);
+            Edge e = new Edge(v, w, weight);
             addEdge(e);
         }
     }
@@ -120,14 +113,14 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public EdgeWeightedGraph(edu.princeton.cs.algs4.In in) {
+    public EdgeWeightedGraph(In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
 
         try {
             V = in.readInt();
-            adj = (edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge>[]) new edu.princeton.cs.algs4.Bag[V];
+            adj = (Bag<Edge>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge>();
+                adj[v] = new Bag<Edge>();
             }
 
             int E = in.readInt();
@@ -138,7 +131,7 @@ public class EdgeWeightedGraph {
                 validateVertex(v);
                 validateVertex(w);
                 double weight = in.readDouble();
-                edu.princeton.cs.algs4.Edge e = new edu.princeton.cs.algs4.Edge(v, w, weight);
+                Edge e = new Edge(v, w, weight);
                 addEdge(e);
             }
         }
@@ -158,11 +151,11 @@ public class EdgeWeightedGraph {
         this.E = G.E();
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.Edge> reverse = new Stack<edu.princeton.cs.algs4.Edge>();
-            for (edu.princeton.cs.algs4.Edge e : G.adj[v]) {
+            Stack<Edge> reverse = new Stack<Edge>();
+            for (Edge e : G.adj[v]) {
                 reverse.push(e);
             }
-            for (edu.princeton.cs.algs4.Edge e : reverse) {
+            for (Edge e : reverse) {
                 adj[v].add(e);
             }
         }
@@ -199,7 +192,7 @@ public class EdgeWeightedGraph {
      * @param  e the edge
      * @throws IllegalArgumentException unless both endpoints are between {@code 0} and {@code V-1}
      */
-    public void addEdge(edu.princeton.cs.algs4.Edge e) {
+    public void addEdge(Edge e) {
         int v = e.either();
         int w = e.other(v);
         validateVertex(v);
@@ -216,7 +209,7 @@ public class EdgeWeightedGraph {
      * @return the edges incident on vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.Edge> adj(int v) {
+    public Iterable<Edge> adj(int v) {
         validateVertex(v);
         return adj[v];
     }
@@ -240,11 +233,11 @@ public class EdgeWeightedGraph {
      *
      * @return all edges in this edge-weighted graph, as an iterable
      */
-    public Iterable<edu.princeton.cs.algs4.Edge> edges() {
-        edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.Edge> list = new Bag<edu.princeton.cs.algs4.Edge>();
+    public Iterable<Edge> edges() {
+        Bag<Edge> list = new Bag<Edge>();
         for (int v = 0; v < V; v++) {
             int selfLoops = 0;
-            for (edu.princeton.cs.algs4.Edge e : adj(v)) {
+            for (Edge e : adj(v)) {
                 if (e.other(v) > v) {
                     list.add(e);
                 }
@@ -284,7 +277,7 @@ public class EdgeWeightedGraph {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         StdOut.println(G);
     }

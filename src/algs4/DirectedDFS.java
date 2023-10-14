@@ -22,10 +22,6 @@
  ******************************************************************************/
 
 package algs4;
-
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DirectedDFS} class represents a data type for
  *  determining the vertices reachable from a given source vertex <em>s</em>
@@ -145,7 +141,7 @@ public class DirectedDFS {
     public static void main(String[] args) {
 
         // read in digraph from command-line argument
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
 
         // read in sources from command-line arguments
@@ -160,7 +156,7 @@ public class DirectedDFS {
 
         // print out vertices reachable from sources
         for (int v = 0; v < G.V(); v++) {
-            if (dfs.marked(v)) algs4IMPL.AB.StdOut.print(v + " ");
+            if (dfs.marked(v)) StdOut.print(v + " ");
         }
         StdOut.println();
     }

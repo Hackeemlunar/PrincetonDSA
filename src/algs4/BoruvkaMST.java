@@ -23,8 +23,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code BoruvkaMST} class represents a data type for computing a
  *  <em>minimum spanning tree</em> in an edge-weighted graph.
@@ -62,23 +60,23 @@ import algs4IMPL.AB.*;
 public class BoruvkaMST {
     private static final double FLOATING_POINT_EPSILON = 1.0E-12;
 
-    private Bag<algs4IMPL.AB.Edge> mst = new Bag<algs4IMPL.AB.Edge>();    // edges in MST
+    private Bag<Edge> mst = new Bag<Edge>();    // edges in MST
     private double weight;                      // weight of MST
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
      * @param G the edge-weighted graph
      */
-    public BoruvkaMST(algs4IMPL.AB.EdgeWeightedGraph G) {
-        algs4IMPL.AB.UF uf = new algs4IMPL.AB.UF(G.V());
+    public BoruvkaMST(EdgeWeightedGraph G) {
+        UF uf = new UF(G.V());
 
         // repeat at most log V times or until we have V-1 edges
         for (int t = 1; t < G.V() && mst.size() < G.V() - 1; t = t + t) {
 
             // foreach tree in forest, find closest edge
             // if edge weights are equal, ties are broken in favor of first edge in G.edges()
-            algs4IMPL.AB.Edge[] closest = new algs4IMPL.AB.Edge[G.V()];
-            for (algs4IMPL.AB.Edge e : G.edges()) {
+            Edge[] closest = new Edge[G.V()];
+            for (Edge e : G.edges()) {
                 int v = e.either(), w = e.other(v);
                 int i = uf.find(v), j = uf.find(w);
                 if (i == j) continue;   // same tree
@@ -88,7 +86,7 @@ public class BoruvkaMST {
 
             // add newly discovered edges to MST
             for (int i = 0; i < G.V(); i++) {
-                algs4IMPL.AB.Edge e = closest[i];
+                Edge e = closest[i];
                 if (e != null) {
                     int v = e.either(), w = e.other(v);
                     // don't add the same edge twice
@@ -110,7 +108,7 @@ public class BoruvkaMST {
      * @return the edges in a minimum spanning tree (or forest) as
      *    an iterable of edges
      */
-    public Iterable<algs4IMPL.AB.Edge> edges() {
+    public Iterable<Edge> edges() {
         return mst;
     }
 
@@ -124,16 +122,16 @@ public class BoruvkaMST {
     }
 
     // is the weight of edge e strictly less than that of edge f?
-    private static boolean less(algs4IMPL.AB.Edge e, algs4IMPL.AB.Edge f) {
+    private static boolean less(Edge e, Edge f) {
         return e.compareTo(f) < 0;
     }
 
     // check optimality conditions (takes time proportional to E V lg* V)
-    private boolean check(algs4IMPL.AB.EdgeWeightedGraph G) {
+    private boolean check(EdgeWeightedGraph G) {
 
         // check weight
         double totalWeight = 0.0;
-        for (algs4IMPL.AB.Edge e : edges()) {
+        for (Edge e : edges()) {
             totalWeight += e.weight();
         }
         if (Math.abs(totalWeight - weight()) > FLOATING_POINT_EPSILON) {
@@ -142,8 +140,8 @@ public class BoruvkaMST {
         }
 
         // check that it is acyclic
-        algs4IMPL.AB.UF uf = new algs4IMPL.AB.UF(G.V());
-        for (algs4IMPL.AB.Edge e : edges()) {
+        UF uf = new UF(G.V());
+        for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
             if (uf.find(v) == uf.find(w)) {
                 System.err.println("Not a forest");
@@ -153,7 +151,7 @@ public class BoruvkaMST {
         }
 
         // check that it is a spanning forest
-        for (algs4IMPL.AB.Edge e : G.edges()) {
+        for (Edge e : G.edges()) {
             int v = e.either(), w = e.other(v);
             if (uf.find(v) != uf.find(w)) {
                 System.err.println("Not a spanning forest");
@@ -162,17 +160,17 @@ public class BoruvkaMST {
         }
 
         // check that it is a minimal spanning forest (cut optimality conditions)
-        for (algs4IMPL.AB.Edge e : edges()) {
+        for (Edge e : edges()) {
 
             // all edges in MST except e
             uf = new UF(G.V());
-            for (algs4IMPL.AB.Edge f : mst) {
+            for (Edge f : mst) {
                 int x = f.either(), y = f.other(x);
                 if (f != e) uf.union(x, y);
             }
 
             // check that e is min weight edge in crossing cut
-            for (algs4IMPL.AB.Edge f : G.edges()) {
+            for (Edge f : G.edges()) {
                 int x = f.either(), y = f.other(x);
                 if (uf.find(x) != uf.find(y)) {
                     if (f.weight() < e.weight()) {
@@ -193,11 +191,11 @@ public class BoruvkaMST {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        In in = new In(args[0]);
+        EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         BoruvkaMST mst = new BoruvkaMST(G);
         for (Edge e : mst.edges()) {
-            algs4IMPL.AB.StdOut.println(e);
+            StdOut.println(e);
         }
         StdOut.printf("%.5f\n", mst.weight());
     }

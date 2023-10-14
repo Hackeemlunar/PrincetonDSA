@@ -12,10 +12,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DijkstraAllPairsSP} class represents a data type for solving the
  *  all-pairs shortest paths problem in edge-weighted digraphs
@@ -46,7 +42,7 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraAllPairsSP(algs4IMPL.AB.EdgeWeightedDigraph G) {
+    public DijkstraAllPairsSP(EdgeWeightedDigraph G) {
         all  = new DijkstraSP[G.V()];
         for (int v = 0; v < G.V(); v++)
             all[v] = new DijkstraSP(G, v);
@@ -113,36 +109,36 @@ public class DijkstraAllPairsSP {
     public static void main(String[] args) {
 
         // read edge-weighted digraph
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        In in = new In(args[0]);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         // compute shortest paths between all pairs of vertices
         DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);
 
         // print all-pairs shortest path distances
-        algs4IMPL.AB.StdOut.printf("  ");
+        StdOut.printf("  ");
         for (int v = 0; v < G.V(); v++) {
-            algs4IMPL.AB.StdOut.printf("%6d ", v);
+            StdOut.printf("%6d ", v);
         }
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println();
         for (int v = 0; v < G.V(); v++) {
-            algs4IMPL.AB.StdOut.printf("%3d: ", v);
+            StdOut.printf("%3d: ", v);
             for (int w = 0; w < G.V(); w++) {
-                if (spt.hasPath(v, w)) algs4IMPL.AB.StdOut.printf("%6.2f ", spt.dist(v, w));
-                else algs4IMPL.AB.StdOut.printf("  Inf ");
+                if (spt.hasPath(v, w)) StdOut.printf("%6.2f ", spt.dist(v, w));
+                else StdOut.printf("  Inf ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println();
 
         // print all-pairs shortest paths
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
                 if (spt.hasPath(v, w)) {
-                    algs4IMPL.AB.StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
+                    StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
                     for (DirectedEdge e : spt.path(v, w))
-                        algs4IMPL.AB.StdOut.print(e + "  ");
-                    algs4IMPL.AB.StdOut.println();
+                        StdOut.print(e + "  ");
+                    StdOut.println();
                 }
                 else {
                     StdOut.printf("%d to %d no path\n", v, w);

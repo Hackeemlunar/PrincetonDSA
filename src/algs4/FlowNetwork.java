@@ -10,16 +10,10 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.FlowEdge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code FlowNetwork} class represents a capacitated network
  *  with vertices named 0 through <em>V</em> - 1, where each directed
- *  edge is of type {@link edu.princeton.cs.algs4.FlowEdge} and has a real-valued capacity
+ *  edge is of type {@link FlowEdge} and has a real-valued capacity
  *  and flow.
  *  It supports the following two primary operations: add an edge to the network,
  *  iterate over all of the edges incident to or from a vertex. It also provides
@@ -27,7 +21,7 @@ import edu.princeton.cs.algs4.StdRandom;
  *  of edges <em>E</em>. Parallel edges and self-loops are permitted.
  *  <p>
  *  This implementation uses an adjacency-lists representation, which
- *  is a vertex-indexed array of {@link edu.princeton.cs.algs4.Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  All operations take constant time (in the worst case) except
  *  iterating over the edges incident to a given vertex, which takes
  *  time proportional to the number of such edges.
@@ -44,7 +38,7 @@ public class FlowNetwork {
 
     private final int V;
     private int E;
-    private edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.FlowEdge>[] adj;
+    private Bag<FlowEdge>[] adj;
 
     /**
      * Initializes an empty flow network with {@code V} vertices and 0 edges.
@@ -55,9 +49,9 @@ public class FlowNetwork {
         if (V < 0) throw new IllegalArgumentException("Number of vertices in a Graph must be non-negative");
         this.V = V;
         this.E = 0;
-        adj = (edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.FlowEdge>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<FlowEdge>[]) new Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.FlowEdge>();
+            adj[v] = new Bag<FlowEdge>();
     }
 
     /**
@@ -72,10 +66,10 @@ public class FlowNetwork {
         this(V);
         if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
         for (int i = 0; i < E; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             double capacity = StdRandom.uniformInt(100);
-            addEdge(new edu.princeton.cs.algs4.FlowEdge(v, w, capacity));
+            addEdge(new FlowEdge(v, w, capacity));
         }
     }
 
@@ -89,7 +83,7 @@ public class FlowNetwork {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public FlowNetwork(edu.princeton.cs.algs4.In in) {
+    public FlowNetwork(In in) {
         this(in.readInt());
         int E = in.readInt();
         if (E < 0) throw new IllegalArgumentException("number of edges must be non-negative");
@@ -99,7 +93,7 @@ public class FlowNetwork {
             validateVertex(v);
             validateVertex(w);
             double capacity = in.readDouble();
-            addEdge(new edu.princeton.cs.algs4.FlowEdge(v, w, capacity));
+            addEdge(new FlowEdge(v, w, capacity));
         }
     }
 
@@ -132,7 +126,7 @@ public class FlowNetwork {
      * @throws IllegalArgumentException unless endpoints of edge are between
      *         {@code 0} and {@code V-1}
      */
-    public void addEdge(edu.princeton.cs.algs4.FlowEdge e) {
+    public void addEdge(FlowEdge e) {
         int v = e.from();
         int w = e.to();
         validateVertex(v);
@@ -149,16 +143,16 @@ public class FlowNetwork {
      * @return the edges incident on vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.FlowEdge> adj(int v) {
+    public Iterable<FlowEdge> adj(int v) {
         validateVertex(v);
         return adj[v];
     }
 
     // return list of all edges - excludes self loops
-    public Iterable<edu.princeton.cs.algs4.FlowEdge> edges() {
-        edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.FlowEdge> list = new Bag<edu.princeton.cs.algs4.FlowEdge>();
+    public Iterable<FlowEdge> edges() {
+        Bag<FlowEdge> list = new Bag<FlowEdge>();
         for (int v = 0; v < V; v++)
-            for (edu.princeton.cs.algs4.FlowEdge e : adj(v)) {
+            for (FlowEdge e : adj(v)) {
                 if (e.to() != v)
                     list.add(e);
             }
@@ -191,7 +185,7 @@ public class FlowNetwork {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         FlowNetwork G = new FlowNetwork(in);
         StdOut.println(G);
     }

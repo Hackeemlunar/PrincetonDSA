@@ -18,9 +18,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Average} class provides a client for reading in a sequence
  *  of real numbers and printing out their average.
@@ -47,7 +44,7 @@ public class Average {
         double sum = 0.0;    // sum of input values
 
         // read data and compute statistics
-        while (!algs4IMPL.AB.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             double value = StdIn.readDouble();
             sum += value;
             count++;

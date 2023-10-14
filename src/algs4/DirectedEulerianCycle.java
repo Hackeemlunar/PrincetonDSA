@@ -11,8 +11,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 import java.util.Iterator;
 
 /**
@@ -41,7 +39,7 @@ import java.util.Iterator;
  *  @author Nate Liu
  */
 public class DirectedEulerianCycle {
-    private algs4IMPL.AB.Stack<Integer> cycle = null;  // Eulerian cycle; null if no such cycle
+    private Stack<Integer> cycle = null;  // Eulerian cycle; null if no such cycle
 
     /**
      * Computes an Eulerian cycle in the specified digraph, if one exists.
@@ -66,7 +64,7 @@ public class DirectedEulerianCycle {
 
         // initialize stack with any non-isolated vertex
         int s = nonIsolatedVertex(G);
-        algs4IMPL.AB.Stack<Integer> stack = new algs4IMPL.AB.Stack<Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
         stack.push(s);
 
         // greedily add to putative cycle, depth-first search style
@@ -141,7 +139,7 @@ public class DirectedEulerianCycle {
                 return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        algs4IMPL.AB.Graph H = new Graph(G.V());
+        Graph H = new Graph(G.V());
         for (int v = 0; v < G.V(); v++)
             for (int w : G.adj(v))
                 H.addEdge(v, w);
@@ -179,21 +177,21 @@ public class DirectedEulerianCycle {
 
 
     private static void unitTest(Digraph G, String description) {
-        algs4IMPL.AB.StdOut.println(description);
-        algs4IMPL.AB.StdOut.println("-------------------------------------");
-        algs4IMPL.AB.StdOut.print(G);
+        StdOut.println(description);
+        StdOut.println("-------------------------------------");
+        StdOut.print(G);
 
         DirectedEulerianCycle euler = new DirectedEulerianCycle(G);
 
-        algs4IMPL.AB.StdOut.print("Eulerian cycle: ");
+        StdOut.print("Eulerian cycle: ");
         if (euler.hasEulerianCycle()) {
             for (int v : euler.cycle()) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
         else {
-            algs4IMPL.AB.StdOut.println("none");
+            StdOut.println("none");
         }
         StdOut.println();
     }
@@ -222,7 +220,7 @@ public class DirectedEulerianCycle {
 
         // self loop
         Digraph G4 = new Digraph(V);
-        int v4 = algs4IMPL.AB.StdRandom.uniformInt(V);
+        int v4 = StdRandom.uniformInt(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 

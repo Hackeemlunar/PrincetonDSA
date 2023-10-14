@@ -10,10 +10,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.StdRandom;
-
 /**
  *  The {@code AssignmentProblem} class represents a data type for computing
  *  an optimal solution to an <em>n</em>-by-<em>n</em> <em>assignment problem</em>.
@@ -98,7 +94,7 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n+2);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n+2);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)
@@ -219,7 +215,7 @@ public class AssignmentProblem {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (reducedCost(i, j) < 0) {
-                    algs4IMPL.AB.StdOut.println("Dual variables are not feasible");
+                    StdOut.println("Dual variables are not feasible");
                     return false;
                 }
             }
@@ -233,7 +229,7 @@ public class AssignmentProblem {
         // check that all matched edges have 0-reduced cost
         for (int i = 0; i < n; i++) {
             if ((xy[i] != UNMATCHED) && (reducedCost(i, xy[i]) != 0)) {
-                algs4IMPL.AB.StdOut.println("Primal and dual variables are not complementary slack");
+                StdOut.println("Primal and dual variables are not complementary slack");
                 return false;
             }
         }
@@ -247,7 +243,7 @@ public class AssignmentProblem {
         boolean[] perm = new boolean[n];
         for (int i = 0; i < n; i++) {
             if (perm[xy[i]]) {
-                algs4IMPL.AB.StdOut.println("Not a perfect matching");
+                StdOut.println("Not a perfect matching");
                 return false;
             }
             perm[xy[i]] = true;
@@ -256,13 +252,13 @@ public class AssignmentProblem {
         // check that xy[] and yx[] are inverses
         for (int j = 0; j < n; j++) {
             if (xy[yx[j]] != j) {
-                algs4IMPL.AB.StdOut.println("xy[] and yx[] are not inverses");
+                StdOut.println("xy[] and yx[] are not inverses");
                 return false;
             }
         }
         for (int i = 0; i < n; i++) {
             if (yx[xy[i]] != i) {
-                algs4IMPL.AB.StdOut.println("xy[] and yx[] are not inverses");
+                StdOut.println("xy[] and yx[] are not inverses");
                 return false;
             }
         }
@@ -296,17 +292,17 @@ public class AssignmentProblem {
 
         // solve assignment problem
         AssignmentProblem assignment = new AssignmentProblem(weight);
-        algs4IMPL.AB.StdOut.printf("weight = %.0f\n", assignment.weight());
-        algs4IMPL.AB.StdOut.println();
+        StdOut.printf("weight = %.0f\n", assignment.weight());
+        StdOut.println();
 
         // print n-by-n matrix and optimal solution
         if (n >= 20) return;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (j == assignment.sol(i))
-                    algs4IMPL.AB.StdOut.printf("*%.0f ", weight[i][j]);
+                    StdOut.printf("*%.0f ", weight[i][j]);
                 else
-                    algs4IMPL.AB.StdOut.printf(" %.0f ", weight[i][j]);
+                    StdOut.printf(" %.0f ", weight[i][j]);
             }
             StdOut.println();
         }

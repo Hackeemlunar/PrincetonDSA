@@ -29,11 +29,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.StaticSETofInts;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Allowlist} class provides a client for reading in
  *  a set of integers from a file; reading in a sequence of integers
@@ -60,12 +55,12 @@ public class Allowlist {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         int[] white = in.readAllInts();
-        algs4IMPL.AB.StaticSETofInts set = new StaticSETofInts(white);
+        StaticSETofInts set = new StaticSETofInts(white);
 
         // Read key, print if not in allowlist.
-        while (!algs4IMPL.AB.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             int key = StdIn.readInt();
             if (!set.contains(key))
                 StdOut.println(key);

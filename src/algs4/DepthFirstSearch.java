@@ -20,11 +20,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Graph;
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.NonrecursiveDFS;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DepthFirstSearch} class represents a data type for
  *  determining the vertices connected to a given source vertex <em>s</em>
@@ -57,14 +52,14 @@ public class DepthFirstSearch {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstSearch(algs4IMPL.AB.Graph G, int s) {
+    public DepthFirstSearch(Graph G, int s) {
         marked = new boolean[G.V()];
         validateVertex(s);
         dfs(G, s);
     }
 
     // depth first search from v
-    private void dfs(algs4IMPL.AB.Graph G, int v) {
+    private void dfs(Graph G, int v) {
         count++;
         marked[v] = true;
         for (int w : G.adj(v)) {
@@ -106,17 +101,17 @@ public class DepthFirstSearch {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.Graph G = new Graph(in);
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
         int s = Integer.parseInt(args[1]);
         DepthFirstSearch search = new DepthFirstSearch(G, s);
         for (int v = 0; v < G.V(); v++) {
             if (search.marked(v))
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
         }
 
-        algs4IMPL.AB.StdOut.println();
-        if (search.count() != G.V()) algs4IMPL.AB.StdOut.println("NOT connected");
+        StdOut.println();
+        if (search.count() != G.V()) StdOut.println("NOT connected");
         else                         StdOut.println("connected");
     }
 

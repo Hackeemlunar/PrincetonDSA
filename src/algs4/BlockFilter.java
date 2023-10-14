@@ -30,11 +30,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.SET;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code BlockFilter} class provides a client for reading in a <em>blocklist</em>
  *  of words from a file; then, reading in a sequence of words from standard input,
@@ -54,17 +49,17 @@ public class BlockFilter {
     private BlockFilter() { }
 
     public static void main(String[] args) {
-        algs4IMPL.AB.SET<String> set = new SET<String>();
+        SET<String> set = new SET<String>();
 
         // read in strings and add to set
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         while (!in.isEmpty()) {
             String word = in.readString();
             set.add(word);
         }
 
         // read in string from standard input, printing out all exceptions
-        while (!algs4IMPL.AB.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String word = StdIn.readString();
             if (!set.contains(word))
                 StdOut.println(word);

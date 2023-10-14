@@ -20,9 +20,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.StdRandom;
-
 /**
  *  The {@code Counter} class is a mutable data type to encapsulate a counter.
  *  <p>

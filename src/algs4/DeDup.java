@@ -32,10 +32,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.SET;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DeDup} class provides a client for reading in a sequence of
  *  words from standard input and printing each word, removing any duplicates.
@@ -53,10 +49,10 @@ public class DeDup {
     private DeDup() { }
 
     public static void main(String[] args) {
-        algs4IMPL.AB.SET<String> set = new SET<String>();
+        SET<String> set = new SET<String>();
 
         // read in strings and add to set
-        while (!algs4IMPL.AB.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String key = StdIn.readString();
             if (!set.contains(key)) {
                 set.add(key);

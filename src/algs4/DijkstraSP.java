@@ -32,8 +32,6 @@
 package algs4;
 
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code DijkstraSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted digraphs
@@ -65,7 +63,7 @@ import algs4IMPL.AB.*;
 public class DijkstraSP {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
-    private algs4IMPL.AB.IndexMinPQ<Double> pq;    // priority queue of vertices
+    private IndexMinPQ<Double> pq;    // priority queue of vertices
 
     /**
      * Computes a shortest-paths tree from the source vertex {@code s} to every other
@@ -76,7 +74,7 @@ public class DijkstraSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraSP(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    public DijkstraSP(EdgeWeightedDigraph G, int s) {
         for (DirectedEdge e : G.edges()) {
             if (e.weight() < 0)
                 throw new IllegalArgumentException("edge " + e + " has negative weight");
@@ -151,7 +149,7 @@ public class DijkstraSP {
     public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
@@ -162,7 +160,7 @@ public class DijkstraSP {
     // check optimality conditions:
     // (i) for all edges e:            distTo[e.to()] <= distTo[e.from()] + e.weight()
     // (ii) for all edge e on the SPT: distTo[e.to()] == distTo[e.from()] + e.weight()
-    private boolean check(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    private boolean check(EdgeWeightedDigraph G, int s) {
 
         // check that edge weights are non-negative
         for (DirectedEdge e : G.edges()) {
@@ -223,8 +221,8 @@ public class DijkstraSP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        In in = new In(args[0]);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths
@@ -234,11 +232,11 @@ public class DijkstraSP {
         // print shortest path
         for (int t = 0; t < G.V(); t++) {
             if (sp.hasPathTo(t)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
+                StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
                 for (DirectedEdge e : sp.pathTo(t)) {
-                    algs4IMPL.AB.StdOut.print(e + "   ");
+                    StdOut.print(e + "   ");
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
             else {
                 StdOut.printf("%d to %d         no path\n", s, t);

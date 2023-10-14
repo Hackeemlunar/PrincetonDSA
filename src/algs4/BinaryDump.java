@@ -22,10 +22,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.HexDump;
-import algs4IMPL.AB.PictureDump;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code BinaryDump} class provides a client for displaying the contents
  *  of a binary file in binary.
@@ -68,11 +64,11 @@ public class BinaryDump {
                 BinaryStdIn.readBoolean();
                 continue;
             }
-            else if (count != 0 && count % bitsPerLine == 0) algs4IMPL.AB.StdOut.println();
-            if (BinaryStdIn.readBoolean()) algs4IMPL.AB.StdOut.print(1);
-            else                           algs4IMPL.AB.StdOut.print(0);
+            else if (count != 0 && count % bitsPerLine == 0) StdOut.println();
+            if (BinaryStdIn.readBoolean()) StdOut.print(1);
+            else                           StdOut.print(0);
         }
-        if (bitsPerLine != 0) algs4IMPL.AB.StdOut.println();
+        if (bitsPerLine != 0) StdOut.println();
         StdOut.println(count + " bits");
     }
 }

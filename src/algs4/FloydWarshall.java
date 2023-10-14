@@ -17,11 +17,6 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code FloydWarshall} class represents a data type for solving the
  *  all-pairs shortest paths problem in edge-weighted digraphs with
@@ -55,7 +50,7 @@ import edu.princeton.cs.algs4.StdRandom;
 public class FloydWarshall {
     private boolean hasNegativeCycle;  // is there a negative cycle?
     private double[][] distTo;         // distTo[v][w] = length of shortest v->w path
-    private edu.princeton.cs.algs4.DirectedEdge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
+    private DirectedEdge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
 
     /**
      * Computes a shortest paths tree from each vertex to every other vertex in
@@ -66,7 +61,7 @@ public class FloydWarshall {
     public FloydWarshall(AdjMatrixEdgeWeightedDigraph G) {
         int V = G.V();
         distTo = new double[V][V];
-        edgeTo = new edu.princeton.cs.algs4.DirectedEdge[V][V];
+        edgeTo = new DirectedEdge[V][V];
 
         // initialize distances to infinity
         for (int v = 0; v < V; v++) {
@@ -77,7 +72,7 @@ public class FloydWarshall {
 
         // initialize distances using edge-weighted digraph's
         for (int v = 0; v < G.V(); v++) {
-            for (edu.princeton.cs.algs4.DirectedEdge e : G.adj(v)) {
+            for (DirectedEdge e : G.adj(v)) {
                 distTo[e.from()][e.to()] = e.weight();
                 edgeTo[e.from()][e.to()] = e;
             }
@@ -122,7 +117,7 @@ public class FloydWarshall {
      * @return a negative cycle as an iterable of edges,
      * or {@code null} if there is no such cycle
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> negativeCycle() {
+    public Iterable<DirectedEdge> negativeCycle() {
         for (int v = 0; v < distTo.length; v++) {
             // negative cycle in v's predecessor graph
             if (distTo[v][v] < 0.0) {
@@ -180,14 +175,14 @@ public class FloydWarshall {
      * @throws UnsupportedOperationException if there is a negative cost cycle
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> path(int s, int t) {
+    public Iterable<DirectedEdge> path(int s, int t) {
         validateVertex(s);
         validateVertex(t);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPath(s, t)) return null;
-        edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.DirectedEdge> path = new Stack<edu.princeton.cs.algs4.DirectedEdge>();
-        for (edu.princeton.cs.algs4.DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.from()]) {
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.from()]) {
             path.push(e);
         }
         return path;
@@ -199,7 +194,7 @@ public class FloydWarshall {
         // no negative cycle
         if (!hasNegativeCycle()) {
             for (int v = 0; v < G.V(); v++) {
-                for (edu.princeton.cs.algs4.DirectedEdge e : G.adj(v)) {
+                for (DirectedEdge e : G.adj(v)) {
                     int w = e.to();
                     for (int i = 0; i < G.V(); i++) {
                         if (distTo[i][w] > distTo[i][v] + e.weight()) {
@@ -232,39 +227,39 @@ public class FloydWarshall {
         int E = Integer.parseInt(args[1]);
         AdjMatrixEdgeWeightedDigraph G = new AdjMatrixEdgeWeightedDigraph(V);
         for (int i = 0; i < E; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(-15, 100);
-            if (v == w) G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(v, w, Math.abs(weight)));
-            else G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(v, w, weight));
+            if (v == w) G.addEdge(new DirectedEdge(v, w, Math.abs(weight)));
+            else G.addEdge(new DirectedEdge(v, w, weight));
         }
 
-        edu.princeton.cs.algs4.StdOut.println(G);
+        StdOut.println(G);
 
         // run Floyd-Warshall algorithm
         FloydWarshall spt = new FloydWarshall(G);
 
         // print all-pairs shortest path distances
-        edu.princeton.cs.algs4.StdOut.printf("  ");
+        StdOut.printf("  ");
         for (int v = 0; v < G.V(); v++) {
-            edu.princeton.cs.algs4.StdOut.printf("%6d ", v);
+            StdOut.printf("%6d ", v);
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
         for (int v = 0; v < G.V(); v++) {
-            edu.princeton.cs.algs4.StdOut.printf("%3d: ", v);
+            StdOut.printf("%3d: ", v);
             for (int w = 0; w < G.V(); w++) {
-                if (spt.hasPath(v, w)) edu.princeton.cs.algs4.StdOut.printf("%6.2f ", spt.dist(v, w));
-                else edu.princeton.cs.algs4.StdOut.printf("  Inf ");
+                if (spt.hasPath(v, w)) StdOut.printf("%6.2f ", spt.dist(v, w));
+                else StdOut.printf("  Inf ");
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println();
         }
 
         // print negative cycle
         if (spt.hasNegativeCycle()) {
-            edu.princeton.cs.algs4.StdOut.println("Negative cost cycle:");
-            for (edu.princeton.cs.algs4.DirectedEdge e : spt.negativeCycle())
-                edu.princeton.cs.algs4.StdOut.println(e);
-            edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println("Negative cost cycle:");
+            for (DirectedEdge e : spt.negativeCycle())
+                StdOut.println(e);
+            StdOut.println();
         }
 
         // print all-pairs shortest paths
@@ -272,10 +267,10 @@ public class FloydWarshall {
             for (int v = 0; v < G.V(); v++) {
                 for (int w = 0; w < G.V(); w++) {
                     if (spt.hasPath(v, w)) {
-                        edu.princeton.cs.algs4.StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
+                        StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
                         for (DirectedEdge e : spt.path(v, w))
-                            edu.princeton.cs.algs4.StdOut.print(e + "  ");
-                        edu.princeton.cs.algs4.StdOut.println();
+                            StdOut.print(e + "  ");
+                        StdOut.println();
                     }
                     else {
                         StdOut.printf("%d to %d no path\n", v, w);

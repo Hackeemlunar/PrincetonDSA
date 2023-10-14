@@ -25,8 +25,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -386,7 +384,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
 
-        algs4IMPL.AB.Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new Queue<Key>();
         if (lo.compareTo(hi) > 0) return queue;
         for (int i = rank(lo); i < rank(hi); i++)
             queue.enqueue(keys[i]);
@@ -427,7 +425,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
      */
     public static void main(String[] args) {
         BinarySearchST<String, Integer> st = new BinarySearchST<String, Integer>();
-        for (int i = 0; !algs4IMPL.AB.StdIn.isEmpty(); i++) {
+        for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);
         }

@@ -27,9 +27,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Out;
-
 /**
  *  The {@code Cat} class provides a client for concatenating the results
  *  of several text files.
@@ -53,9 +50,9 @@ public class Cat {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.Out out = new Out(args[args.length - 1]);
+        Out out = new Out(args[args.length - 1]);
         for (int i = 0; i < args.length - 1; i++) {
-            algs4IMPL.AB.In in = new In(args[i]);
+            In in = new In(args[i]);
             String s = in.readAll();
             out.println(s);
             in.close();

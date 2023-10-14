@@ -28,11 +28,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Queue;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code BreadthDirectedFirstPaths} class represents a data type for
  *  finding shortest paths (number of edges) from a source vertex <em>s</em>
@@ -96,7 +91,7 @@ public class BreadthFirstDirectedPaths {
 
     // BFS from single source
     private void bfs(Digraph G, int s) {
-        algs4IMPL.AB.Queue<Integer> q = new algs4IMPL.AB.Queue<Integer>();
+        Queue<Integer> q = new Queue<Integer>();
         marked[s] = true;
         distTo[s] = 0;
         q.enqueue(s);
@@ -115,7 +110,7 @@ public class BreadthFirstDirectedPaths {
 
     // BFS from multiple sources
     private void bfs(Digraph G, Iterable<Integer> sources) {
-        algs4IMPL.AB.Queue<Integer> q = new Queue<Integer>();
+        Queue<Integer> q = new Queue<Integer>();
         for (int s : sources) {
             marked[s] = true;
             distTo[s] = 0;
@@ -169,7 +164,7 @@ public class BreadthFirstDirectedPaths {
         validateVertex(v);
 
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
+        Stack<Integer> path = new Stack<Integer>();
         int x;
         for (x = v; distTo[x] != 0; x = edgeTo[x])
             path.push(x);
@@ -209,7 +204,7 @@ public class BreadthFirstDirectedPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
         // StdOut.println(G);
 
@@ -218,12 +213,12 @@ public class BreadthFirstDirectedPaths {
 
         for (int v = 0; v < G.V(); v++) {
             if (bfs.hasPathTo(v)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
+                StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
-                    if (x == s) algs4IMPL.AB.StdOut.print(x);
-                    else        algs4IMPL.AB.StdOut.print("->" + x);
+                    if (x == s) StdOut.print(x);
+                    else        StdOut.print("->" + x);
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
 
             else {

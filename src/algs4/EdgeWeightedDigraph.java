@@ -12,19 +12,12 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.NoSuchElementException;
 
 /**
  *  The {@code EdgeWeightedDigraph} class represents an edge-weighted
  *  digraph of vertices named 0 through <em>V</em> - 1, where each
- *  directed edge is of type {@link edu.princeton.cs.algs4.DirectedEdge} and has a real-valued weight.
+ *  directed edge is of type {@link DirectedEdge} and has a real-valued weight.
  *  It supports the following two primary operations: add a directed edge
  *  to the digraph and iterate over all edges incident from a given vertex.
  *  It also provides methods for returning the indegree or outdegree of a
@@ -33,7 +26,7 @@ import java.util.NoSuchElementException;
  *  Parallel edges and self-loops are permitted.
  *  <p>
  *  This implementation uses an <em>adjacency-lists representation</em>, which
- *  is a vertex-indexed array of {@link edu.princeton.cs.algs4.Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
  *  the number of edges and <em>V</em> is the number of vertices.
  *  All instance methods take &Theta;(1) time. (Though, iterating over
@@ -56,7 +49,7 @@ public class EdgeWeightedDigraph {
 
     private final int V;                // number of vertices in this digraph
     private int E;                      // number of edges in this digraph
-    private edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
+    private Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
     private int[] indegree;             // indegree[v] = indegree of vertex v
 
     /**
@@ -70,9 +63,9 @@ public class EdgeWeightedDigraph {
         this.V = V;
         this.E = 0;
         this.indegree = new int[V];
-        adj = (edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<DirectedEdge>[]) new Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge>();
+            adj[v] = new Bag<DirectedEdge>();
     }
 
     /**
@@ -87,10 +80,10 @@ public class EdgeWeightedDigraph {
         this(V);
         if (E < 0) throw new IllegalArgumentException("Number of edges in a Digraph must be non-negative");
         for (int i = 0; i < E; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(100);
-            edu.princeton.cs.algs4.DirectedEdge e = new edu.princeton.cs.algs4.DirectedEdge(v, w, weight);
+            DirectedEdge e = new DirectedEdge(v, w, weight);
             addEdge(e);
         }
     }
@@ -107,15 +100,15 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public EdgeWeightedDigraph(edu.princeton.cs.algs4.In in) {
+    public EdgeWeightedDigraph(In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
         try {
             this.V = in.readInt();
             if (V < 0) throw new IllegalArgumentException("number of vertices in a Digraph must be non-negative");
             indegree = new int[V];
-            adj = (edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge>[]) new edu.princeton.cs.algs4.Bag[V];
+            adj = (Bag<DirectedEdge>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge>();
+                adj[v] = new Bag<DirectedEdge>();
             }
 
             int E = in.readInt();
@@ -126,7 +119,7 @@ public class EdgeWeightedDigraph {
                 validateVertex(v);
                 validateVertex(w);
                 double weight = in.readDouble();
-                addEdge(new edu.princeton.cs.algs4.DirectedEdge(v, w, weight));
+                addEdge(new DirectedEdge(v, w, weight));
             }
         }
         catch (NoSuchElementException e) {
@@ -146,11 +139,11 @@ public class EdgeWeightedDigraph {
             this.indegree[v] = G.indegree(v);
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.DirectedEdge> reverse = new Stack<edu.princeton.cs.algs4.DirectedEdge>();
-            for (edu.princeton.cs.algs4.DirectedEdge e : G.adj[v]) {
+            Stack<DirectedEdge> reverse = new Stack<DirectedEdge>();
+            for (DirectedEdge e : G.adj[v]) {
                 reverse.push(e);
             }
-            for (edu.princeton.cs.algs4.DirectedEdge e : reverse) {
+            for (DirectedEdge e : reverse) {
                 adj[v].add(e);
             }
         }
@@ -187,7 +180,7 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException unless endpoints of edge are between {@code 0}
      *         and {@code V-1}
      */
-    public void addEdge(edu.princeton.cs.algs4.DirectedEdge e) {
+    public void addEdge(DirectedEdge e) {
         int v = e.from();
         int w = e.to();
         validateVertex(v);
@@ -205,7 +198,7 @@ public class EdgeWeightedDigraph {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> adj(int v) {
+    public Iterable<DirectedEdge> adj(int v) {
         validateVertex(v);
         return adj[v];
     }
@@ -243,10 +236,10 @@ public class EdgeWeightedDigraph {
      *
      * @return all edges in this edge-weighted digraph, as an iterable
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> edges() {
-        edu.princeton.cs.algs4.Bag<edu.princeton.cs.algs4.DirectedEdge> list = new Bag<edu.princeton.cs.algs4.DirectedEdge>();
+    public Iterable<DirectedEdge> edges() {
+        Bag<DirectedEdge> list = new Bag<DirectedEdge>();
         for (int v = 0; v < V; v++) {
-            for (edu.princeton.cs.algs4.DirectedEdge e : adj(v)) {
+            for (DirectedEdge e : adj(v)) {
                 list.add(e);
             }
         }
@@ -278,7 +271,7 @@ public class EdgeWeightedDigraph {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
         StdOut.println(G);
     }

@@ -10,9 +10,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.StdRandom;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -43,7 +40,7 @@ public class AdjMatrixEdgeWeightedDigraph {
 
     private final int V;
     private int E;
-    private edu.princeton.cs.algs4.DirectedEdge[][] adj;
+    private DirectedEdge[][] adj;
 
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -54,7 +51,7 @@ public class AdjMatrixEdgeWeightedDigraph {
         if (V < 0) throw new IllegalArgumentException("number of vertices must be non-negative");
         this.V = V;
         this.E = 0;
-        this.adj = new edu.princeton.cs.algs4.DirectedEdge[V][V];
+        this.adj = new DirectedEdge[V][V];
     }
 
     /**
@@ -71,10 +68,10 @@ public class AdjMatrixEdgeWeightedDigraph {
 
         // can be inefficient
         while (this.E != E) {
-            int v = algs4IMPL.AB.StdRandom.uniformInt(V);
-            int w = algs4IMPL.AB.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(0, 100);
-            addEdge(new edu.princeton.cs.algs4.DirectedEdge(v, w, weight));
+            addEdge(new DirectedEdge(v, w, weight));
         }
     }
 
@@ -99,7 +96,7 @@ public class AdjMatrixEdgeWeightedDigraph {
      * is not already an edge with the same endpoints).
      * @param e the edge
      */
-    public void addEdge(edu.princeton.cs.algs4.DirectedEdge e) {
+    public void addEdge(DirectedEdge e) {
         int v = e.from();
         int w = e.to();
         validateVertex(v);
@@ -116,13 +113,13 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> adj(int v) {
+    public Iterable<DirectedEdge> adj(int v) {
         validateVertex(v);
         return new AdjIterator(v);
     }
 
     // support iteration over graph vertices
-    private class AdjIterator implements Iterator<edu.princeton.cs.algs4.DirectedEdge>, Iterable<edu.princeton.cs.algs4.DirectedEdge> {
+    private class AdjIterator implements Iterator<DirectedEdge>, Iterable<DirectedEdge> {
         private int v;
         private int w = 0;
 
@@ -130,7 +127,7 @@ public class AdjMatrixEdgeWeightedDigraph {
             this.v = v;
         }
 
-        public Iterator<edu.princeton.cs.algs4.DirectedEdge> iterator() {
+        public Iterator<DirectedEdge> iterator() {
             return this;
         }
 
@@ -142,7 +139,7 @@ public class AdjMatrixEdgeWeightedDigraph {
             return false;
         }
 
-        public edu.princeton.cs.algs4.DirectedEdge next() {
+        public DirectedEdge next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -165,7 +162,7 @@ public class AdjMatrixEdgeWeightedDigraph {
         s.append(V + " " + E + NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v + ": ");
-            for (edu.princeton.cs.algs4.DirectedEdge e : adj(v)) {
+            for (DirectedEdge e : adj(v)) {
                 s.append(e + "  ");
             }
             s.append(NEWLINE);

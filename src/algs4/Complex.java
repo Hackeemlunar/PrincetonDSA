@@ -30,8 +30,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Complex} class represents a complex number.
  *  Complex numbers are immutable: their values cannot be changed after they
@@ -250,18 +248,18 @@ public class Complex {
         Complex a = new Complex(5.0, 6.0);
         Complex b = new Complex(-3.0, 4.0);
 
-        algs4IMPL.AB.StdOut.println("a            = " + a);
-        algs4IMPL.AB.StdOut.println("b            = " + b);
-        algs4IMPL.AB.StdOut.println("Re(a)        = " + a.re());
-        algs4IMPL.AB.StdOut.println("Im(a)        = " + a.im());
-        algs4IMPL.AB.StdOut.println("b + a        = " + b.plus(a));
-        algs4IMPL.AB.StdOut.println("a - b        = " + a.minus(b));
-        algs4IMPL.AB.StdOut.println("a * b        = " + a.times(b));
-        algs4IMPL.AB.StdOut.println("b * a        = " + b.times(a));
-        algs4IMPL.AB.StdOut.println("a / b        = " + a.divides(b));
-        algs4IMPL.AB.StdOut.println("(a / b) * b  = " + a.divides(b).times(b));
-        algs4IMPL.AB.StdOut.println("conj(a)      = " + a.conjugate());
-        algs4IMPL.AB.StdOut.println("|a|          = " + a.abs());
+        StdOut.println("a            = " + a);
+        StdOut.println("b            = " + b);
+        StdOut.println("Re(a)        = " + a.re());
+        StdOut.println("Im(a)        = " + a.im());
+        StdOut.println("b + a        = " + b.plus(a));
+        StdOut.println("a - b        = " + a.minus(b));
+        StdOut.println("a * b        = " + a.times(b));
+        StdOut.println("b * a        = " + b.times(a));
+        StdOut.println("a / b        = " + a.divides(b));
+        StdOut.println("(a / b) * b  = " + a.divides(b).times(b));
+        StdOut.println("conj(a)      = " + a.conjugate());
+        StdOut.println("|a|          = " + a.abs());
         StdOut.println("tan(a)       = " + a.tan());
     }
 

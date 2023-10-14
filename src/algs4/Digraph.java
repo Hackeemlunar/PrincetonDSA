@@ -29,10 +29,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -103,7 +99,7 @@ public class Digraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public Digraph(algs4IMPL.AB.In in) {
+    public Digraph(In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
         try {
             this.V = in.readInt();
@@ -152,7 +148,7 @@ public class Digraph {
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            algs4IMPL.AB.Stack<Integer> reverse = new Stack<Integer>();
+            Stack<Integer> reverse = new Stack<Integer>();
             for (int w : G.adj[v]) {
                 reverse.push(w);
             }
@@ -280,7 +276,7 @@ public class Digraph {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
         StdOut.println(G);
     }

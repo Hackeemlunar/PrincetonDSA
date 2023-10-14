@@ -8,10 +8,6 @@
  ******************************************************************************/
 
 package algs4;
-
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code DirectedEdge} class represents a weighted edge in an
  *  {@link EdgeWeightedDigraph}. Each edge consists of two integers

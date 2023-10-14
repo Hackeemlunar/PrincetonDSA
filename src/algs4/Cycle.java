@@ -22,11 +22,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Graph;
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Cycle} class represents a data type for
  *  determining whether an undirected graph has a simple cycle.
@@ -54,7 +49,7 @@ import algs4IMPL.AB.StdOut;
 public class Cycle {
     private boolean[] marked;
     private int[] edgeTo;
-    private algs4IMPL.AB.Stack<Integer> cycle;
+    private Stack<Integer> cycle;
 
     /**
      * Determines whether the undirected graph {@code G} has a cycle and,
@@ -62,7 +57,7 @@ public class Cycle {
      *
      * @param G the undirected graph
      */
-    public Cycle(algs4IMPL.AB.Graph G) {
+    public Cycle(Graph G) {
         // need special case to identify parallel edge as a cycle
         if (hasParallelEdges(G)) return;
 
@@ -79,11 +74,11 @@ public class Cycle {
 
     // does this graph have a self loop?
     // side effect: initialize cycle to be self loop
-    private boolean hasSelfLoop(algs4IMPL.AB.Graph G) {
+    private boolean hasSelfLoop(Graph G) {
         for (int v = 0; v < G.V(); v++) {
             for (int w : G.adj(v)) {
                 if (v == w) {
-                    cycle = new algs4IMPL.AB.Stack<Integer>();
+                    cycle = new Stack<Integer>();
                     cycle.push(v);
                     cycle.push(v);
                     return true;
@@ -95,7 +90,7 @@ public class Cycle {
 
     // does this graph have two parallel edges?
     // side effect: initialize cycle to be two parallel edges
-    private boolean hasParallelEdges(algs4IMPL.AB.Graph G) {
+    private boolean hasParallelEdges(Graph G) {
         marked = new boolean[G.V()];
 
         for (int v = 0; v < G.V(); v++) {
@@ -103,7 +98,7 @@ public class Cycle {
             // check for parallel edges incident to v
             for (int w : G.adj(v)) {
                 if (marked[w]) {
-                    cycle = new algs4IMPL.AB.Stack<Integer>();
+                    cycle = new Stack<Integer>();
                     cycle.push(v);
                     cycle.push(w);
                     cycle.push(v);
@@ -138,7 +133,7 @@ public class Cycle {
         return cycle;
     }
 
-    private void dfs(algs4IMPL.AB.Graph G, int u, int v) {
+    private void dfs(Graph G, int u, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
 
@@ -168,14 +163,14 @@ public class Cycle {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.Graph G = new Graph(in);
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
         Cycle finder = new Cycle(G);
         if (finder.hasCycle()) {
             for (int v : finder.cycle()) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
         else {
             StdOut.println("Graph is acyclic");

@@ -22,8 +22,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code AcyclicLP} class represents a data type for solving the
  *  single-source longest paths problem in edge-weighted directed
@@ -64,7 +62,7 @@ public class AcyclicLP {
      * @throws IllegalArgumentException if the digraph is not acyclic
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public AcyclicLP(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    public AcyclicLP(EdgeWeightedDigraph G, int s) {
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
 
@@ -75,7 +73,7 @@ public class AcyclicLP {
         distTo[s] = 0.0;
 
         // relax vertices in topological order
-        algs4IMPL.AB.Topological topological = new Topological(G);
+        Topological topological = new Topological(G);
         if (!topological.hasOrder())
             throw new IllegalArgumentException("Digraph is not acyclic.");
         for (int v : topological.order()) {
@@ -127,7 +125,7 @@ public class AcyclicLP {
     public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
@@ -147,19 +145,19 @@ public class AcyclicLP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         AcyclicLP lp = new AcyclicLP(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (lp.hasPathTo(v)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d (%.2f)  ", s, v, lp.distTo(v));
+                StdOut.printf("%d to %d (%.2f)  ", s, v, lp.distTo(v));
                 for (DirectedEdge e : lp.pathTo(v)) {
-                    algs4IMPL.AB.StdOut.print(e + "   ");
+                    StdOut.print(e + "   ");
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
             else {
                 StdOut.printf("%d to %d         no path\n", s, v);

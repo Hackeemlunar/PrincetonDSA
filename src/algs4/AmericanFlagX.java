@@ -27,10 +27,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code AmericanFlagX} class provides static methods for sorting an
  *  array of extended ASCII strings or integers in-place using
@@ -74,7 +70,7 @@ public class AmericanFlagX {
     // sort from a[lo] to a[hi], starting at the dth character
     public static void sort(String[] a, int lo, int hi) {
         // one-time allocation of data structures
-        algs4IMPL.AB.Stack<Integer> st = new Stack<Integer>();
+        Stack<Integer> st = new Stack<Integer>();
         int[] count = new int[R+1];
         int d = 0; // character index to sort by
 

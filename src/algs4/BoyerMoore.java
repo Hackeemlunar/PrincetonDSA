@@ -32,8 +32,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code BoyerMoore} class finds the first occurrence of a pattern string
  *  in a text string.
@@ -160,16 +158,16 @@ public class BoyerMoore {
         int offset2 = boyermoore2.search(text);
 
         // print results
-        algs4IMPL.AB.StdOut.println("text:    " + txt);
+        StdOut.println("text:    " + txt);
 
-        algs4IMPL.AB.StdOut.print("pattern: ");
+        StdOut.print("pattern: ");
         for (int i = 0; i < offset1; i++)
-            algs4IMPL.AB.StdOut.print(" ");
-        algs4IMPL.AB.StdOut.println(pat);
+            StdOut.print(" ");
+        StdOut.println(pat);
 
-        algs4IMPL.AB.StdOut.print("pattern: ");
+        StdOut.print("pattern: ");
         for (int i = 0; i < offset2; i++)
-            algs4IMPL.AB.StdOut.print(" ");
+            StdOut.print(" ");
         StdOut.println(pat);
     }
 }

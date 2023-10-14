@@ -17,11 +17,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.In;
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.Topological;
-
 /**
  *  The {@code DirectedCycle} class represents a data type for
  *  determining whether a digraph has a directed cycle.
@@ -50,7 +45,7 @@ public class DirectedCycle {
     private boolean[] marked;        // marked[v] = has vertex v been marked?
     private int[] edgeTo;            // edgeTo[v] = previous vertex on path to v
     private boolean[] onStack;       // onStack[v] = is vertex on the stack?
-    private algs4IMPL.AB.Stack<Integer> cycle;    // directed cycle (or null if no such cycle)
+    private Stack<Integer> cycle;    // directed cycle (or null if no such cycle)
 
     /**
      * Determines whether the digraph {@code G} has a directed cycle and, if so,
@@ -138,20 +133,20 @@ public class DirectedCycle {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
 
         DirectedCycle finder = new DirectedCycle(G);
         if (finder.hasCycle()) {
-            algs4IMPL.AB.StdOut.print("Directed cycle: ");
+            StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
 
         else {
-            algs4IMPL.AB.StdOut.println("No directed cycle");
+            StdOut.println("No directed cycle");
         }
         StdOut.println();
     }

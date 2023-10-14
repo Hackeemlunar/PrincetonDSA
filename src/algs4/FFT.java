@@ -61,9 +61,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.StdRandom;
-
 /**
  *  The {@code FFT} class provides methods for computing the
  *  FFT (Fast-Fourier Transform), inverse FFT, linear convolution,

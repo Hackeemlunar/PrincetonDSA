@@ -18,11 +18,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.MinPQ;
-import algs4IMPL.AB.Particle;
-import algs4IMPL.AB.StdDraw;
-import algs4IMPL.AB.StdIn;
-
 import java.awt.Color;
 
 /**
@@ -40,9 +35,9 @@ import java.awt.Color;
 public class CollisionSystem {
     private static final double HZ = 0.5;    // number of redraw events per clock tick
 
-    private algs4IMPL.AB.MinPQ<Event> pq;          // the priority queue
+    private MinPQ<Event> pq;          // the priority queue
     private double t  = 0.0;          // simulation clock time
-    private algs4IMPL.AB.Particle[] particles;     // the array of particles
+    private Particle[] particles;     // the array of particles
 
     /**
      * Initializes a system with the specified collection of particles.
@@ -50,12 +45,12 @@ public class CollisionSystem {
      *
      * @param  particles the array of particles
      */
-    public CollisionSystem(algs4IMPL.AB.Particle[] particles) {
+    public CollisionSystem(Particle[] particles) {
         this.particles = particles.clone();   // defensive copy
     }
 
     // updates priority queue with all new events for particle a
-    private void predict(algs4IMPL.AB.Particle a, double limit) {
+    private void predict(Particle a, double limit) {
         if (a == null) return;
 
         // particle-particle collisions
@@ -74,12 +69,12 @@ public class CollisionSystem {
 
     // redraw all particles
     private void redraw(double limit) {
-        algs4IMPL.AB.StdDraw.clear();
+        StdDraw.clear();
         for (int i = 0; i < particles.length; i++) {
             particles[i].draw();
         }
-        algs4IMPL.AB.StdDraw.show();
-        algs4IMPL.AB.StdDraw.pause(20);
+        StdDraw.show();
+        StdDraw.pause(20);
         if (t < limit) {
             pq.insert(new Event(t + 1.0 / HZ, null, null));
         }
@@ -107,8 +102,8 @@ public class CollisionSystem {
             // get impending event, discard if invalidated
             Event e = pq.delMin();
             if (!e.isValid()) continue;
-            algs4IMPL.AB.Particle a = e.a;
-            algs4IMPL.AB.Particle b = e.b;
+            Particle a = e.a;
+            Particle b = e.b;
 
             // physical collision, so update positions, and then simulation clock
             for (int i = 0; i < particles.length; i++)
@@ -141,12 +136,12 @@ public class CollisionSystem {
     ***************************************************************************/
     private static class Event implements Comparable<Event> {
         private final double time;         // time that event is scheduled to occur
-        private final algs4IMPL.AB.Particle a, b;       // particles involved in event, possibly null
+        private final Particle a, b;       // particles involved in event, possibly null
         private final int countA, countB;  // collision counts at event creation
 
 
         // create a new event to occur at time t involving a and b
-        public Event(double t, algs4IMPL.AB.Particle a, algs4IMPL.AB.Particle b) {
+        public Event(double t, Particle a, Particle b) {
             this.time = t;
             this.a    = a;
             this.b    = b;
@@ -181,35 +176,35 @@ public class CollisionSystem {
      */
     public static void main(String[] args) {
 
-        algs4IMPL.AB.StdDraw.setCanvasSize(600, 600);
+        StdDraw.setCanvasSize(600, 600);
 
         // enable double buffering
         StdDraw.enableDoubleBuffering();
 
         // the array of particles
-        algs4IMPL.AB.Particle[] particles;
+        Particle[] particles;
 
         // create n random particles
         if (args.length == 1) {
             int n = Integer.parseInt(args[0]);
-            particles = new algs4IMPL.AB.Particle[n];
+            particles = new Particle[n];
             for (int i = 0; i < n; i++)
-                particles[i] = new algs4IMPL.AB.Particle();
+                particles[i] = new Particle();
         }
 
         // or read from standard input
         else {
-            int n = algs4IMPL.AB.StdIn.readInt();
-            particles = new algs4IMPL.AB.Particle[n];
+            int n = StdIn.readInt();
+            particles = new Particle[n];
             for (int i = 0; i < n; i++) {
-                double rx     = algs4IMPL.AB.StdIn.readDouble();
-                double ry     = algs4IMPL.AB.StdIn.readDouble();
-                double vx     = algs4IMPL.AB.StdIn.readDouble();
-                double vy     = algs4IMPL.AB.StdIn.readDouble();
-                double radius = algs4IMPL.AB.StdIn.readDouble();
-                double mass   = algs4IMPL.AB.StdIn.readDouble();
-                int r         = algs4IMPL.AB.StdIn.readInt();
-                int g         = algs4IMPL.AB.StdIn.readInt();
+                double rx     = StdIn.readDouble();
+                double ry     = StdIn.readDouble();
+                double vx     = StdIn.readDouble();
+                double vy     = StdIn.readDouble();
+                double radius = StdIn.readDouble();
+                double mass   = StdIn.readDouble();
+                int r         = StdIn.readInt();
+                int g         = StdIn.readInt();
                 int b         = StdIn.readInt();
                 Color color   = new Color(r, g, b);
                 particles[i] = new Particle(rx, ry, vx, vy, radius, mass, color);

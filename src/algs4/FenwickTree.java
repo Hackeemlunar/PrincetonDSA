@@ -8,8 +8,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by ricardodpsx@gmail.com on 4/01/15.
@@ -149,16 +149,16 @@ public class FenwickTree {
             }
 
             if ((!line[0].equals("set") && !line[0].equals("init")) && ft == null) {
-                edu.princeton.cs.algs4.StdOut.println("FenwickTree not initialized");
+                StdOut.println("FenwickTree not initialized");
                 continue;
             }
 
             if (line[0].equals("init")) {
                 ft = new FenwickTree(arg1);
                 for (int i = 1; i <= ft.size(); i++) {
-                    edu.princeton.cs.algs4.StdOut.print(ft.rsq(i, i) + " ");
+                    StdOut.print(ft.rsq(i, i) + " ");
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                StdOut.println();
             }
             else if (line[0].equals("set")) {
                 ft = new FenwickTree(line.length - 1);
@@ -170,12 +170,12 @@ public class FenwickTree {
             else if (line[0].equals("up")) {
                 ft.update(arg1, arg2);
                 for (int i = 1; i <= ft.size(); i++) {
-                    edu.princeton.cs.algs4.StdOut.print(ft.rsq(i, i) + " ");
+                    StdOut.print(ft.rsq(i, i) + " ");
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                StdOut.println();
             }
             else if (line[0].equals("rsq")) {
-                edu.princeton.cs.algs4.StdOut.printf("Sum from %d to %d = %d%n", arg1, arg2, ft.rsq(arg1, arg2));
+                StdOut.printf("Sum from %d to %d = %d%n", arg1, arg2, ft.rsq(arg1, arg2));
             }
             else {
                 StdOut.println("Invalid command");

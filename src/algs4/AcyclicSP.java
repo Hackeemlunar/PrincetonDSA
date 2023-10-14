@@ -20,8 +20,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code AcyclicSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted directed acyclic
@@ -63,7 +61,7 @@ public class AcyclicSP {
      * @throws IllegalArgumentException if the digraph is not acyclic
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public AcyclicSP(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    public AcyclicSP(EdgeWeightedDigraph G, int s) {
         distTo = new double[G.V()];
         edgeTo = new DirectedEdge[G.V()];
 
@@ -74,7 +72,7 @@ public class AcyclicSP {
         distTo[s] = 0.0;
 
         // visit vertices in topological order
-        algs4IMPL.AB.Topological topological = new Topological(G);
+        Topological topological = new Topological(G);
         if (!topological.hasOrder())
             throw new IllegalArgumentException("Digraph is not acyclic.");
         for (int v : topological.order()) {
@@ -126,7 +124,7 @@ public class AcyclicSP {
     public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
@@ -146,19 +144,19 @@ public class AcyclicSP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         // find shortest path from s to each other vertex in DAG
         AcyclicSP sp = new AcyclicSP(G, s);
         for (int v = 0; v < G.V(); v++) {
             if (sp.hasPathTo(v)) {
-                algs4IMPL.AB.StdOut.printf("%d to %d (%.2f)  ", s, v, sp.distTo(v));
+                StdOut.printf("%d to %d (%.2f)  ", s, v, sp.distTo(v));
                 for (DirectedEdge e : sp.pathTo(v)) {
-                    algs4IMPL.AB.StdOut.print(e + "   ");
+                    StdOut.print(e + "   ");
                 }
-                algs4IMPL.AB.StdOut.println();
+                StdOut.println();
             }
             else {
                 StdOut.printf("%d to %d         no path\n", s, v);

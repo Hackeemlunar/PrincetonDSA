@@ -11,8 +11,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 import java.util.Iterator;
 
 /**
@@ -40,7 +38,7 @@ import java.util.Iterator;
  * @author Nate Liu
  */
 public class DirectedEulerianPath {
-    private algs4IMPL.AB.Stack<Integer> path = null;   // Eulerian path; null if no suh path
+    private Stack<Integer> path = null;   // Eulerian path; null if no suh path
 
     /**
      * Computes an Eulerian path in the specified digraph, if one exists.
@@ -74,7 +72,7 @@ public class DirectedEulerianPath {
             adj[v] = G.adj(v).iterator();
 
         // greedily add to cycle, depth-first search style
-        algs4IMPL.AB.Stack<Integer> stack = new algs4IMPL.AB.Stack<Integer>();
+        Stack<Integer> stack = new Stack<Integer>();
         stack.push(s);
         path = new Stack<Integer>();
         while (!stack.isEmpty()) {
@@ -149,7 +147,7 @@ public class DirectedEulerianPath {
         if (deficit > 1) return false;
 
         // Condition 2: graph is connected, ignoring isolated vertices
-        algs4IMPL.AB.Graph H = new Graph(G.V());
+        Graph H = new Graph(G.V());
         for (int v = 0; v < G.V(); v++)
             for (int w : G.adj(v))
                 H.addEdge(v, w);
@@ -187,21 +185,21 @@ public class DirectedEulerianPath {
 
 
     private static void unitTest(Digraph G, String description) {
-        algs4IMPL.AB.StdOut.println(description);
-        algs4IMPL.AB.StdOut.println("-------------------------------------");
-        algs4IMPL.AB.StdOut.print(G);
+        StdOut.println(description);
+        StdOut.println("-------------------------------------");
+        StdOut.print(G);
 
         DirectedEulerianPath euler = new DirectedEulerianPath(G);
 
-        algs4IMPL.AB.StdOut.print("Eulerian path:  ");
+        StdOut.print("Eulerian path:  ");
         if (euler.hasEulerianPath()) {
             for (int v : euler.path()) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
-            algs4IMPL.AB.StdOut.println();
+            StdOut.println();
         }
         else {
-            algs4IMPL.AB.StdOut.println("none");
+            StdOut.println("none");
         }
         StdOut.println();
     }
@@ -226,18 +224,18 @@ public class DirectedEulerianPath {
 
         // add one random edge
         Digraph G3 = new Digraph(G2);
-        G3.addEdge(algs4IMPL.AB.StdRandom.uniformInt(V), algs4IMPL.AB.StdRandom.uniformInt(V));
+        G3.addEdge(StdRandom.uniformInt(V), StdRandom.uniformInt(V));
         unitTest(G3, "one random edge added to Eulerian path");
 
         // self loop
         Digraph G4 = new Digraph(V);
-        int v4 = algs4IMPL.AB.StdRandom.uniformInt(V);
+        int v4 = StdRandom.uniformInt(V);
         G4.addEdge(v4, v4);
         unitTest(G4, "single self loop");
 
         // single edge
         Digraph G5 = new Digraph(V);
-        G5.addEdge(algs4IMPL.AB.StdRandom.uniformInt(V), StdRandom.uniformInt(V));
+        G5.addEdge(StdRandom.uniformInt(V), StdRandom.uniformInt(V));
         unitTest(G5, "single edge");
 
         // empty digraph

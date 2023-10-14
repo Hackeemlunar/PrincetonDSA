@@ -11,11 +11,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.FlowEdge;
-import edu.princeton.cs.algs4.FlowNetwork;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code FordFulkerson} class represents a data type for computing a
  *  <em>maximum st-flow</em> and <em>minimum st-cut</em> in a flow
@@ -47,7 +42,7 @@ public class FordFulkerson {
 
     private final int V;          // number of vertices
     private boolean[] marked;     // marked[v] = true iff s->v path in residual graph
-    private edu.princeton.cs.algs4.FlowEdge[] edgeTo;    // edgeTo[v] = last edge on shortest residual s->v path
+    private FlowEdge[] edgeTo;    // edgeTo[v] = last edge on shortest residual s->v path
     private double value;         // current value of max flow
 
     /**
@@ -62,7 +57,7 @@ public class FordFulkerson {
      * @throws IllegalArgumentException if {@code s == t}
      * @throws IllegalArgumentException if initial flow is infeasible
      */
-    public FordFulkerson(edu.princeton.cs.algs4.FlowNetwork G, int s, int t) {
+    public FordFulkerson(FlowNetwork G, int s, int t) {
         V = G.V();
         validate(s);
         validate(t);
@@ -124,18 +119,18 @@ public class FordFulkerson {
     // if so, upon termination edgeTo[] will contain a parent-link representation of such a path
     // this implementation finds a shortest augmenting path (fewest number of edges),
     // which performs well both in theory and in practice
-    private boolean hasAugmentingPath(edu.princeton.cs.algs4.FlowNetwork G, int s, int t) {
-        edgeTo = new edu.princeton.cs.algs4.FlowEdge[G.V()];
+    private boolean hasAugmentingPath(FlowNetwork G, int s, int t) {
+        edgeTo = new FlowEdge[G.V()];
         marked = new boolean[G.V()];
 
         // breadth-first search
-        edu.princeton.cs.algs4.Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new Queue<Integer>();
         queue.enqueue(s);
         marked[s] = true;
         while (!queue.isEmpty() && !marked[t]) {
             int v = queue.dequeue();
 
-            for (edu.princeton.cs.algs4.FlowEdge e : G.adj(v)) {
+            for (FlowEdge e : G.adj(v)) {
                 int w = e.other(v);
 
                 // if residual capacity from v to w
@@ -156,9 +151,9 @@ public class FordFulkerson {
 
 
     // return excess flow at vertex v
-    private double excess(edu.princeton.cs.algs4.FlowNetwork G, int v) {
+    private double excess(FlowNetwork G, int v) {
         double excess = 0.0;
-        for (edu.princeton.cs.algs4.FlowEdge e : G.adj(v)) {
+        for (FlowEdge e : G.adj(v)) {
             if (v == e.from()) excess -= e.flow();
             else               excess += e.flow();
         }
@@ -166,11 +161,11 @@ public class FordFulkerson {
     }
 
     // return excess flow at vertex v
-    private boolean isFeasible(edu.princeton.cs.algs4.FlowNetwork G, int s, int t) {
+    private boolean isFeasible(FlowNetwork G, int s, int t) {
 
         // check that capacity constraints are satisfied
         for (int v = 0; v < G.V(); v++) {
-            for (edu.princeton.cs.algs4.FlowEdge e : G.adj(v)) {
+            for (FlowEdge e : G.adj(v)) {
                 if (e.flow() < -FLOATING_POINT_EPSILON || e.flow() > e.capacity() + FLOATING_POINT_EPSILON) {
                     System.err.println("Edge does not satisfy capacity constraints: " + e);
                     return false;
@@ -202,7 +197,7 @@ public class FordFulkerson {
 
 
     // check optimality conditions
-    private boolean check(edu.princeton.cs.algs4.FlowNetwork G, int s, int t) {
+    private boolean check(FlowNetwork G, int s, int t) {
 
         // check that flow is feasible
         if (!isFeasible(G, s, t)) {
@@ -223,7 +218,7 @@ public class FordFulkerson {
         // check that value of min cut = value of max flow
         double mincutValue = 0.0;
         for (int v = 0; v < G.V(); v++) {
-            for (edu.princeton.cs.algs4.FlowEdge e : G.adj(v)) {
+            for (FlowEdge e : G.adj(v)) {
                 if ((v == e.from()) && inCut(e.from()) && !inCut(e.to()))
                     mincutValue += e.capacity();
             }
@@ -249,25 +244,25 @@ public class FordFulkerson {
         int V = Integer.parseInt(args[0]);
         int E = Integer.parseInt(args[1]);
         int s = 0, t = V-1;
-        edu.princeton.cs.algs4.FlowNetwork G = new FlowNetwork(V, E);
-        edu.princeton.cs.algs4.StdOut.println(G);
+        FlowNetwork G = new FlowNetwork(V, E);
+        StdOut.println(G);
 
         // compute maximum flow and minimum cut
         FordFulkerson maxflow = new FordFulkerson(G, s, t);
-        edu.princeton.cs.algs4.StdOut.println("Max flow from " + s + " to " + t);
+        StdOut.println("Max flow from " + s + " to " + t);
         for (int v = 0; v < G.V(); v++) {
             for (FlowEdge e : G.adj(v)) {
                 if ((v == e.from()) && e.flow() > 0)
-                    edu.princeton.cs.algs4.StdOut.println("   " + e);
+                    StdOut.println("   " + e);
             }
         }
 
         // print min-cut
-        edu.princeton.cs.algs4.StdOut.print("Min cut: ");
+        StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {
-            if (maxflow.inCut(v)) edu.princeton.cs.algs4.StdOut.print(v + " ");
+            if (maxflow.inCut(v)) StdOut.print(v + " ");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         StdOut.println("Max flow value = " +  maxflow.value());
     }

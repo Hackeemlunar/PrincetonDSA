@@ -28,10 +28,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code AmericanFlag} class provides static methods for sorting an
  *  array of extended ASCII strings or integers in-place using
@@ -78,7 +74,7 @@ public class AmericanFlag {
     // sort from a[lo] to a[hi], starting at the dth character
     public static void sort(String[] a, int lo, int hi) {
         // one-time allocation of data structures
-        algs4IMPL.AB.Stack<Integer> st = new algs4IMPL.AB.Stack<Integer>();
+        Stack<Integer> st = new Stack<Integer>();
         int[] first = new int[R+2];
         int[] next  = new int[R+2];
         int d = 0; // character index to sort by
@@ -175,7 +171,7 @@ public class AmericanFlag {
     // MSD sort from a[lo] to a[hi]
     private static void sort(int[] a, int lo, int hi) {
         // one-time allocation of data structures
-        algs4IMPL.AB.Stack<Integer> st = new Stack<Integer>();
+        Stack<Integer> st = new Stack<Integer>();
         int[] first = new int[R+1];
         int[] next  = new int[R+1];
         int mask = R - 1;   // 0xFF;
@@ -273,12 +269,12 @@ public class AmericanFlag {
      */
     public static void main(String[] args) {
         if (args.length > 0 && args[0].equals("int")) {
-            int[] a = algs4IMPL.AB.StdIn.readAllInts();
+            int[] a = StdIn.readAllInts();
             sort(a);
 
             // print results
             for (int i = 0; i < a.length; i++)
-                algs4IMPL.AB.StdOut.println(a[i]);
+                StdOut.println(a[i]);
         }
 
         else {

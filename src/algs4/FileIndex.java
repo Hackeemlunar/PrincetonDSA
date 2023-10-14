@@ -27,12 +27,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.SET;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.io.File;
 
 /**
@@ -54,25 +48,25 @@ public class FileIndex {
     public static void main(String[] args) {
 
         // key = word, value = set of files containing that word
-        edu.princeton.cs.algs4.ST<String, edu.princeton.cs.algs4.SET<File>> st = new ST<String, edu.princeton.cs.algs4.SET<File>>();
+        ST<String, SET<File>> st = new ST<String, SET<File>>();
 
         // create inverted index of all files
-        edu.princeton.cs.algs4.StdOut.println("Indexing files");
+        StdOut.println("Indexing files");
         for (String filename : args) {
-            edu.princeton.cs.algs4.StdOut.println("  " + filename);
+            StdOut.println("  " + filename);
             File file = new File(filename);
-            edu.princeton.cs.algs4.In in = new In(file);
+            In in = new In(file);
             while (!in.isEmpty()) {
                 String word = in.readString();
-                if (!st.contains(word)) st.put(word, new edu.princeton.cs.algs4.SET<File>());
-                edu.princeton.cs.algs4.SET<File> set = st.get(word);
+                if (!st.contains(word)) st.put(word, new SET<File>());
+                SET<File> set = st.get(word);
                 set.add(file);
             }
         }
 
 
         // read queries from standard input, one per line
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String query = StdIn.readString();
             if (st.contains(query)) {
                 SET<File> set = st.get(query);

@@ -9,8 +9,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Date} class is an immutable data type to encapsulate a
  *  date (day, month, and year).
@@ -191,19 +189,19 @@ public class Date implements Comparable<Date> {
      */
     public static void main(String[] args) {
         Date today = new Date(2, 25, 2004);
-        algs4IMPL.AB.StdOut.println(today);
+        StdOut.println(today);
         for (int i = 0; i < 10; i++) {
             today = today.next();
-            algs4IMPL.AB.StdOut.println(today);
+            StdOut.println(today);
         }
 
-        algs4IMPL.AB.StdOut.println(today.isAfter(today.next()));
-        algs4IMPL.AB.StdOut.println(today.isAfter(today));
-        algs4IMPL.AB.StdOut.println(today.next().isAfter(today));
+        StdOut.println(today.isAfter(today.next()));
+        StdOut.println(today.isAfter(today));
+        StdOut.println(today.next().isAfter(today));
 
 
         Date birthday = new Date(10, 16, 1971);
-        algs4IMPL.AB.StdOut.println(birthday);
+        StdOut.println(birthday);
         for (int i = 0; i < 10; i++) {
             birthday = birthday.next();
             StdOut.println(birthday);

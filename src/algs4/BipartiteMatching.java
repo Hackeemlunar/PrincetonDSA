@@ -10,8 +10,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code BipartiteMatching} class represents a data type for computing a
  *  <em>maximum (cardinality) matching</em> and a
@@ -74,7 +72,7 @@ public class BipartiteMatching {
      * @param  G the bipartite graph
      * @throws IllegalArgumentException if {@code G} is not bipartite
      */
-    public BipartiteMatching(algs4IMPL.AB.Graph G) {
+    public BipartiteMatching(Graph G) {
         bipartition = new BipartiteX(G);
         if (!bipartition.isBipartite()) {
             throw new IllegalArgumentException("graph is not bipartite");
@@ -133,7 +131,7 @@ public class BipartiteMatching {
      * this implementation finds a shortest augmenting path (fewest number of edges), though there
      * is no particular advantage to do so here
      */
-    private boolean hasAugmentingPath(algs4IMPL.AB.Graph G) {
+    private boolean hasAugmentingPath(Graph G) {
         marked = new boolean[V];
 
         edgeTo = new int[V];
@@ -141,7 +139,7 @@ public class BipartiteMatching {
             edgeTo[v] = -1;
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
-        algs4IMPL.AB.Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new Queue<Integer>();
         for (int v = 0; v < V; v++) {
             if (bipartition.color(v) && !isMatched(v)) {
                 queue.enqueue(v);
@@ -251,7 +249,7 @@ public class BipartiteMatching {
      **************************************************************************/
 
     // check that mate[] and inVertexCover[] define a max matching and min vertex cover, respectively
-    private boolean certifySolution(algs4IMPL.AB.Graph G) {
+    private boolean certifySolution(Graph G) {
 
         // check that mate(v) = w iff mate(w) = v
         for (int v = 0; v < V; v++) {
@@ -317,31 +315,31 @@ public class BipartiteMatching {
         int E  = Integer.parseInt(args[2]);
         Graph G = GraphGenerator.bipartite(V1, V2, E);
 
-        if (G.V() < 1000) algs4IMPL.AB.StdOut.println(G);
+        if (G.V() < 1000) StdOut.println(G);
 
         BipartiteMatching matching = new BipartiteMatching(G);
 
         // print maximum matching
-        algs4IMPL.AB.StdOut.printf("Number of edges in max matching        = %d\n", matching.size());
-        algs4IMPL.AB.StdOut.printf("Number of vertices in min vertex cover = %d\n", matching.size());
-        algs4IMPL.AB.StdOut.printf("Graph has a perfect matching           = %b\n", matching.isPerfect());
-        algs4IMPL.AB.StdOut.println();
+        StdOut.printf("Number of edges in max matching        = %d\n", matching.size());
+        StdOut.printf("Number of vertices in min vertex cover = %d\n", matching.size());
+        StdOut.printf("Graph has a perfect matching           = %b\n", matching.isPerfect());
+        StdOut.println();
 
         if (G.V() >= 1000) return;
 
-        algs4IMPL.AB.StdOut.print("Max matching: ");
+        StdOut.print("Max matching: ");
         for (int v = 0; v < G.V(); v++) {
             int w = matching.mate(v);
             if (matching.isMatched(v) && v < w)  // print each edge only once
-                algs4IMPL.AB.StdOut.print(v + "-" + w + " ");
+                StdOut.print(v + "-" + w + " ");
         }
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println();
 
         // print minimum vertex cover
-        algs4IMPL.AB.StdOut.print("Min vertex cover: ");
+        StdOut.print("Min vertex cover: ");
         for (int v = 0; v < G.V(); v++)
             if (matching.inMinVertexCover(v))
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
         StdOut.println();
     }
 

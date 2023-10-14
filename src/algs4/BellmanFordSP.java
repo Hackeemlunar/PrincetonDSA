@@ -31,8 +31,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code BellmanFordSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted digraphs with
@@ -72,7 +70,7 @@ public class BellmanFordSP {
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
-    private algs4IMPL.AB.Queue<Integer> queue;          // queue of vertices to relax
+    private Queue<Integer> queue;          // queue of vertices to relax
     private int cost;                      // number of calls to relax()
     private Iterable<DirectedEdge> cycle;  // negative cycle (or null if no such cycle)
 
@@ -83,7 +81,7 @@ public class BellmanFordSP {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BellmanFordSP(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    public BellmanFordSP(EdgeWeightedDigraph G, int s) {
         distTo  = new double[G.V()];
         edgeTo  = new DirectedEdge[G.V()];
         onQueue = new boolean[G.V()];
@@ -105,7 +103,7 @@ public class BellmanFordSP {
     }
 
     // relax vertex v and put other endpoints on queue if changed
-    private void relax(algs4IMPL.AB.EdgeWeightedDigraph G, int v) {
+    private void relax(EdgeWeightedDigraph G, int v) {
         for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
@@ -145,12 +143,12 @@ public class BellmanFordSP {
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        algs4IMPL.AB.EdgeWeightedDigraph spt = new algs4IMPL.AB.EdgeWeightedDigraph(V);
+        EdgeWeightedDigraph spt = new EdgeWeightedDigraph(V);
         for (int v = 0; v < V; v++)
             if (edgeTo[v] != null)
                 spt.addEdge(edgeTo[v]);
 
-        algs4IMPL.AB.EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
+        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
         cycle = finder.cycle();
     }
 
@@ -196,7 +194,7 @@ public class BellmanFordSP {
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
-        algs4IMPL.AB.Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
@@ -208,7 +206,7 @@ public class BellmanFordSP {
     //     or
     // (ii)  for all edges e = v->w:            distTo[w] <= distTo[v] + e.weight()
     // (ii') for all edges e = v->w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
+    private boolean check(EdgeWeightedDigraph G, int s) {
 
         // has a negative cycle
         if (hasNegativeCycle()) {
@@ -262,8 +260,8 @@ public class BellmanFordSP {
             }
         }
 
-        algs4IMPL.AB.StdOut.println("Satisfies optimality conditions");
-        algs4IMPL.AB.StdOut.println();
+        StdOut.println("Satisfies optimality conditions");
+        StdOut.println();
         return true;
     }
 
@@ -280,27 +278,27 @@ public class BellmanFordSP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
+        In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         BellmanFordSP sp = new BellmanFordSP(G, s);
 
         // print negative cycle
         if (sp.hasNegativeCycle()) {
             for (DirectedEdge e : sp.negativeCycle())
-                algs4IMPL.AB.StdOut.println(e);
+                StdOut.println(e);
         }
 
         // print shortest paths
         else {
             for (int v = 0; v < G.V(); v++) {
                 if (sp.hasPathTo(v)) {
-                    algs4IMPL.AB.StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v));
+                    StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v));
                     for (DirectedEdge e : sp.pathTo(v)) {
-                        algs4IMPL.AB.StdOut.print(e + "   ");
+                        StdOut.print(e + "   ");
                     }
-                    algs4IMPL.AB.StdOut.println();
+                    StdOut.println();
                 }
                 else {
                     StdOut.printf("%d to %d           no path\n", s, v);

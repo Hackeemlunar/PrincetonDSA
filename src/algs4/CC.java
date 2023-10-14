@@ -31,8 +31,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.*;
-
 /**
  *  The {@code CC} class represents a data type for
  *  determining the connected components in an undirected graph.
@@ -73,7 +71,7 @@ public class CC {
      *
      * @param G the undirected graph
      */
-    public CC(algs4IMPL.AB.Graph G) {
+    public CC(Graph G) {
         marked = new boolean[G.V()];
         id = new int[G.V()];
         size = new int[G.V()];
@@ -90,7 +88,7 @@ public class CC {
      *
      * @param G the edge-weighted graph
      */
-    public CC(algs4IMPL.AB.EdgeWeightedGraph G) {
+    public CC(EdgeWeightedGraph G) {
         marked = new boolean[G.V()];
         id = new int[G.V()];
         size = new int[G.V()];
@@ -103,7 +101,7 @@ public class CC {
     }
 
     // depth-first search for a Graph
-    private void dfs(algs4IMPL.AB.Graph G, int v) {
+    private void dfs(Graph G, int v) {
         marked[v] = true;
         id[v] = count;
         size[count]++;
@@ -210,16 +208,16 @@ public class CC {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4IMPL.AB.In in = new In(args[0]);
-        algs4IMPL.AB.Graph G = new Graph(in);
+        In in = new In(args[0]);
+        Graph G = new Graph(in);
         CC cc = new CC(G);
 
         // number of connected components
         int m = cc.count();
-        algs4IMPL.AB.StdOut.println(m + " components");
+        StdOut.println(m + " components");
 
         // compute list of vertices in each connected component
-        algs4IMPL.AB.Queue<Integer>[] components = (algs4IMPL.AB.Queue<Integer>[]) new algs4IMPL.AB.Queue[m];
+        Queue<Integer>[] components = (Queue<Integer>[]) new Queue[m];
         for (int i = 0; i < m; i++) {
             components[i] = new Queue<Integer>();
         }
@@ -230,7 +228,7 @@ public class CC {
         // print results
         for (int i = 0; i < m; i++) {
             for (int v : components[i]) {
-                algs4IMPL.AB.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
             StdOut.println();
         }
