@@ -29,10 +29,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -136,12 +132,12 @@ public class LinkedBag<Item> implements Iterable<Item> {
      */
     public static void main(String[] args) {
         LinkedBag<String> bag = new LinkedBag<String>();
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             bag.add(item);
         }
 
-        edu.princeton.cs.algs4.StdOut.println("size of bag = " + bag.size());
+        StdOut.println("size of bag = " + bag.size());
         for (String s : bag) {
             StdOut.println(s);
         }

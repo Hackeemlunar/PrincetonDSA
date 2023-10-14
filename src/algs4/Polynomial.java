@@ -21,8 +21,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code Polynomial} class represents a polynomial with integer
  *  coefficients.

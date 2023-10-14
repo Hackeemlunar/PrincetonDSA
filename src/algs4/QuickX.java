@@ -12,8 +12,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-
 /**
  *  The {@code QuickX} class provides static methods for sorting an array
  *  using an optimized version of quicksort (using Hoare's 2-way partitioning

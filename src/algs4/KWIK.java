@@ -37,11 +37,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.SuffixArray;
-import edu.princeton.cs.algs4.In;
-
 /**
  *  The {@code KWIK} class provides a {@link SuffixArray} client for computing
  *  all occurrences of a keyword in a given string, with surrounding context.
@@ -70,7 +65,7 @@ public class KWIK {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         int context = Integer.parseInt(args[1]);
 
         // read in text

@@ -23,9 +23,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code Heap} class provides a static method to sort an array
  *  using <em>heapsort</em>.

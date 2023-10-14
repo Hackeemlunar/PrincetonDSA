@@ -15,9 +15,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code LinearProgramming} class represents a data type for solving a
  *  linear program of the form { max cx : Ax &le; b, x &ge; 0 }, where A is an
@@ -204,7 +201,7 @@ public class LinearProgramming {
         // check that x >= 0
         for (int j = 0; j < x.length; j++) {
             if (x[j] < -EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("x[" + j + "] = " + x[j] + " is negative");
+                StdOut.println("x[" + j + "] = " + x[j] + " is negative");
                 return false;
             }
         }
@@ -216,8 +213,8 @@ public class LinearProgramming {
                 sum += A[i][j] * x[j];
             }
             if (sum > b[i] + EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("not primal feasible");
-                edu.princeton.cs.algs4.StdOut.println("b[" + i + "] = " + b[i] + ", sum = " + sum);
+                StdOut.println("not primal feasible");
+                StdOut.println("b[" + i + "] = " + b[i] + ", sum = " + sum);
                 return false;
             }
         }
@@ -231,7 +228,7 @@ public class LinearProgramming {
         // check that y >= 0
         for (int i = 0; i < y.length; i++) {
             if (y[i] < -EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("y[" + i + "] = " + y[i] + " is negative");
+                StdOut.println("y[" + i + "] = " + y[i] + " is negative");
                 return false;
             }
         }
@@ -243,8 +240,8 @@ public class LinearProgramming {
                 sum += A[i][j] * y[i];
             }
             if (sum < c[j] - EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("not dual feasible");
-                edu.princeton.cs.algs4.StdOut.println("c[" + j + "] = " + c[j] + ", sum = " + sum);
+                StdOut.println("not dual feasible");
+                StdOut.println("c[" + j + "] = " + c[j] + ", sum = " + sum);
                 return false;
             }
         }
@@ -265,7 +262,7 @@ public class LinearProgramming {
         for (int i = 0; i < y.length; i++)
             value2 += y[i] * b[i];
         if (Math.abs(value - value1) > EPSILON || Math.abs(value - value2) > EPSILON) {
-            edu.princeton.cs.algs4.StdOut.println("value = " + value + ", cx = " + value1 + ", yb = " + value2);
+            StdOut.println("value = " + value + ", cx = " + value1 + ", yb = " + value2);
             return false;
         }
 
@@ -278,19 +275,19 @@ public class LinearProgramming {
 
     // print tableaux
     private void show() {
-        edu.princeton.cs.algs4.StdOut.println("m = " + m);
-        edu.princeton.cs.algs4.StdOut.println("n = " + n);
+        StdOut.println("m = " + m);
+        StdOut.println("n = " + n);
         for (int i = 0; i <= m; i++) {
             for (int j = 0; j <= m+n; j++) {
-                edu.princeton.cs.algs4.StdOut.printf("%7.2f ", a[i][j]);
+                StdOut.printf("%7.2f ", a[i][j]);
                 // StdOut.printf("%10.7f ", a[i][j]);
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println();
         }
-        edu.princeton.cs.algs4.StdOut.println("value = " + value());
+        StdOut.println("value = " + value());
         for (int i = 0; i < m; i++)
-            if (basis[i] < n) edu.princeton.cs.algs4.StdOut.println("x_" + basis[i] + " = " + a[i][m+n]);
-        edu.princeton.cs.algs4.StdOut.println();
+            if (basis[i] < n) StdOut.println("x_" + basis[i] + " = " + a[i][m+n]);
+        StdOut.println();
     }
 
 
@@ -304,13 +301,13 @@ public class LinearProgramming {
             return;
         }
 
-        edu.princeton.cs.algs4.StdOut.println("value = " + lp.value());
+        StdOut.println("value = " + lp.value());
         double[] x = lp.primal();
         for (int i = 0; i < x.length; i++)
-            edu.princeton.cs.algs4.StdOut.println("x[" + i + "] = " + x[i]);
+            StdOut.println("x[" + i + "] = " + x[i]);
         double[] y = lp.dual();
         for (int j = 0; j < y.length; j++)
-            edu.princeton.cs.algs4.StdOut.println("y[" + j + "] = " + y[j]);
+            StdOut.println("y[" + j + "] = " + y[j]);
     }
 
     private static void test1() {
@@ -370,21 +367,21 @@ public class LinearProgramming {
      */
     public static void main(String[] args) {
 
-        edu.princeton.cs.algs4.StdOut.println("----- test 1 --------------------");
+        StdOut.println("----- test 1 --------------------");
         test1();
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("----- test 2 --------------------");
+        StdOut.println("----- test 2 --------------------");
         test2();
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("----- test 3 --------------------");
+        StdOut.println("----- test 3 --------------------");
         test3();
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("----- test 4 --------------------");
+        StdOut.println("----- test 4 --------------------");
         test4();
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         StdOut.println("----- test random ---------------");
         int m = Integer.parseInt(args[0]);
@@ -393,9 +390,9 @@ public class LinearProgramming {
         double[] b = new double[m];
         double[][] A = new double[m][n];
         for (int j = 0; j < n; j++)
-            c[j] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+            c[j] = StdRandom.uniformInt(1000);
         for (int i = 0; i < m; i++)
-            b[i] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+            b[i] = StdRandom.uniformInt(1000);
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 A[i][j] = StdRandom.uniformInt(100);

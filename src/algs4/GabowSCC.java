@@ -22,15 +22,6 @@
  ******************************************************************************/
 
 package algs4;
-
-import algs4IMPL.AB.TarjanSCC;
-import algs4IMPL.AB.TransitiveClosure;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code GabowSCC} class represents a data type for
  *  determining the strong components in a digraph.
@@ -68,17 +59,17 @@ public class GabowSCC {
     private int[] preorder;          // preorder[v] = preorder of v
     private int pre;                 // preorder number counter
     private int count;               // number of strongly-connected components
-    private edu.princeton.cs.algs4.Stack<Integer> stack1;
-    private edu.princeton.cs.algs4.Stack<Integer> stack2;
+    private Stack<Integer> stack1;
+    private Stack<Integer> stack2;
 
 
     /**
      * Computes the strong components of the digraph {@code G}.
      * @param G the digraph
      */
-    public GabowSCC(edu.princeton.cs.algs4.Digraph G) {
+    public GabowSCC(Digraph G) {
         marked = new boolean[G.V()];
-        stack1 = new edu.princeton.cs.algs4.Stack<Integer>();
+        stack1 = new Stack<Integer>();
         stack2 = new Stack<Integer>();
         id = new int[G.V()];
         preorder = new int[G.V()];
@@ -93,7 +84,7 @@ public class GabowSCC {
         assert check(G);
     }
 
-    private void dfs(edu.princeton.cs.algs4.Digraph G, int v) {
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         preorder[v] = pre++;
         stack1.push(v);
@@ -153,7 +144,7 @@ public class GabowSCC {
     }
 
     // does the id[] array contain the strongly connected components?
-    private boolean check(edu.princeton.cs.algs4.Digraph G) {
+    private boolean check(Digraph G) {
         TransitiveClosure tc = new TransitiveClosure(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
@@ -177,16 +168,16 @@ public class GabowSCC {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        In in = new In(args[0]);
+        Digraph G = new Digraph(in);
         GabowSCC scc = new GabowSCC(G);
 
         // number of connected components
         int m = scc.count();
-        edu.princeton.cs.algs4.StdOut.println(m + " components");
+        StdOut.println(m + " components");
 
         // compute list of vertices in each strong component
-        edu.princeton.cs.algs4.Queue<Integer>[] components = (edu.princeton.cs.algs4.Queue<Integer>[]) new edu.princeton.cs.algs4.Queue[m];
+        Queue<Integer>[] components = (Queue<Integer>[]) new Queue[m];
         for (int i = 0; i < m; i++) {
             components[i] = new Queue<Integer>();
         }
@@ -197,7 +188,7 @@ public class GabowSCC {
         // print results
         for (int i = 0; i < m; i++) {
             for (int v : components[i]) {
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
             StdOut.println();
         }

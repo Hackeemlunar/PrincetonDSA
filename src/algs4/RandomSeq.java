@@ -16,8 +16,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code RandomSeq} class is a client that prints out a pseudorandom
  *  sequence of real numbers in a given range.

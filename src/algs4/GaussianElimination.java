@@ -32,9 +32,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code GaussianElimination} data type provides methods
  *  to solve a linear system of equations <em>Ax</em> = <em>b</em>,
@@ -197,8 +194,8 @@ public class GaussianElimination {
                 sum += A[i][j] * x[j];
             }
             if (Math.abs(sum - b[i]) > EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("not feasible");
-                edu.princeton.cs.algs4.StdOut.println("b[" + i + "] = " + b[i] + ", sum = " + sum);
+                StdOut.println("not feasible");
+                StdOut.println("b[" + i + "] = " + b[i] + ", sum = " + sum);
                 return false;
             }
         }
@@ -210,20 +207,20 @@ public class GaussianElimination {
      * Unit tests the {@code GaussianElimination} data type.
      */
     private static void test(String name, double[][] A, double[] b) {
-        edu.princeton.cs.algs4.StdOut.println("----------------------------------------------------");
-        edu.princeton.cs.algs4.StdOut.println(name);
-        edu.princeton.cs.algs4.StdOut.println("----------------------------------------------------");
+        StdOut.println("----------------------------------------------------");
+        StdOut.println(name);
+        StdOut.println("----------------------------------------------------");
         GaussianElimination gaussian = new GaussianElimination(A, b);
         double[] x = gaussian.primal();
         if (gaussian.isFeasible()) {
             for (int i = 0; i < x.length; i++) {
-                edu.princeton.cs.algs4.StdOut.printf("%.6f\n", x[i]);
+                StdOut.printf("%.6f\n", x[i]);
             }
         }
         else {
-            edu.princeton.cs.algs4.StdOut.println("System is infeasible");
+            StdOut.println("System is infeasible");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
         StdOut.println();
     }
 
@@ -354,7 +351,7 @@ public class GaussianElimination {
         double[][] A = new double[n][n];
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
-                A[i][j] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+                A[i][j] = StdRandom.uniformInt(1000);
         double[] b = new double[n];
         for (int i = 0; i < n; i++)
             b[i] = StdRandom.uniformInt(1000);

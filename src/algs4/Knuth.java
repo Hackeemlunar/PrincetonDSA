@@ -45,10 +45,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-import algs4IMPL.AB.StdOut;
-import algs4IMPL.AB.StdRandom;
-
 /**
  *  The {@code Knuth} class provides a client for reading in a
  *  sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)

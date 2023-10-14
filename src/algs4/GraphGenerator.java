@@ -12,12 +12,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.SET;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code GraphGenerator} class provides static methods for creating
  *  various graphs, including Erdos-Renyi random graphs, random bipartite
@@ -65,14 +59,14 @@ public class GraphGenerator {
      *     of {@code E} edges
      * @throws IllegalArgumentException if no such simple graph exists
      */
-    public static edu.princeton.cs.algs4.Graph simple(int V, int E) {
+    public static Graph simple(int V, int E) {
         if (E > (long) V*(V-1)/2) throw new IllegalArgumentException("Too many edges");
         if (E < 0)                throw new IllegalArgumentException("Too few edges");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
-        edu.princeton.cs.algs4.SET<Edge> set = new edu.princeton.cs.algs4.SET<Edge>();
+        Graph G = new Graph(V);
+        SET<Edge> set = new SET<Edge>();
         while (G.E() < E) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = StdRandom.uniformInt(V);
+            int w = StdRandom.uniformInt(V);
             Edge e = new Edge(v, w);
             if ((v != w) && !set.contains(e)) {
                 set.add(e);
@@ -92,13 +86,13 @@ public class GraphGenerator {
      *     any two vertices with probability {@code p}
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static edu.princeton.cs.algs4.Graph simple(int V, double p) {
+    public static Graph simple(int V, double p) {
         if (p < 0.0 || p > 1.0)
             throw new IllegalArgumentException("Probability must be between 0 and 1");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
         for (int v = 0; v < V; v++)
             for (int w = v+1; w < V; w++)
-                if (edu.princeton.cs.algs4.StdRandom.bernoulli(p))
+                if (StdRandom.bernoulli(p))
                     G.addEdge(v, w);
         return G;
     }
@@ -108,7 +102,7 @@ public class GraphGenerator {
      * @param V the number of vertices
      * @return the complete graph on {@code V} vertices
      */
-    public static edu.princeton.cs.algs4.Graph complete(int V) {
+    public static Graph complete(int V) {
         return simple(V, 1.0);
     }
 
@@ -119,7 +113,7 @@ public class GraphGenerator {
      * @return a complete bipartite graph on {@code V1} and {@code V2} vertices
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static edu.princeton.cs.algs4.Graph completeBipartite(int V1, int V2) {
+    public static Graph completeBipartite(int V1, int V2) {
         return bipartite(V1, V2, V1*V2);
     }
 
@@ -133,20 +127,20 @@ public class GraphGenerator {
      *    containing a total of {@code E} edges
      * @throws IllegalArgumentException if no such simple bipartite graph exists
      */
-    public static edu.princeton.cs.algs4.Graph bipartite(int V1, int V2, int E) {
+    public static Graph bipartite(int V1, int V2, int E) {
         if (E > (long) V1*V2) throw new IllegalArgumentException("Too many edges");
         if (E < 0)            throw new IllegalArgumentException("Too few edges");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V1 + V2);
+        Graph G = new Graph(V1 + V2);
 
         int[] vertices = new int[V1 + V2];
         for (int i = 0; i < V1 + V2; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
 
-        edu.princeton.cs.algs4.SET<Edge> set = new SET<Edge>();
+        SET<Edge> set = new SET<Edge>();
         while (G.E() < E) {
-            int i = edu.princeton.cs.algs4.StdRandom.uniformInt(V1);
-            int j = V1 + edu.princeton.cs.algs4.StdRandom.uniformInt(V2);
+            int i = StdRandom.uniformInt(V1);
+            int j = V1 + StdRandom.uniformInt(V2);
             Edge e = new Edge(vertices[i], vertices[j]);
             if (!set.contains(e)) {
                 set.add(e);
@@ -166,17 +160,17 @@ public class GraphGenerator {
      *    containing each possible edge with probability {@code p}
      * @throws IllegalArgumentException if probability is not between 0 and 1
      */
-    public static edu.princeton.cs.algs4.Graph bipartite(int V1, int V2, double p) {
+    public static Graph bipartite(int V1, int V2, double p) {
         if (p < 0.0 || p > 1.0)
             throw new IllegalArgumentException("Probability must be between 0 and 1");
         int[] vertices = new int[V1 + V2];
         for (int i = 0; i < V1 + V2; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V1 + V2);
+        StdRandom.shuffle(vertices);
+        Graph G = new Graph(V1 + V2);
         for (int i = 0; i < V1; i++)
             for (int j = 0; j < V2; j++)
-                if (edu.princeton.cs.algs4.StdRandom.bernoulli(p))
+                if (StdRandom.bernoulli(p))
                     G.addEdge(vertices[i], vertices[V1+j]);
         return G;
     }
@@ -186,12 +180,12 @@ public class GraphGenerator {
      * @param V the number of vertices in the path
      * @return a path graph on {@code V} vertices
      */
-    public static edu.princeton.cs.algs4.Graph path(int V) {
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+    public static Graph path(int V) {
+        Graph G = new Graph(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -203,12 +197,12 @@ public class GraphGenerator {
      * @param V the number of vertices in the binary tree
      * @return a complete binary tree graph on {@code V} vertices
      */
-    public static edu.princeton.cs.algs4.Graph binaryTree(int V) {
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+    public static Graph binaryTree(int V) {
+        Graph G = new Graph(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
         for (int i = 1; i < V; i++) {
             G.addEdge(vertices[i], vertices[(i-1)/2]);
         }
@@ -220,12 +214,12 @@ public class GraphGenerator {
      * @param V the number of vertices in the cycle
      * @return a cycle graph on {@code V} vertices
      */
-    public static edu.princeton.cs.algs4.Graph cycle(int V) {
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+    public static Graph cycle(int V) {
+        Graph G = new Graph(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
         for (int i = 0; i < V-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -242,15 +236,15 @@ public class GraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E <= 0}
      */
-    public static edu.princeton.cs.algs4.Graph eulerianCycle(int V, int E) {
+    public static Graph eulerianCycle(int V, int E) {
         if (E <= 0)
             throw new IllegalArgumentException("An Eulerian cycle must have at least one edge");
         if (V <= 0)
             throw new IllegalArgumentException("An Eulerian cycle must have at least one vertex");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
         int[] vertices = new int[E];
         for (int i = 0; i < E; i++)
-            vertices[i] = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            vertices[i] = StdRandom.uniformInt(V);
         for (int i = 0; i < E-1; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -267,15 +261,15 @@ public class GraphGenerator {
      *         and {@code E} edges
      * @throws IllegalArgumentException if either {@code V <= 0} or {@code E < 0}
      */
-    public static edu.princeton.cs.algs4.Graph eulerianPath(int V, int E) {
+    public static Graph eulerianPath(int V, int E) {
         if (E < 0)
             throw new IllegalArgumentException("negative number of edges");
         if (V <= 0)
             throw new IllegalArgumentException("An Eulerian path must have at least one vertex");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
         int[] vertices = new int[E+1];
         for (int i = 0; i < E+1; i++)
-            vertices[i] = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            vertices[i] = StdRandom.uniformInt(V);
         for (int i = 0; i < E; i++) {
             G.addEdge(vertices[i], vertices[i+1]);
         }
@@ -288,13 +282,13 @@ public class GraphGenerator {
      * @return a wheel graph on {@code V} vertices: a single vertex connected to
      *     every vertex in a cycle on {@code V-1} vertices
      */
-    public static edu.princeton.cs.algs4.Graph wheel(int V) {
+    public static Graph wheel(int V) {
         if (V <= 1) throw new IllegalArgumentException("Number of vertices must be at least 2");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
 
         // simple cycle on V-1 vertices
         for (int i = 1; i < V-1; i++) {
@@ -316,13 +310,13 @@ public class GraphGenerator {
      * @return a star graph on {@code V} vertices: a single vertex connected to
      *     every other vertex
      */
-    public static edu.princeton.cs.algs4.Graph star(int V) {
+    public static Graph star(int V) {
         if (V <= 0) throw new IllegalArgumentException("Number of vertices must be at least 1");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
         int[] vertices = new int[V];
         for (int i = 0; i < V; i++)
             vertices[i] = i;
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
 
         // connect vertices[0] to every other vertex
         for (int i = 1; i < V; i++) {
@@ -341,9 +335,9 @@ public class GraphGenerator {
      * @param k degree of each vertex
      * @return a uniformly random {@code k}-regular graph on {@code V} vertices.
      */
-    public static edu.princeton.cs.algs4.Graph regular(int V, int k) {
+    public static Graph regular(int V, int k) {
         if (V*k % 2 != 0) throw new IllegalArgumentException("Number of vertices * k must be even");
-        edu.princeton.cs.algs4.Graph G = new edu.princeton.cs.algs4.Graph(V);
+        Graph G = new Graph(V);
 
         // create k copies of each vertex
         int[] vertices = new int[V*k];
@@ -354,7 +348,7 @@ public class GraphGenerator {
         }
 
         // pick a random perfect matching
-        edu.princeton.cs.algs4.StdRandom.shuffle(vertices);
+        StdRandom.shuffle(vertices);
         for (int i = 0; i < V*k/2; i++) {
             G.addEdge(vertices[2*i], vertices[2*i + 1]);
         }
@@ -369,8 +363,8 @@ public class GraphGenerator {
      * @param V the number of vertices in the tree
      * @return a uniformly random tree on {@code V} vertices
      */
-    public static edu.princeton.cs.algs4.Graph tree(int V) {
-        edu.princeton.cs.algs4.Graph G = new Graph(V);
+    public static Graph tree(int V) {
+        Graph G = new Graph(V);
 
         // special case
         if (V == 1) return G;
@@ -391,7 +385,7 @@ public class GraphGenerator {
             degree[prufer[i]]++;
 
         // pq contains all vertices of degree 1
-        edu.princeton.cs.algs4.MinPQ<Integer> pq = new MinPQ<Integer>();
+        MinPQ<Integer> pq = new MinPQ<Integer>();
         for (int v = 0; v < V; v++)
             if (degree[v] == 1) pq.insert(v);
 
@@ -418,58 +412,58 @@ public class GraphGenerator {
         int V1 = V/2;
         int V2 = V - V1;
 
-        edu.princeton.cs.algs4.StdOut.println("complete graph");
-        edu.princeton.cs.algs4.StdOut.println(complete(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("complete graph");
+        StdOut.println(complete(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("simple");
-        edu.princeton.cs.algs4.StdOut.println(simple(V, E));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("simple");
+        StdOut.println(simple(V, E));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("Erdos-Renyi");
+        StdOut.println("Erdos-Renyi");
         double p = (double) E / (V*(V-1)/2.0);
-        edu.princeton.cs.algs4.StdOut.println(simple(V, p));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println(simple(V, p));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("complete bipartite");
-        edu.princeton.cs.algs4.StdOut.println(completeBipartite(V1, V2));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("complete bipartite");
+        StdOut.println(completeBipartite(V1, V2));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("bipartite");
-        edu.princeton.cs.algs4.StdOut.println(bipartite(V1, V2, E));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("bipartite");
+        StdOut.println(bipartite(V1, V2, E));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("Erdos Renyi bipartite");
+        StdOut.println("Erdos Renyi bipartite");
         double q = (double) E / (V1*V2);
-        edu.princeton.cs.algs4.StdOut.println(bipartite(V1, V2, q));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println(bipartite(V1, V2, q));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("path");
-        edu.princeton.cs.algs4.StdOut.println(path(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("path");
+        StdOut.println(path(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("cycle");
-        edu.princeton.cs.algs4.StdOut.println(cycle(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("cycle");
+        StdOut.println(cycle(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("binary tree");
-        edu.princeton.cs.algs4.StdOut.println(binaryTree(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("binary tree");
+        StdOut.println(binaryTree(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("tree");
-        edu.princeton.cs.algs4.StdOut.println(tree(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("tree");
+        StdOut.println(tree(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("4-regular");
-        edu.princeton.cs.algs4.StdOut.println(regular(V, 4));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("4-regular");
+        StdOut.println(regular(V, 4));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("star");
-        edu.princeton.cs.algs4.StdOut.println(star(V));
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println("star");
+        StdOut.println(star(V));
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("wheel");
-        edu.princeton.cs.algs4.StdOut.println(wheel(V));
+        StdOut.println("wheel");
+        StdOut.println(wheel(V));
         StdOut.println();
     }
 

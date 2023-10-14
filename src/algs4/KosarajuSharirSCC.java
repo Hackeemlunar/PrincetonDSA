@@ -64,15 +64,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.TransitiveClosure;
-import edu.princeton.cs.algs4.DepthFirstOrder;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.GabowSCC;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.TarjanSCC;
-
 /**
  *  The {@code KosarajuSharirSCC} class represents a data type for
  *  determining the strong components in a digraph.
@@ -111,10 +102,10 @@ public class KosarajuSharirSCC {
      * Computes the strong components of the digraph {@code G}.
      * @param G the digraph
      */
-    public KosarajuSharirSCC(edu.princeton.cs.algs4.Digraph G) {
+    public KosarajuSharirSCC(Digraph G) {
 
         // compute reverse postorder of reverse graph
-        edu.princeton.cs.algs4.DepthFirstOrder dfs = new DepthFirstOrder(G.reverse());
+        DepthFirstOrder dfs = new DepthFirstOrder(G.reverse());
 
         // run DFS on G, using reverse postorder to guide calculation
         marked = new boolean[G.V()];
@@ -131,7 +122,7 @@ public class KosarajuSharirSCC {
     }
 
     // DFS on graph G
-    private void dfs(edu.princeton.cs.algs4.Digraph G, int v) {
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         id[v] = count;
         for (int w : G.adj(v)) {
@@ -174,7 +165,7 @@ public class KosarajuSharirSCC {
     }
 
     // does the id[] array contain the strongly connected components?
-    private boolean check(edu.princeton.cs.algs4.Digraph G) {
+    private boolean check(Digraph G) {
         TransitiveClosure tc = new TransitiveClosure(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
@@ -198,16 +189,16 @@ public class KosarajuSharirSCC {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        In in = new In(args[0]);
+        Digraph G = new Digraph(in);
         KosarajuSharirSCC scc = new KosarajuSharirSCC(G);
 
         // number of connected components
         int m = scc.count();
-        edu.princeton.cs.algs4.StdOut.println(m + " strong components");
+        StdOut.println(m + " strong components");
 
         // compute list of vertices in each strong component
-        edu.princeton.cs.algs4.Queue<Integer>[] components = (edu.princeton.cs.algs4.Queue<Integer>[]) new edu.princeton.cs.algs4.Queue[m];
+        Queue<Integer>[] components = (Queue<Integer>[]) new Queue[m];
         for (int i = 0; i < m; i++) {
             components[i] = new Queue<Integer>();
         }
@@ -218,7 +209,7 @@ public class KosarajuSharirSCC {
         // print results
         for (int i = 0; i < m; i++) {
             for (int v : components[i]) {
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                StdOut.print(v + " ");
             }
             StdOut.println();
         }

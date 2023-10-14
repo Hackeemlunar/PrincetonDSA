@@ -35,10 +35,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.GaussianElimination;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code GaussJordanElimination} data type provides methods
  *  to solve a linear system of equations <em>Ax</em> = <em>b</em>,
@@ -213,15 +209,15 @@ public class GaussJordanElimination {
     private void show() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                edu.princeton.cs.algs4.StdOut.printf("%8.3f ", a[i][j]);
+                StdOut.printf("%8.3f ", a[i][j]);
             }
-            edu.princeton.cs.algs4.StdOut.printf("| ");
+            StdOut.printf("| ");
             for (int j = n; j < n+n; j++) {
-                edu.princeton.cs.algs4.StdOut.printf("%8.3f ", a[i][j]);
+                StdOut.printf("%8.3f ", a[i][j]);
             }
-            edu.princeton.cs.algs4.StdOut.printf("| %8.3f\n", a[i][n+n]);
+            StdOut.printf("| %8.3f\n", a[i][n+n]);
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
     }
 
 
@@ -237,8 +233,8 @@ public class GaussJordanElimination {
                     sum += A[i][j] * x[j];
                 }
                 if (Math.abs(sum - b[i]) > EPSILON) {
-                    edu.princeton.cs.algs4.StdOut.println("not feasible");
-                    edu.princeton.cs.algs4.StdOut.printf("b[%d] = %8.3f, sum = %8.3f\n", i, b[i], sum);
+                    StdOut.println("not feasible");
+                    StdOut.printf("b[%d] = %8.3f, sum = %8.3f\n", i, b[i], sum);
                     return false;
                 }
             }
@@ -254,8 +250,8 @@ public class GaussJordanElimination {
                     sum += A[i][j] * y[i];
                 }
                 if (Math.abs(sum) > EPSILON) {
-                    edu.princeton.cs.algs4.StdOut.println("invalid certificate of infeasibility");
-                    edu.princeton.cs.algs4.StdOut.printf("sum = %8.3f\n", sum);
+                    StdOut.println("invalid certificate of infeasibility");
+                    StdOut.printf("sum = %8.3f\n", sum);
                     return false;
                 }
             }
@@ -264,8 +260,8 @@ public class GaussJordanElimination {
                 sum += y[i] * b[i];
             }
             if (Math.abs(sum) < EPSILON) {
-                edu.princeton.cs.algs4.StdOut.println("invalid certificate of infeasibility");
-                edu.princeton.cs.algs4.StdOut.printf("yb  = %8.3f\n", sum);
+                StdOut.println("invalid certificate of infeasibility");
+                StdOut.printf("yb  = %8.3f\n", sum);
                 return false;
             }
             return true;
@@ -274,25 +270,25 @@ public class GaussJordanElimination {
 
 
     private static void test(String name, double[][] A, double[] b) {
-        edu.princeton.cs.algs4.StdOut.println("----------------------------------------------------");
-        edu.princeton.cs.algs4.StdOut.println(name);
-        edu.princeton.cs.algs4.StdOut.println("----------------------------------------------------");
+        StdOut.println("----------------------------------------------------");
+        StdOut.println(name);
+        StdOut.println("----------------------------------------------------");
         GaussJordanElimination gaussian = new GaussJordanElimination(A, b);
         if (gaussian.isFeasible()) {
-            edu.princeton.cs.algs4.StdOut.println("Solution to Ax = b");
+            StdOut.println("Solution to Ax = b");
             double[] x = gaussian.primal();
             for (int i = 0; i < x.length; i++) {
-                edu.princeton.cs.algs4.StdOut.printf("%10.6f\n", x[i]);
+                StdOut.printf("%10.6f\n", x[i]);
             }
         }
         else {
-            edu.princeton.cs.algs4.StdOut.println("Certificate of infeasibility");
+            StdOut.println("Certificate of infeasibility");
             double[] y = gaussian.dual();
             for (int j = 0; j < y.length; j++) {
-                edu.princeton.cs.algs4.StdOut.printf("%10.6f\n", y[j]);
+                StdOut.printf("%10.6f\n", y[j]);
             }
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
         StdOut.println();
     }
 
@@ -388,10 +384,10 @@ public class GaussJordanElimination {
         double[][] A = new double[n][n];
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
-                A[i][j] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+                A[i][j] = StdRandom.uniformInt(1000);
         double[] b = new double[n];
         for (int i = 0; i < n; i++)
-            b[i] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+            b[i] = StdRandom.uniformInt(1000);
         test("random " + n + "-by-" + n + " (likely full rank)", A, b);
 
 
@@ -399,9 +395,9 @@ public class GaussJordanElimination {
         A = new double[n][n];
         for (int i = 0; i < n-1; i++)
             for (int j = 0; j < n; j++)
-                A[i][j] = edu.princeton.cs.algs4.StdRandom.uniformInt(1000);
+                A[i][j] = StdRandom.uniformInt(1000);
         for (int i = 0; i < n-1; i++) {
-            double alpha = edu.princeton.cs.algs4.StdRandom.uniformInt(-5, 5);
+            double alpha = StdRandom.uniformInt(-5, 5);
             for (int j = 0; j < n; j++) {
                 A[n-1][j] += alpha * A[i][j];
             }

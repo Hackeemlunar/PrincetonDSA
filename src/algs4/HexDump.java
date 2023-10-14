@@ -26,9 +26,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.PictureDump;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code HexDump} class provides a client for displaying the contents
  *  of a binary file in hexadecimal.
@@ -71,13 +68,13 @@ public class HexDump {
                 BinaryStdIn.readChar();
                 continue;
             }
-            if (i == 0) edu.princeton.cs.algs4.StdOut.printf("");
-            else if (i % bytesPerLine == 0) edu.princeton.cs.algs4.StdOut.printf("\n", i);
-            else edu.princeton.cs.algs4.StdOut.print(" ");
+            if (i == 0) StdOut.printf("");
+            else if (i % bytesPerLine == 0) StdOut.printf("\n", i);
+            else StdOut.print(" ");
             char c = BinaryStdIn.readChar();
-            edu.princeton.cs.algs4.StdOut.printf("%02x", c & 0xff);
+            StdOut.printf("%02x", c & 0xff);
         }
-        if (bytesPerLine != 0) edu.princeton.cs.algs4.StdOut.println();
+        if (bytesPerLine != 0) StdOut.println();
         StdOut.println((i*8) + " bits");
     }
 }

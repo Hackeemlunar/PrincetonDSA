@@ -26,11 +26,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Point2D;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
 
 
@@ -49,7 +44,7 @@ import java.util.Arrays;
  *  @author Kevin Wayne
  */
 public class GrahamScan {
-    private edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.Point2D> hull = new edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.Point2D>();
+    private Stack<Point2D> hull = new Stack<Point2D>();
 
     /**
      * Computes the convex hull of the specified array of points.
@@ -59,13 +54,13 @@ public class GrahamScan {
      * @throws IllegalArgumentException if any entry in {@code points[]} is {@code null}
      * @throws IllegalArgumentException if {@code points.length} is {@code 0}
      */
-    public GrahamScan(edu.princeton.cs.algs4.Point2D[] points) {
+    public GrahamScan(Point2D[] points) {
         if (points == null) throw new IllegalArgumentException("argument is null");
         if (points.length == 0) throw new IllegalArgumentException("array is of length 0");
 
         // defensive copy
         int n = points.length;
-        edu.princeton.cs.algs4.Point2D[] a = new edu.princeton.cs.algs4.Point2D[n];
+        Point2D[] a = new Point2D[n];
         for (int i = 0; i < n; i++) {
             if (points[i] == null)
                 throw new IllegalArgumentException("points[" + i + "] is null");
@@ -92,13 +87,13 @@ public class GrahamScan {
         // find index k2 of first point not collinear with a[0] and a[k1]
         int k2;
         for (k2 = k1+1; k2 < n; k2++)
-            if (edu.princeton.cs.algs4.Point2D.ccw(a[0], a[k1], a[k2]) != 0) break;
+            if (Point2D.ccw(a[0], a[k1], a[k2]) != 0) break;
         hull.push(a[k2-1]);    // a[k2-1] is second extreme point
 
         // Graham scan; note that a[n-1] is extreme point different from a[0]
         for (int i = k2; i < n; i++) {
-            edu.princeton.cs.algs4.Point2D top = hull.pop();
-            while (edu.princeton.cs.algs4.Point2D.ccw(hull.peek(), top, a[i]) <= 0) {
+            Point2D top = hull.pop();
+            while (Point2D.ccw(hull.peek(), top, a[i]) <= 0) {
                 top = hull.pop();
             }
             hull.push(top);
@@ -113,9 +108,9 @@ public class GrahamScan {
      *
      * @return the extreme points on the convex hull in counterclockwise order
      */
-    public Iterable<edu.princeton.cs.algs4.Point2D> hull() {
-        edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.Point2D> s = new Stack<edu.princeton.cs.algs4.Point2D>();
-        for (edu.princeton.cs.algs4.Point2D p : hull) s.push(p);
+    public Iterable<Point2D> hull() {
+        Stack<Point2D> s = new Stack<Point2D>();
+        for (Point2D p : hull) s.push(p);
         return s;
     }
 
@@ -124,14 +119,14 @@ public class GrahamScan {
         int n = hull.size();
         if (n <= 2) return true;
 
-        edu.princeton.cs.algs4.Point2D[] points = new edu.princeton.cs.algs4.Point2D[n];
+        Point2D[] points = new Point2D[n];
         int k = 0;
-        for (edu.princeton.cs.algs4.Point2D p : hull()) {
+        for (Point2D p : hull()) {
             points[k++] = p;
         }
 
         for (int i = 0; i < n; i++) {
-            if (edu.princeton.cs.algs4.Point2D.ccw(points[i], points[(i+1) % n], points[(i+2) % n]) <= 0) {
+            if (Point2D.ccw(points[i], points[(i+1) % n], points[(i+2) % n]) <= 0) {
                 return false;
             }
         }
@@ -148,12 +143,12 @@ public class GrahamScan {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int n = edu.princeton.cs.algs4.StdIn.readInt();
-        edu.princeton.cs.algs4.Point2D[] points = new edu.princeton.cs.algs4.Point2D[n];
+        int n = StdIn.readInt();
+        Point2D[] points = new Point2D[n];
         for (int i = 0; i < n; i++) {
-            int x = edu.princeton.cs.algs4.StdIn.readInt();
+            int x = StdIn.readInt();
             int y = StdIn.readInt();
-            points[i] = new edu.princeton.cs.algs4.Point2D(x, y);
+            points[i] = new Point2D(x, y);
         }
         GrahamScan graham = new GrahamScan(points);
         for (Point2D p : graham.hull())

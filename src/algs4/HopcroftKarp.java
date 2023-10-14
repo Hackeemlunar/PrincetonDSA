@@ -11,12 +11,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.BipartiteX;
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 
 /**
@@ -63,7 +57,7 @@ public class HopcroftKarp {
     private static final int UNMATCHED = -1;
 
     private final int V;                 // number of vertices in the graph
-    private edu.princeton.cs.algs4.BipartiteX bipartition;      // the bipartition
+    private BipartiteX bipartition;      // the bipartition
     private int cardinality;             // cardinality of current matching
     private int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
                                          //         = -1 if v is not in current matching
@@ -78,7 +72,7 @@ public class HopcroftKarp {
      * @param  G the bipartite graph
      * @throws IllegalArgumentException if {@code G} is not bipartite
      */
-    public HopcroftKarp(edu.princeton.cs.algs4.Graph G) {
+    public HopcroftKarp(Graph G) {
         bipartition = new BipartiteX(G);
         if (!bipartition.isBipartite()) {
             throw new IllegalArgumentException("graph is not bipartite");
@@ -104,7 +98,7 @@ public class HopcroftKarp {
                 if (isMatched(s) || !bipartition.color(s)) continue;   // or use distTo[s] == 0
 
                 // find augmenting path from s using nonrecursive DFS
-                edu.princeton.cs.algs4.Stack<Integer> path = new Stack<Integer>();
+                Stack<Integer> path = new Stack<Integer>();
                 path.push(s);
                 while (!path.isEmpty()) {
                     int v = path.peek();
@@ -182,7 +176,7 @@ public class HopcroftKarp {
      *
      * an augmenting path is an alternating path that starts and ends at unmatched vertices
      */
-    private boolean hasAugmentingPath(edu.princeton.cs.algs4.Graph G) {
+    private boolean hasAugmentingPath(Graph G) {
 
         // shortest path distances
         marked = new boolean[V];
@@ -191,7 +185,7 @@ public class HopcroftKarp {
             distTo[v] = Integer.MAX_VALUE;
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
-        edu.princeton.cs.algs4.Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new Queue<Integer>();
         for (int v = 0; v < V; v++) {
             if (bipartition.color(v) && !isMatched(v)) {
                 queue.enqueue(v);
@@ -304,7 +298,7 @@ public class HopcroftKarp {
      **************************************************************************/
 
     // check that mate[] and inVertexCover[] define a max matching and min vertex cover, respectively
-    private boolean certifySolution(edu.princeton.cs.algs4.Graph G) {
+    private boolean certifySolution(Graph G) {
 
         // check that mate(v) = w iff mate(w) = v
         for (int v = 0; v < V; v++) {
@@ -370,31 +364,31 @@ public class HopcroftKarp {
         int V2 = Integer.parseInt(args[1]);
         int E  = Integer.parseInt(args[2]);
         Graph G = GraphGenerator.bipartite(V1, V2, E);
-        if (G.V() < 1000) edu.princeton.cs.algs4.StdOut.println(G);
+        if (G.V() < 1000) StdOut.println(G);
 
         HopcroftKarp matching = new HopcroftKarp(G);
 
         // print maximum matching
-        edu.princeton.cs.algs4.StdOut.printf("Number of edges in max matching        = %d\n", matching.size());
-        edu.princeton.cs.algs4.StdOut.printf("Number of vertices in min vertex cover = %d\n", matching.size());
-        edu.princeton.cs.algs4.StdOut.printf("Graph has a perfect matching           = %b\n", matching.isPerfect());
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.printf("Number of edges in max matching        = %d\n", matching.size());
+        StdOut.printf("Number of vertices in min vertex cover = %d\n", matching.size());
+        StdOut.printf("Graph has a perfect matching           = %b\n", matching.isPerfect());
+        StdOut.println();
 
         if (G.V() >= 1000) return;
 
-        edu.princeton.cs.algs4.StdOut.print("Max matching: ");
+        StdOut.print("Max matching: ");
         for (int v = 0; v < G.V(); v++) {
             int w = matching.mate(v);
             if (matching.isMatched(v) && v < w)  // print each edge only once
-                edu.princeton.cs.algs4.StdOut.print(v + "-" + w + " ");
+                StdOut.print(v + "-" + w + " ");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         // print minimum vertex cover
-        edu.princeton.cs.algs4.StdOut.print("Min vertex cover: ");
+        StdOut.print("Min vertex cover: ");
         for (int v = 0; v < G.V(); v++)
             if (matching.inMinVertexCover(v))
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                StdOut.print(v + " ");
         StdOut.println();
     }
 

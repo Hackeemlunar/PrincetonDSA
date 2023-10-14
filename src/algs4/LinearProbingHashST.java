@@ -10,15 +10,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.BST;
-import edu.princeton.cs.algs4.BinarySearchST;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.RedBlackBST;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.SequentialSearchST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code LinearProbingHashST} class represents a symbol table of generic
  *  key-value pairs.
@@ -235,7 +226,7 @@ public class LinearProbingHashST<Key, Value> {
      * @return all keys in this symbol table
      */
     public Iterable<Key> keys() {
-        edu.princeton.cs.algs4.Queue<Key> queue = new Queue<Key>();
+        Queue<Key> queue = new Queue<Key>();
         for (int i = 0; i < m; i++)
             if (keys[i] != null) queue.enqueue(keys[i]);
         return queue;
@@ -270,7 +261,7 @@ public class LinearProbingHashST<Key, Value> {
      */
     public static void main(String[] args) {
         LinearProbingHashST<String, Integer> st = new LinearProbingHashST<String, Integer>();
-        for (int i = 0; !edu.princeton.cs.algs4.StdIn.isEmpty(); i++) {
+        for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);
         }

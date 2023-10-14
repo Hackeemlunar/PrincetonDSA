@@ -12,11 +12,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.QuickFindUF;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.UF;
-
 /**
  *  The {@code QuickUnionUF} class represents a <em>union–find data type</em>
  *  (also known as the <em>disjoint-sets data type</em>).

@@ -13,10 +13,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -198,12 +194,12 @@ public class LinkedQueue<Item> implements Iterable<Item> {
      */
     public static void main(String[] args) {
         LinkedQueue<String> queue = new LinkedQueue<String>();
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))
                 queue.enqueue(item);
             else if (!queue.isEmpty())
-                edu.princeton.cs.algs4.StdOut.print(queue.dequeue() + " ");
+                StdOut.print(queue.dequeue() + " ");
         }
         StdOut.println("(" + queue.size() + " left on queue)");
     }

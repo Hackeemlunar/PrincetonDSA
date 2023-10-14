@@ -15,12 +15,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.SuffixArray;
-
 /**
- *  The {@code LongestCommonSubstring} class provides a {@link edu.princeton.cs.algs4.SuffixArray}
+ *  The {@code LongestCommonSubstring} class provides a {@link SuffixArray}
  *  client for computing the longest common substring that appears in two
  *  given strings.
  *  <p>
@@ -74,8 +70,8 @@ public class LongestCommonSubstring {
      *         if no such string
      */
     public static String lcs(String s, String t) {
-        edu.princeton.cs.algs4.SuffixArray suffix1 = new edu.princeton.cs.algs4.SuffixArray(s);
-        edu.princeton.cs.algs4.SuffixArray suffix2 = new SuffixArray(t);
+        SuffixArray suffix1 = new SuffixArray(s);
+        SuffixArray suffix2 = new SuffixArray(t);
 
         // find longest common substring by "merging" sorted suffixes
         String lcs = "";
@@ -100,8 +96,8 @@ public class LongestCommonSubstring {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in1 = new edu.princeton.cs.algs4.In(args[0]);
-        edu.princeton.cs.algs4.In in2 = new In(args[1]);
+        In in1 = new In(args[0]);
+        In in2 = new In(args[1]);
         String s = in1.readAll().trim().replaceAll("\\s+", " ");
         String t = in2.readAll().trim().replaceAll("\\s+", " ");
         StdOut.println("'" + lcs(s, t) + "'");

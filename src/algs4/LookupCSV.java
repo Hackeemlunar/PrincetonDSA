@@ -32,11 +32,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code LookupCSV} class provides a data-driven client for reading in a
  *  key-value pairs from a file; then, printing the values corresponding to the
@@ -59,10 +54,10 @@ public class LookupCSV {
         int valField = Integer.parseInt(args[2]);
 
         // symbol table
-        edu.princeton.cs.algs4.ST<String, String> st = new ST<String, String>();
+        ST<String, String> st = new ST<String, String>();
 
         // read in the data from csv file
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         while (in.hasNextLine()) {
             String line = in.readLine();
             String[] tokens = line.split(",");
@@ -71,9 +66,9 @@ public class LookupCSV {
             st.put(key, val);
         }
 
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
-            if (st.contains(s)) edu.princeton.cs.algs4.StdOut.println(st.get(s));
+            if (st.contains(s)) StdOut.println(st.get(s));
             else                StdOut.println("Not found");
         }
     }

@@ -9,13 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Counter;
-import edu.princeton.cs.algs4.Interval1D;
-import edu.princeton.cs.algs4.Point2D;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 /**
  *  The {@code Interval2D} class represents a closed two-dimensional interval,
  *  which represents all points (x, y) with both {@code xmin <= x <= xmax} and
@@ -34,15 +27,15 @@ import edu.princeton.cs.algs4.StdRandom;
  *  @author Kevin Wayne
  */
 public class Interval2D {
-    private final edu.princeton.cs.algs4.Interval1D x;
-    private final edu.princeton.cs.algs4.Interval1D y;
+    private final Interval1D x;
+    private final Interval1D y;
 
     /**
      * Initializes a two-dimensional interval.
      * @param x the one-dimensional interval of x-coordinates
      * @param y the one-dimensional interval of y-coordinates
      */
-    public Interval2D(edu.princeton.cs.algs4.Interval1D x, edu.princeton.cs.algs4.Interval1D y) {
+    public Interval2D(Interval1D x, Interval1D y) {
         this.x = x;
         this.y = y;
     }
@@ -64,7 +57,7 @@ public class Interval2D {
      * @param p the two-dimensional point
      * @return true if this two-dimensional interval contains the point p; false otherwise
      */
-    public boolean contains(edu.princeton.cs.algs4.Point2D p) {
+    public boolean contains(Point2D p) {
         return x.contains(p.x())  && y.contains(p.y());
     }
 
@@ -130,22 +123,22 @@ public class Interval2D {
         double ymax = Double.parseDouble(args[3]);
         int trials = Integer.parseInt(args[4]);
 
-        edu.princeton.cs.algs4.Interval1D xInterval = new edu.princeton.cs.algs4.Interval1D(xmin, xmax);
-        edu.princeton.cs.algs4.Interval1D yInterval = new Interval1D(ymin, ymax);
+        Interval1D xInterval = new Interval1D(xmin, xmax);
+        Interval1D yInterval = new Interval1D(ymin, ymax);
         Interval2D box = new Interval2D(xInterval, yInterval);
         box.draw();
 
-        edu.princeton.cs.algs4.Counter counter = new Counter("hits");
+        Counter counter = new Counter("hits");
         for (int t = 0; t < trials; t++) {
-            double x = edu.princeton.cs.algs4.StdRandom.uniformDouble(0.0, 1.0);
+            double x = StdRandom.uniformDouble(0.0, 1.0);
             double y = StdRandom.uniformDouble(0.0, 1.0);
-            edu.princeton.cs.algs4.Point2D point = new Point2D(x, y);
+            Point2D point = new Point2D(x, y);
 
             if (box.contains(point)) counter.increment();
             else                     point.draw();
         }
 
-        edu.princeton.cs.algs4.StdOut.println(counter);
+        StdOut.println(counter);
         StdOut.printf("box area = %.2f\n", box.area());
     }
 }

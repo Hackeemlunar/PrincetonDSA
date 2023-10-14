@@ -17,10 +17,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -189,12 +185,12 @@ public class LinkedStack<Item> implements Iterable<Item> {
      */
     public static void main(String[] args) {
         LinkedStack<String> stack = new LinkedStack<String>();
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-"))
                 stack.push(item);
             else if (!stack.isEmpty())
-                edu.princeton.cs.algs4.StdOut.print(stack.pop() + " ");
+                StdOut.print(stack.pop() + " ");
         }
         StdOut.println("(" + stack.size() + " left on stack)");
     }

@@ -7,14 +7,33 @@
 
 package algs4;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.FileDialog;
+import java.awt.Toolkit;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.net.URL;
+
+import javax.imageio.ImageIO;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 
 /**
@@ -187,7 +206,7 @@ import java.net.URL;
  *  Pixel (<em>col</em>, <em>row</em>) is column <em>col</em> and row <em>row</em>.
  *  By default, the origin (0, 0) is the pixel in the upper-left corner.
  *  These are common conventions in image processing and consistent with Java's
- *  {@link BufferedImage} data type. The following
+ *  {@link java.awt.image.BufferedImage} data type. The following
  *  two methods allow you to change this convention:
  *  <ul>
  *  <li> {@link #setOriginLowerLeft()}
@@ -471,7 +490,7 @@ public final class Picture implements ActionListener {
     }
 
    /**
-     * Returns the color of pixel ({@code col}, {@code row}) as a {@link Color}.
+     * Returns the color of pixel ({@code col}, {@code row}) as a {@link java.awt.Color}.
      *
      * @param col the column index
      * @param row the row index

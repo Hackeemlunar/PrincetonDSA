@@ -26,16 +26,12 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.Iterator;
 
 /**
  *  The {@code PatriciaSET} class provides an implementation of an
  *  unordered set, with the restriction that the items (keys) are of class
- *  {@link String}. It supports the usual <em>add</em>,
+ *  {@link java.lang.String}. It supports the usual <em>add</em>,
  *  <em>contains</em>, <em>delete</em>, <em>size</em>, and <em>is-empty</em>
  *  methods. It also provides an <em>iterator</em> method for iterating over all
  *  the elements in the set.
@@ -47,7 +43,7 @@ import java.util.Iterator;
  *  <p>
  *  Unlike other generic set implementations that can accept a parameterized key
  *  type, this set class can only accommodate keys of class
- *  {@link String}. This unfortunate restriction stems from a
+ *  {@link java.lang.String}. This unfortunate restriction stems from a
  *  limitation in Java. Although Java provides excellent support for generic
  *  programming, the current infrastructure somewhat limits generic collection
  *  implementations to those that employ comparison-based or hash-based methods.
@@ -433,7 +429,7 @@ public class PatriciaSET implements Iterable<String> {
             else    StdOut.printf("PASS %d TESTS FAILED\n",    countPass);
         } while (ok && countPass < limitPass);
 
-        if (!ok) throw new RuntimeException("TESTS FAILED");
+        if (!ok) throw new java.lang.RuntimeException("TESTS FAILED");
     }
 }
 

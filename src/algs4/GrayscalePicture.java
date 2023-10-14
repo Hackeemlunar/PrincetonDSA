@@ -20,11 +20,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Picture;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
@@ -485,16 +480,16 @@ public final class GrayscalePicture implements ActionListener {
      */
     public static void main(String[] args) {
         GrayscalePicture picture = new GrayscalePicture(args[0]);
-        edu.princeton.cs.algs4.StdOut.printf("%d-by-%d\n", picture.width(), picture.height());
+        StdOut.printf("%d-by-%d\n", picture.width(), picture.height());
         GrayscalePicture copy = new GrayscalePicture(picture);
         picture.show();
         copy.show();
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
-            int row = edu.princeton.cs.algs4.StdIn.readInt();
-            int col = edu.princeton.cs.algs4.StdIn.readInt();
+        while (!StdIn.isEmpty()) {
+            int row = StdIn.readInt();
+            int col = StdIn.readInt();
             int gray = StdIn.readInt();
             picture.setGrayscale(row, col, gray);
-            edu.princeton.cs.algs4.StdOut.println(picture.get(row, col));
+            StdOut.println(picture.get(row, col));
             StdOut.println(picture.getGrayscale(row, col));
         }
     }

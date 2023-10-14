@@ -22,8 +22,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.MinPQ;
-
 /**
  *  The {@code Huffman} class provides static methods for compressing
  *  and expanding a binary input using Huffman codes over the 8-bit extended
@@ -119,7 +117,7 @@ public class Huffman {
     private static Node buildTrie(int[] freq) {
 
         // initialize priority queue with singleton trees
-        edu.princeton.cs.algs4.MinPQ<Node> pq = new MinPQ<Node>();
+        MinPQ<Node> pq = new MinPQ<Node>();
         for (char c = 0; c < R; c++)
             if (freq[c] > 0)
                 pq.insert(new Node(c, freq[c], null, null));

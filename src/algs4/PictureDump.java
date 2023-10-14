@@ -16,12 +16,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.BinaryDump;
-import edu.princeton.cs.algs4.BinaryStdIn;
-import edu.princeton.cs.algs4.HexDump;
-import edu.princeton.cs.algs4.Picture;
-
-import java.awt.*;
+import java.awt.Color;
 
 
 /**

@@ -21,14 +21,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Edge;
-import edu.princeton.cs.algs4.FlowEdge;
-import edu.princeton.cs.algs4.FlowNetwork;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.IndexMaxPQ;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.UF;
-
 /**
  *  The {@code GlobalMincut} class represents a data type for computing a
  *  <em>global minimum cut</em> in a graph with non-negative edge weights.
@@ -110,7 +102,7 @@ public class GlobalMincut {
      */
     private void validate(EdgeWeightedGraph G) {
         if (G.V() < 2) throw new IllegalArgumentException("number of vertices of G is less than 2");
-        for (edu.princeton.cs.algs4.Edge e : G.edges()) {
+        for (Edge e : G.edges()) {
             if (e.weight() < 0) throw new IllegalArgumentException("edge " + e + " has negative weight");
         }
     }
@@ -151,7 +143,7 @@ public class GlobalMincut {
      * @param t the vertex {@code t}
      * @param uf the union-find data type
      */
-    private void makeCut(int t, edu.princeton.cs.algs4.UF uf) {
+    private void makeCut(int t, UF uf) {
         for (int v = 0; v < cut.length; v++) {
             cut[v] = (uf.find(v) == uf.find(t));
         }
@@ -166,7 +158,7 @@ public class GlobalMincut {
      * @param a the starting vertex
      */
     private void minCut(EdgeWeightedGraph G, int a) {
-        edu.princeton.cs.algs4.UF uf = new UF(G.V());
+        UF uf = new UF(G.V());
         boolean[] marked = new boolean[G.V()];
         cut = new boolean[G.V()];
         CutPhase cp = new CutPhase(0.0, a, a);
@@ -196,7 +188,7 @@ public class GlobalMincut {
      * @return the cut-of-the-phase
      */
     private void minCutPhase(EdgeWeightedGraph G, boolean[] marked, CutPhase cp) {
-        edu.princeton.cs.algs4.IndexMaxPQ<Double> pq = new IndexMaxPQ<Double>(G.V());
+        IndexMaxPQ<Double> pq = new IndexMaxPQ<Double>(G.V());
         for (int v = 0; v < G.V(); v++) {
             if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
         }
@@ -205,13 +197,13 @@ public class GlobalMincut {
             int v = pq.delMax();
             cp.s = cp.t;
             cp.t = v;
-            for (edu.princeton.cs.algs4.Edge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 int w = e.other(v);
                 if (pq.contains(w)) pq.increaseKey(w, pq.keyOf(w) + e.weight());
             }
         }
         cp.weight = 0.0;
-        for (edu.princeton.cs.algs4.Edge e : G.adj(cp.t)) {
+        for (Edge e : G.adj(cp.t)) {
             cp.weight += e.weight();
         }
     }
@@ -229,13 +221,13 @@ public class GlobalMincut {
     private EdgeWeightedGraph contractEdge(EdgeWeightedGraph G, int s, int t) {
         EdgeWeightedGraph H = new EdgeWeightedGraph(G.V());
         for (int v = 0; v < G.V(); v++) {
-            for (edu.princeton.cs.algs4.Edge e : G.adj(v)) {
+            for (Edge e : G.adj(v)) {
                 int w = e.other(v);
                 if (v == s && w == t || v == t && w == s) continue;
                 if (v < w) {
-                    if (w == t)      H.addEdge(new edu.princeton.cs.algs4.Edge(v, s, e.weight()));
-                    else if (v == t) H.addEdge(new edu.princeton.cs.algs4.Edge(w, s, e.weight()));
-                    else             H.addEdge(new edu.princeton.cs.algs4.Edge(v, w, e.weight()));
+                    if (w == t)      H.addEdge(new Edge(v, s, e.weight()));
+                    else if (v == t) H.addEdge(new Edge(w, s, e.weight()));
+                    else             H.addEdge(new Edge(v, w, e.weight()));
                 }
             }
         }
@@ -255,10 +247,10 @@ public class GlobalMincut {
         // so it suffices to try all pairs s-v for some fixed s
         double value = Double.POSITIVE_INFINITY;
         for (int s = 0, t = 1; t < G.V(); t++) {
-            edu.princeton.cs.algs4.FlowNetwork F = new FlowNetwork(G.V());
+            FlowNetwork F = new FlowNetwork(G.V());
             for (Edge e : G.edges()) {
                 int v = e.either(), w = e.other(v);
-                F.addEdge(new edu.princeton.cs.algs4.FlowEdge(v, w, e.weight()));
+                F.addEdge(new FlowEdge(v, w, e.weight()));
                 F.addEdge(new FlowEdge(w, v, e.weight()));
             }
             FordFulkerson maxflow = new FordFulkerson(F, s, t);
@@ -284,14 +276,14 @@ public class GlobalMincut {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         GlobalMincut mc = new GlobalMincut(G);
-        edu.princeton.cs.algs4.StdOut.print("Min cut: ");
+        StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {
-            if (mc.cut(v)) edu.princeton.cs.algs4.StdOut.print(v + " ");
+            if (mc.cut(v)) StdOut.print(v + " ");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
         StdOut.println("Min cut weight = " + mc.weight());
     }
 }

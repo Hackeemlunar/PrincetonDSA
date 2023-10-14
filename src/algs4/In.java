@@ -9,8 +9,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdIn;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;

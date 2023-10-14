@@ -29,12 +29,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.*;
-
 import java.util.NoSuchElementException;
 
 /**

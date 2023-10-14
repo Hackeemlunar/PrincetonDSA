@@ -9,9 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code Inversions} class provides static methods to count the
  *  number of <em>inversions</em> in either an array of integers or comparables.
@@ -174,7 +171,7 @@ public class Inversions {
         Integer[] b = new Integer[n];
         for (int i = 0; i < n; i++)
             b[i] = a[i];
-        edu.princeton.cs.algs4.StdOut.println(Inversions.count(a));
+        StdOut.println(Inversions.count(a));
         StdOut.println(Inversions.count(b));
     }
 }

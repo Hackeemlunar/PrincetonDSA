@@ -9,8 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -231,27 +229,27 @@ public class Interval1D {
         intervals[2] = new Interval1D(20.0, 70.0);
         intervals[3] = new Interval1D(46.0, 55.0);
 
-        edu.princeton.cs.algs4.StdOut.println("Unsorted");
+        StdOut.println("Unsorted");
         for (int i = 0; i < intervals.length; i++)
-            edu.princeton.cs.algs4.StdOut.println(intervals[i]);
-        edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println(intervals[i]);
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("Sort by min endpoint");
+        StdOut.println("Sort by min endpoint");
         Arrays.sort(intervals, Interval1D.MIN_ENDPOINT_ORDER);
         for (int i = 0; i < intervals.length; i++)
-            edu.princeton.cs.algs4.StdOut.println(intervals[i]);
-        edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println(intervals[i]);
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("Sort by max endpoint");
+        StdOut.println("Sort by max endpoint");
         Arrays.sort(intervals, Interval1D.MAX_ENDPOINT_ORDER);
         for (int i = 0; i < intervals.length; i++)
-            edu.princeton.cs.algs4.StdOut.println(intervals[i]);
-        edu.princeton.cs.algs4.StdOut.println();
+            StdOut.println(intervals[i]);
+        StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.println("Sort by length");
+        StdOut.println("Sort by length");
         Arrays.sort(intervals, Interval1D.LENGTH_ORDER);
         for (int i = 0; i < intervals.length; i++)
-            edu.princeton.cs.algs4.StdOut.println(intervals[i]);
+            StdOut.println(intervals[i]);
         StdOut.println();
     }
 }

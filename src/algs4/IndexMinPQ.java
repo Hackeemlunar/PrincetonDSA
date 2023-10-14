@@ -9,8 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -354,9 +352,9 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
         // delete and print each key
         while (!pq.isEmpty()) {
             int i = pq.delMin();
-            edu.princeton.cs.algs4.StdOut.println(i + " " + strings[i]);
+            StdOut.println(i + " " + strings[i]);
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         // reinsert the same strings
         for (int i = 0; i < strings.length; i++) {

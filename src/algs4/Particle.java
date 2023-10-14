@@ -10,9 +10,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdDraw;
-
-import java.awt.*;
+import java.awt.Color;
 
 /**
  *  The {@code Particle} class represents a particle moving in the unit box,

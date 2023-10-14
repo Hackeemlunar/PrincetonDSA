@@ -31,8 +31,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.StdOut;
-
 /**
  *  The {@code KMP} class finds the first occurrence of a pattern string
  *  in a text string.

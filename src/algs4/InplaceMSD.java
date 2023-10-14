@@ -27,9 +27,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code InplaceMSD} class provides static methods for sorting an
  *  array of extended ASCII strings using in-place MSD radix sort.

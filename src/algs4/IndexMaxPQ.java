@@ -9,9 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -354,14 +351,14 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
         // print each key using the iterator
         for (int i : pq) {
-            edu.princeton.cs.algs4.StdOut.println(i + " " + strings[i]);
+            StdOut.println(i + " " + strings[i]);
         }
 
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         // increase or decrease the key
         for (int i = 0; i < strings.length; i++) {
-            if (edu.princeton.cs.algs4.StdRandom.bernoulli(0.5))
+            if (StdRandom.bernoulli(0.5))
                 pq.increaseKey(i, strings[i] + strings[i]);
             else
                 pq.decreaseKey(i, strings[i].substring(0, 1));
@@ -371,9 +368,9 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
         while (!pq.isEmpty()) {
             String key = pq.maxKey();
             int i = pq.delMax();
-            edu.princeton.cs.algs4.StdOut.println(i + " " + key);
+            StdOut.println(i + " " + key);
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        StdOut.println();
 
         // reinsert the same strings
         for (int i = 0; i < strings.length; i++) {

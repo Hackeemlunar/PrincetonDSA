@@ -36,11 +36,6 @@
 
 package algs4;
 
-import algs4IMPL.AB.Stack;
-import algs4IMPL.AB.StdOut;
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.In;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -56,7 +51,7 @@ import java.util.NoSuchElementException;
  *  of <em>v</em>.
  *  <p>
  *  This implementation uses an <em>adjacency-lists representation</em>, which
- *  is a vertex-indexed array of {@link edu.princeton.cs.algs4.Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
  *  the number of edges and <em>V</em> is the number of vertices.
  *  All instance methods take &Theta;(1) time. (Though, iterating over
@@ -78,7 +73,7 @@ public class Graph {
 
     private final int V;
     private int E;
-    private edu.princeton.cs.algs4.Bag<Integer>[] adj;
+    private Bag<Integer>[] adj;
 
     /**
      * Initializes an empty graph with {@code V} vertices and 0 edges.
@@ -91,9 +86,9 @@ public class Graph {
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be non-negative");
         this.V = V;
         this.E = 0;
-        adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new edu.princeton.cs.algs4.Bag<Integer>();
+            adj[v] = new Bag<Integer>();
         }
     }
 
@@ -109,14 +104,14 @@ public class Graph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public Graph(edu.princeton.cs.algs4.In in) {
+    public Graph(In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
         try {
             this.V = in.readInt();
             if (V < 0) throw new IllegalArgumentException("number of vertices in a Graph must be non-negative");
-            adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+            adj = (Bag<Integer>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new edu.princeton.cs.algs4.Bag<Integer>();
+                adj[v] = new Bag<Integer>();
             }
             int E = in.readInt();
             if (E < 0) throw new IllegalArgumentException("number of edges in a Graph must be non-negative");
@@ -146,7 +141,7 @@ public class Graph {
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be non-negative");
 
         // update adjacency lists
-        adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
             adj[v] = new Bag<Integer>();
         }
@@ -254,7 +249,7 @@ public class Graph {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        In in = new In(args[0]);
         Graph G = new Graph(in);
         StdOut.println(G);
     }

@@ -25,9 +25,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code Multiway} class provides a client for reading in several
  *  sorted text files and merging them together into a single sorted
@@ -48,7 +45,7 @@ public class Multiway {
     private Multiway() { }
 
     // merge together the sorted input streams and write the sorted result to standard output
-    private static void merge(edu.princeton.cs.algs4.In[] streams) {
+    private static void merge(In[] streams) {
         int n = streams.length;
         IndexMinPQ<String> pq = new IndexMinPQ<String>(n);
         for (int i = 0; i < n; i++)
@@ -57,7 +54,7 @@ public class Multiway {
 
         // Extract and print min and read next from its stream.
         while (!pq.isEmpty()) {
-            edu.princeton.cs.algs4.StdOut.print(pq.minKey() + " ");
+            StdOut.print(pq.minKey() + " ");
             int i = pq.delMin();
             if (!streams[i].isEmpty())
                 pq.insert(i, streams[i].readString());
@@ -76,7 +73,7 @@ public class Multiway {
      */
     public static void main(String[] args) {
         int n = args.length;
-        edu.princeton.cs.algs4.In[] streams = new edu.princeton.cs.algs4.In[n];
+        In[] streams = new In[n];
         for (int i = 0; i < n; i++)
             streams[i] = new In(args[i]);
         merge(streams);
