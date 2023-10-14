@@ -8,8 +8,6 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.Picture;
-
 /**
  *  <p><b>Overview.</b>
  *  The {@code StdPicture} class provides a basic capability for manipulating

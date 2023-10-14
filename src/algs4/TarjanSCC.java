@@ -23,11 +23,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.*;
-
 /**
  *  The {@code TarjanSCC} class represents a data type for
  *  determining the strong components in a digraph.
@@ -48,7 +43,7 @@ import edu.princeton.cs.algs4.*;
  *  Each instance method takes &Theta;(1) time.
  *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
  *  For alternative implementations of the same API, see
- *  {@link KosarajuSharirSCC} and {@link algs4.GabowSCC}.
+ *  {@link KosarajuSharirSCC} and {@link GabowSCC}.
  *  <p>
  *  For additional documentation,
  *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
@@ -167,7 +162,7 @@ public class TarjanSCC {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        algs4.In in = new algs4.In(args[0]);
+        In in = new In(args[0]);
         Digraph G = new Digraph(in);
         TarjanSCC scc = new TarjanSCC(G);
 

@@ -33,9 +33,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  <p><b>Overview.</b>
  *  The {@code StdStats} class provides static methods for computing

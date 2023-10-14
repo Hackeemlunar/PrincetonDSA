@@ -13,8 +13,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code Stopwatch} data type is for measuring
  *  the time that elapses between the start and end of a

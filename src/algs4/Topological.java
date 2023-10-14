@@ -28,9 +28,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code Topological} class represents a data type for
  *  determining a topological order of a <em>directed acyclic graph</em> (DAG).

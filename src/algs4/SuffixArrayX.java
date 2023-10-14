@@ -28,10 +28,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.SuffixArray;
-
 /**
  *  The {@code SuffixArrayX} class represents a suffix array of a string of
  *  length <em>n</em>.
@@ -153,7 +149,7 @@ public class SuffixArrayX {
      * That is, {@code text.substring(sa.index(i))} is the <em>i</em> smallest suffix.
      * @param i an integer between 0 and <em>n</em>-1
      * @return the index into the original string of the <em>i</em>th smallest suffix
-     * @throws IllegalArgumentException unless {@code 0 <=i < n}
+     * @throws java.lang.IllegalArgumentException unless {@code 0 <=i < n}
      */
     public int index(int i) {
         if (i < 0 || i >= n) throw new IllegalArgumentException();
@@ -166,7 +162,7 @@ public class SuffixArrayX {
      * @param i an integer between 1 and <em>n</em>-1
      * @return the length of the longest common prefix of the <em>i</em>th
      * smallest suffix and the <em>i</em>-1st smallest suffix.
-     * @throws IllegalArgumentException unless {@code 1 <= i < n}
+     * @throws java.lang.IllegalArgumentException unless {@code 1 <= i < n}
      */
     public int lcp(int i) {
         if (i < 1 || i >= n) throw new IllegalArgumentException();
@@ -189,7 +185,7 @@ public class SuffixArrayX {
      * Returns the <em>i</em>th smallest suffix as a string.
      * @param i the index
      * @return the <em>i</em> smallest suffix as a string
-     * @throws IllegalArgumentException unless {@code 0 <= i < n}
+     * @throws java.lang.IllegalArgumentException unless {@code 0 <= i < n}
      */
     public String select(int i) {
         if (i < 0 || i >= n) throw new IllegalArgumentException();

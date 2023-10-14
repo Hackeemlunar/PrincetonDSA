@@ -27,9 +27,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  The {@code ThreeSum} class provides static methods for counting
  *  and printing the number of triples in an array of integers that sum to 0

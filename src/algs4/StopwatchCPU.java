@@ -14,11 +14,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.Stopwatch;
-
-import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
+import java.lang.management.ManagementFactory;
 
 /**
  *  The {@code StopwatchCPU} data type is for measuring

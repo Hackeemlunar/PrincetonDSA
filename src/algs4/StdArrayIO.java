@@ -49,9 +49,6 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 /**
  *  <i>Standard array IO</i>. This class provides methods for reading
  *  in 1D and 2D arrays from standard input and printing out to

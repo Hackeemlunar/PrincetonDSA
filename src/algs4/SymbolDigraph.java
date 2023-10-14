@@ -18,11 +18,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.*;
-
 /**
  *  The {@code SymbolDigraph} class represents a digraph, where the
  *  vertex names are arbitrary strings.
@@ -63,7 +58,7 @@ public class SymbolDigraph {
 
         // First pass builds the index by reading strings to associate
         // distinct strings with an index
-        algs4.In in = new algs4.In(filename);
+        In in = new In(filename);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(delimiter);
             for (int i = 0; i < a.length; i++) {

@@ -9,9 +9,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Date;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -28,7 +25,7 @@ import java.util.Comparator;
  */
 public class Transaction implements Comparable<Transaction> {
     private final String  who;      // customer
-    private final Date when;     // date
+    private final Date    when;     // date
     private final double  amount;   // amount
 
 
@@ -199,19 +196,19 @@ public class Transaction implements Comparable<Transaction> {
         StdOut.println();
 
         StdOut.println("Sort by date");
-        Arrays.sort(a, new WhenOrder());
+        Arrays.sort(a, new Transaction.WhenOrder());
         for (int i = 0; i < a.length; i++)
             StdOut.println(a[i]);
         StdOut.println();
 
         StdOut.println("Sort by customer");
-        Arrays.sort(a, new WhoOrder());
+        Arrays.sort(a, new Transaction.WhoOrder());
         for (int i = 0; i < a.length; i++)
             StdOut.println(a[i]);
         StdOut.println();
 
         StdOut.println("Sort by amount");
-        Arrays.sort(a, new HowMuchOrder());
+        Arrays.sort(a, new Transaction.HowMuchOrder());
         for (int i = 0; i < a.length; i++)
             StdOut.println(a[i]);
         StdOut.println();
