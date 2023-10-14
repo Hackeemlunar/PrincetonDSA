@@ -18,10 +18,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.Particle;
-import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdIn;
+import algs4IMPL.AB.MinPQ;
+import algs4IMPL.AB.Particle;
+import algs4IMPL.AB.StdDraw;
+import algs4IMPL.AB.StdIn;
 
 import java.awt.Color;
 
@@ -40,9 +40,9 @@ import java.awt.Color;
 public class CollisionSystem {
     private static final double HZ = 0.5;    // number of redraw events per clock tick
 
-    private edu.princeton.cs.algs4.MinPQ<Event> pq;          // the priority queue
+    private algs4IMPL.AB.MinPQ<Event> pq;          // the priority queue
     private double t  = 0.0;          // simulation clock time
-    private edu.princeton.cs.algs4.Particle[] particles;     // the array of particles
+    private algs4IMPL.AB.Particle[] particles;     // the array of particles
 
     /**
      * Initializes a system with the specified collection of particles.
@@ -50,12 +50,12 @@ public class CollisionSystem {
      *
      * @param  particles the array of particles
      */
-    public CollisionSystem(edu.princeton.cs.algs4.Particle[] particles) {
+    public CollisionSystem(algs4IMPL.AB.Particle[] particles) {
         this.particles = particles.clone();   // defensive copy
     }
 
     // updates priority queue with all new events for particle a
-    private void predict(edu.princeton.cs.algs4.Particle a, double limit) {
+    private void predict(algs4IMPL.AB.Particle a, double limit) {
         if (a == null) return;
 
         // particle-particle collisions
@@ -74,12 +74,12 @@ public class CollisionSystem {
 
     // redraw all particles
     private void redraw(double limit) {
-        edu.princeton.cs.algs4.StdDraw.clear();
+        algs4IMPL.AB.StdDraw.clear();
         for (int i = 0; i < particles.length; i++) {
             particles[i].draw();
         }
-        edu.princeton.cs.algs4.StdDraw.show();
-        edu.princeton.cs.algs4.StdDraw.pause(20);
+        algs4IMPL.AB.StdDraw.show();
+        algs4IMPL.AB.StdDraw.pause(20);
         if (t < limit) {
             pq.insert(new Event(t + 1.0 / HZ, null, null));
         }
@@ -107,8 +107,8 @@ public class CollisionSystem {
             // get impending event, discard if invalidated
             Event e = pq.delMin();
             if (!e.isValid()) continue;
-            edu.princeton.cs.algs4.Particle a = e.a;
-            edu.princeton.cs.algs4.Particle b = e.b;
+            algs4IMPL.AB.Particle a = e.a;
+            algs4IMPL.AB.Particle b = e.b;
 
             // physical collision, so update positions, and then simulation clock
             for (int i = 0; i < particles.length; i++)
@@ -141,12 +141,12 @@ public class CollisionSystem {
     ***************************************************************************/
     private static class Event implements Comparable<Event> {
         private final double time;         // time that event is scheduled to occur
-        private final edu.princeton.cs.algs4.Particle a, b;       // particles involved in event, possibly null
+        private final algs4IMPL.AB.Particle a, b;       // particles involved in event, possibly null
         private final int countA, countB;  // collision counts at event creation
 
 
         // create a new event to occur at time t involving a and b
-        public Event(double t, edu.princeton.cs.algs4.Particle a, edu.princeton.cs.algs4.Particle b) {
+        public Event(double t, algs4IMPL.AB.Particle a, algs4IMPL.AB.Particle b) {
             this.time = t;
             this.a    = a;
             this.b    = b;
@@ -181,35 +181,35 @@ public class CollisionSystem {
      */
     public static void main(String[] args) {
 
-        edu.princeton.cs.algs4.StdDraw.setCanvasSize(600, 600);
+        algs4IMPL.AB.StdDraw.setCanvasSize(600, 600);
 
         // enable double buffering
         StdDraw.enableDoubleBuffering();
 
         // the array of particles
-        edu.princeton.cs.algs4.Particle[] particles;
+        algs4IMPL.AB.Particle[] particles;
 
         // create n random particles
         if (args.length == 1) {
             int n = Integer.parseInt(args[0]);
-            particles = new edu.princeton.cs.algs4.Particle[n];
+            particles = new algs4IMPL.AB.Particle[n];
             for (int i = 0; i < n; i++)
-                particles[i] = new edu.princeton.cs.algs4.Particle();
+                particles[i] = new algs4IMPL.AB.Particle();
         }
 
         // or read from standard input
         else {
-            int n = edu.princeton.cs.algs4.StdIn.readInt();
-            particles = new edu.princeton.cs.algs4.Particle[n];
+            int n = algs4IMPL.AB.StdIn.readInt();
+            particles = new algs4IMPL.AB.Particle[n];
             for (int i = 0; i < n; i++) {
-                double rx     = edu.princeton.cs.algs4.StdIn.readDouble();
-                double ry     = edu.princeton.cs.algs4.StdIn.readDouble();
-                double vx     = edu.princeton.cs.algs4.StdIn.readDouble();
-                double vy     = edu.princeton.cs.algs4.StdIn.readDouble();
-                double radius = edu.princeton.cs.algs4.StdIn.readDouble();
-                double mass   = edu.princeton.cs.algs4.StdIn.readDouble();
-                int r         = edu.princeton.cs.algs4.StdIn.readInt();
-                int g         = edu.princeton.cs.algs4.StdIn.readInt();
+                double rx     = algs4IMPL.AB.StdIn.readDouble();
+                double ry     = algs4IMPL.AB.StdIn.readDouble();
+                double vx     = algs4IMPL.AB.StdIn.readDouble();
+                double vy     = algs4IMPL.AB.StdIn.readDouble();
+                double radius = algs4IMPL.AB.StdIn.readDouble();
+                double mass   = algs4IMPL.AB.StdIn.readDouble();
+                int r         = algs4IMPL.AB.StdIn.readInt();
+                int g         = algs4IMPL.AB.StdIn.readInt();
                 int b         = StdIn.readInt();
                 Color color   = new Color(r, g, b);
                 particles[i] = new Particle(rx, ry, vx, vy, radius, mass, color);

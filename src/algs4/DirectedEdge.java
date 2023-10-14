@@ -10,7 +10,7 @@
 package algs4;
 
 import algs4IMPL.AB.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DirectedEdge} class represents a weighted edge in an

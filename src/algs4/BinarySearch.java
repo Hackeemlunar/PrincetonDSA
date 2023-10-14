@@ -25,9 +25,9 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 import java.util.Arrays;
 
@@ -95,14 +95,14 @@ public class BinarySearch {
     public static void main(String[] args) {
 
         // read the integers from a file
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        algs4IMPL.AB.In in = new In(args[0]);
         int[] allowlist = in.readAllInts();
 
         // sort the array
         Arrays.sort(allowlist);
 
         // read integer key from standard input; print if not in allowlist
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             int key = StdIn.readInt();
             if (BinarySearch.indexOf(allowlist, key) == -1)
                 StdOut.println(key);

@@ -29,10 +29,9 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.Stack;
+import algs4IMPL.AB.StdOut;
 
 import java.util.NoSuchElementException;
 
@@ -48,7 +47,7 @@ import java.util.NoSuchElementException;
  *  Parallel edges and self-loops are permitted.
  *  <p>
  *  This implementation uses an <em>adjacency-lists representation</em>, which
- *  is a vertex-indexed array of {@link edu.princeton.cs.algs4.Bag} objects.
+ *  is a vertex-indexed array of {@link Bag} objects.
  *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
  *  the number of edges and <em>V</em> is the number of vertices.
  *  The <code>reverse()</code> method takes &Theta;(<em>E</em> + <em>V</em>) time
@@ -72,7 +71,7 @@ public class Digraph {
 
     private final int V;           // number of vertices in this digraph
     private int E;                 // number of edges in this digraph
-    private edu.princeton.cs.algs4.Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
+    private Bag<Integer>[] adj;    // adj[v] = adjacency list for vertex v
     private int[] indegree;        // indegree[v] = indegree of vertex v
 
     /**
@@ -86,9 +85,9 @@ public class Digraph {
         this.V = V;
         this.E = 0;
         indegree = new int[V];
-        adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
-            adj[v] = new edu.princeton.cs.algs4.Bag<Integer>();
+            adj[v] = new Bag<Integer>();
         }
     }
 
@@ -104,15 +103,15 @@ public class Digraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      * @throws IllegalArgumentException if the input stream is in the wrong format
      */
-    public Digraph(edu.princeton.cs.algs4.In in) {
+    public Digraph(algs4IMPL.AB.In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
         try {
             this.V = in.readInt();
             if (V < 0) throw new IllegalArgumentException("number of vertices in a Digraph must be non-negative");
             indegree = new int[V];
-            adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+            adj = (Bag<Integer>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new edu.princeton.cs.algs4.Bag<Integer>();
+                adj[v] = new Bag<Integer>();
             }
             int E = in.readInt();
             if (E < 0) throw new IllegalArgumentException("number of edges in a Digraph must be non-negative");
@@ -146,14 +145,14 @@ public class Digraph {
             this.indegree[v] = G.indegree(v);
 
         // update adjacency lists
-        adj = (edu.princeton.cs.algs4.Bag<Integer>[]) new edu.princeton.cs.algs4.Bag[V];
+        adj = (Bag<Integer>[]) new Bag[V];
         for (int v = 0; v < V; v++) {
             adj[v] = new Bag<Integer>();
         }
 
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            edu.princeton.cs.algs4.Stack<Integer> reverse = new Stack<Integer>();
+            algs4IMPL.AB.Stack<Integer> reverse = new Stack<Integer>();
             for (int w : G.adj[v]) {
                 reverse.push(w);
             }
@@ -281,7 +280,7 @@ public class Digraph {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        algs4IMPL.AB.In in = new In(args[0]);
         Digraph G = new Digraph(in);
         StdOut.println(G);
     }

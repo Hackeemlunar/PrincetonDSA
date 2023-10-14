@@ -51,11 +51,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.BreadthFirstPaths;
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.SymbolGraph;
+import algs4IMPL.AB.Graph;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
+import algs4IMPL.AB.SymbolGraph;
 
 /**
  *  The {@code DegreesOfSeparation} class provides a client for finding
@@ -104,27 +103,27 @@ public class DegreesOfSeparation {
 
         // StdOut.println("Source: " + source);
 
-        edu.princeton.cs.algs4.SymbolGraph sg = new SymbolGraph(filename, delimiter);
+        algs4IMPL.AB.SymbolGraph sg = new SymbolGraph(filename, delimiter);
         Graph G = sg.graph();
         if (!sg.contains(source)) {
-            edu.princeton.cs.algs4.StdOut.println(source + " not in database.");
+            algs4IMPL.AB.StdOut.println(source + " not in database.");
             return;
         }
 
         int s = sg.indexOf(source);
-        edu.princeton.cs.algs4.BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
+        BreadthFirstPaths bfs = new BreadthFirstPaths(G, s);
 
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             String sink = StdIn.readLine();
             if (sg.contains(sink)) {
                 int t = sg.indexOf(sink);
                 if (bfs.hasPathTo(t)) {
                     for (int v : bfs.pathTo(t)) {
-                        edu.princeton.cs.algs4.StdOut.println("   " + sg.nameOf(v));
+                        algs4IMPL.AB.StdOut.println("   " + sg.nameOf(v));
                     }
                 }
                 else {
-                    edu.princeton.cs.algs4.StdOut.println("Not connected");
+                    algs4IMPL.AB.StdOut.println("Not connected");
                 }
             }
             else {

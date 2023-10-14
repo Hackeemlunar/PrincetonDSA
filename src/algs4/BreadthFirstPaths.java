@@ -41,11 +41,7 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code BreadthFirstPaths} class represents a data type for finding
@@ -80,7 +76,7 @@ public class BreadthFirstPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BreadthFirstPaths(edu.princeton.cs.algs4.Graph G, int s) {
+    public BreadthFirstPaths(algs4IMPL.AB.Graph G, int s) {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
@@ -100,7 +96,7 @@ public class BreadthFirstPaths {
      * @throws IllegalArgumentException unless {@code 0 <= s < V} for each vertex
      *         {@code s} in {@code sources}
      */
-    public BreadthFirstPaths(edu.princeton.cs.algs4.Graph G, Iterable<Integer> sources) {
+    public BreadthFirstPaths(algs4IMPL.AB.Graph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
@@ -112,8 +108,8 @@ public class BreadthFirstPaths {
 
 
     // breadth-first search from a single source
-    private void bfs(edu.princeton.cs.algs4.Graph G, int s) {
-        edu.princeton.cs.algs4.Queue<Integer> q = new edu.princeton.cs.algs4.Queue<Integer>();
+    private void bfs(algs4IMPL.AB.Graph G, int s) {
+        algs4IMPL.AB.Queue<Integer> q = new algs4IMPL.AB.Queue<Integer>();
         for (int v = 0; v < G.V(); v++)
             distTo[v] = INFINITY;
         distTo[s] = 0;
@@ -134,8 +130,8 @@ public class BreadthFirstPaths {
     }
 
     // breadth-first search from multiple sources
-    private void bfs(edu.princeton.cs.algs4.Graph G, Iterable<Integer> sources) {
-        edu.princeton.cs.algs4.Queue<Integer> q = new Queue<Integer>();
+    private void bfs(algs4IMPL.AB.Graph G, Iterable<Integer> sources) {
+        algs4IMPL.AB.Queue<Integer> q = new Queue<Integer>();
         for (int s : sources) {
             marked[s] = true;
             distTo[s] = 0;
@@ -188,7 +184,7 @@ public class BreadthFirstPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        edu.princeton.cs.algs4.Stack<Integer> path = new Stack<Integer>();
+        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
         int x;
         for (x = v; distTo[x] != 0; x = edgeTo[x])
             path.push(x);
@@ -198,11 +194,11 @@ public class BreadthFirstPaths {
 
 
     // check optimality conditions for single source
-    private boolean check(edu.princeton.cs.algs4.Graph G, int s) {
+    private boolean check(algs4IMPL.AB.Graph G, int s) {
 
         // check that the distance of s = 0
         if (distTo[s] != 0) {
-            edu.princeton.cs.algs4.StdOut.println("distance of source " + s + " to itself = " + distTo[s]);
+            algs4IMPL.AB.StdOut.println("distance of source " + s + " to itself = " + distTo[s]);
             return false;
         }
 
@@ -211,15 +207,15 @@ public class BreadthFirstPaths {
         for (int v = 0; v < G.V(); v++) {
             for (int w : G.adj(v)) {
                 if (hasPathTo(v) != hasPathTo(w)) {
-                    edu.princeton.cs.algs4.StdOut.println("edge " + v + "-" + w);
-                    edu.princeton.cs.algs4.StdOut.println("hasPathTo(" + v + ") = " + hasPathTo(v));
-                    edu.princeton.cs.algs4.StdOut.println("hasPathTo(" + w + ") = " + hasPathTo(w));
+                    algs4IMPL.AB.StdOut.println("edge " + v + "-" + w);
+                    algs4IMPL.AB.StdOut.println("hasPathTo(" + v + ") = " + hasPathTo(v));
+                    algs4IMPL.AB.StdOut.println("hasPathTo(" + w + ") = " + hasPathTo(w));
                     return false;
                 }
                 if (hasPathTo(v) && (distTo[w] > distTo[v] + 1)) {
-                    edu.princeton.cs.algs4.StdOut.println("edge " + v + "-" + w);
-                    edu.princeton.cs.algs4.StdOut.println("distTo[" + v + "] = " + distTo[v]);
-                    edu.princeton.cs.algs4.StdOut.println("distTo[" + w + "] = " + distTo[w]);
+                    algs4IMPL.AB.StdOut.println("edge " + v + "-" + w);
+                    algs4IMPL.AB.StdOut.println("distTo[" + v + "] = " + distTo[v]);
+                    algs4IMPL.AB.StdOut.println("distTo[" + w + "] = " + distTo[w]);
                     return false;
                 }
             }
@@ -231,9 +227,9 @@ public class BreadthFirstPaths {
             if (!hasPathTo(w) || w == s) continue;
             int v = edgeTo[w];
             if (distTo[w] != distTo[v] + 1) {
-                edu.princeton.cs.algs4.StdOut.println("shortest path edge " + v + "-" + w);
-                edu.princeton.cs.algs4.StdOut.println("distTo[" + v + "] = " + distTo[v]);
-                edu.princeton.cs.algs4.StdOut.println("distTo[" + w + "] = " + distTo[w]);
+                algs4IMPL.AB.StdOut.println("shortest path edge " + v + "-" + w);
+                algs4IMPL.AB.StdOut.println("distTo[" + v + "] = " + distTo[v]);
+                algs4IMPL.AB.StdOut.println("distTo[" + w + "] = " + distTo[w]);
                 return false;
             }
         }
@@ -273,8 +269,8 @@ public class BreadthFirstPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Graph G = new Graph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        algs4IMPL.AB.Graph G = new Graph(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);
@@ -282,12 +278,12 @@ public class BreadthFirstPaths {
 
         for (int v = 0; v < G.V(); v++) {
             if (bfs.hasPathTo(v)) {
-                edu.princeton.cs.algs4.StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
+                algs4IMPL.AB.StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
-                    if (x == s) edu.princeton.cs.algs4.StdOut.print(x);
-                    else        edu.princeton.cs.algs4.StdOut.print("-" + x);
+                    if (x == s) algs4IMPL.AB.StdOut.print(x);
+                    else        algs4IMPL.AB.StdOut.print("-" + x);
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                algs4IMPL.AB.StdOut.println();
             }
 
             else {

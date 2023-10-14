@@ -17,11 +17,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.Topological;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.Stack;
+import algs4IMPL.AB.StdOut;
+import algs4IMPL.AB.Topological;
 
 /**
  *  The {@code DirectedCycle} class represents a data type for
@@ -51,14 +50,14 @@ public class DirectedCycle {
     private boolean[] marked;        // marked[v] = has vertex v been marked?
     private int[] edgeTo;            // edgeTo[v] = previous vertex on path to v
     private boolean[] onStack;       // onStack[v] = is vertex on the stack?
-    private edu.princeton.cs.algs4.Stack<Integer> cycle;    // directed cycle (or null if no such cycle)
+    private algs4IMPL.AB.Stack<Integer> cycle;    // directed cycle (or null if no such cycle)
 
     /**
      * Determines whether the digraph {@code G} has a directed cycle and, if so,
      * finds such a cycle.
      * @param G the digraph
      */
-    public DirectedCycle(edu.princeton.cs.algs4.Digraph G) {
+    public DirectedCycle(Digraph G) {
         marked  = new boolean[G.V()];
         onStack = new boolean[G.V()];
         edgeTo  = new int[G.V()];
@@ -67,7 +66,7 @@ public class DirectedCycle {
     }
 
     // run DFS and find a directed cycle (if one exists)
-    private void dfs(edu.princeton.cs.algs4.Digraph G, int v) {
+    private void dfs(Digraph G, int v) {
         onStack[v] = true;
         marked[v] = true;
         for (int w : G.adj(v)) {
@@ -139,20 +138,20 @@ public class DirectedCycle {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        Digraph G = new Digraph(in);
 
         DirectedCycle finder = new DirectedCycle(G);
         if (finder.hasCycle()) {
-            edu.princeton.cs.algs4.StdOut.print("Directed cycle: ");
+            algs4IMPL.AB.StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                algs4IMPL.AB.StdOut.print(v + " ");
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            algs4IMPL.AB.StdOut.println();
         }
 
         else {
-            edu.princeton.cs.algs4.StdOut.println("No directed cycle");
+            algs4IMPL.AB.StdOut.println("No directed cycle");
         }
         StdOut.println();
     }

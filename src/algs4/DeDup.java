@@ -32,7 +32,9 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.SET;
+import algs4IMPL.AB.SET;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DeDup} class provides a client for reading in a sequence of
@@ -51,10 +53,10 @@ public class DeDup {
     private DeDup() { }
 
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.SET<String> set = new SET<String>();
+        algs4IMPL.AB.SET<String> set = new SET<String>();
 
         // read in strings and add to set
-        while (!StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             String key = StdIn.readString();
             if (!set.contains(key)) {
                 set.add(key);

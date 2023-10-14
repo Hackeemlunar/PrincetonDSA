@@ -14,7 +14,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdOut;
 
 public class Alphabet {
 
@@ -245,11 +245,11 @@ public class Alphabet {
     public static void main(String[] args) {
         int[]  encoded1 = Alphabet.BASE64.toIndices("NowIsTheTimeForAllGoodMen");
         String decoded1 = Alphabet.BASE64.toChars(encoded1);
-        edu.princeton.cs.algs4.StdOut.println(decoded1);
+        algs4IMPL.AB.StdOut.println(decoded1);
  
         int[]  encoded2 = Alphabet.DNA.toIndices("AACGAACGGTTTACCCCG");
         String decoded2 = Alphabet.DNA.toChars(encoded2);
-        edu.princeton.cs.algs4.StdOut.println(decoded2);
+        algs4IMPL.AB.StdOut.println(decoded2);
 
         int[]  encoded3 = Alphabet.DECIMAL.toIndices("01234567890123456789");
         String decoded3 = Alphabet.DECIMAL.toChars(encoded3);

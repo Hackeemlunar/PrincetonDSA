@@ -25,8 +25,7 @@
 
 package algs4;
 
-import algs4IMPL.AB.LinearProbingHashST;
-import edu.princeton.cs.algs4.ST;
+import algs4IMPL.AB.*;
 
 import java.util.NoSuchElementException;
 
@@ -406,7 +405,7 @@ public class BST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table in ascending order
      */
     public Iterable<Key> keys() {
-        if (isEmpty()) return new Queue<Key>();
+        if (isEmpty()) return new algs4IMPL.AB.Queue<Key>();
         return keys(min(), max());
     }
 
@@ -425,12 +424,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
 
-        Queue<Key> queue = new Queue<Key>();
+        algs4IMPL.AB.Queue<Key> queue = new algs4IMPL.AB.Queue<Key>();
         keys(root, queue, lo, hi);
         return queue;
     }
 
-    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+    private void keys(Node x, algs4IMPL.AB.Queue<Key> queue, Key lo, Key hi) {
         if (x == null) return;
         int cmplo = lo.compareTo(x.key);
         int cmphi = hi.compareTo(x.key);
@@ -477,8 +476,8 @@ public class BST<Key extends Comparable<Key>, Value> {
      * @return the keys in the BST in level order traversal
      */
     public Iterable<Key> levelOrder() {
-        Queue<Key> keys = new Queue<Key>();
-        Queue<Node> queue = new Queue<Node>();
+        algs4IMPL.AB.Queue<Key> keys = new algs4IMPL.AB.Queue<Key>();
+        algs4IMPL.AB.Queue<Node> queue = new Queue<Node>();
         queue.enqueue(root);
         while (!queue.isEmpty()) {
             Node x = queue.dequeue();
@@ -494,9 +493,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     *  Check integrity of BST data structure.
     ***************************************************************************/
     private boolean check() {
-        if (!isBST())            StdOut.println("Not in symmetric order");
-        if (!isSizeConsistent()) StdOut.println("Subtree counts not consistent");
-        if (!isRankConsistent()) StdOut.println("Ranks not consistent");
+        if (!isBST())            algs4IMPL.AB.StdOut.println("Not in symmetric order");
+        if (!isSizeConsistent()) algs4IMPL.AB.StdOut.println("Subtree counts not consistent");
+        if (!isRankConsistent()) algs4IMPL.AB.StdOut.println("Ranks not consistent");
         return isBST() && isSizeConsistent() && isRankConsistent();
     }
 
@@ -541,15 +540,15 @@ public class BST<Key extends Comparable<Key>, Value> {
      */
     public static void main(String[] args) {
         BST<String, Integer> st = new BST<String, Integer>();
-        for (int i = 0; !StdIn.isEmpty(); i++) {
+        for (int i = 0; !algs4IMPL.AB.StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);
         }
 
         for (String s : st.levelOrder())
-            StdOut.println(s + " " + st.get(s));
+            algs4IMPL.AB.StdOut.println(s + " " + st.get(s));
 
-        StdOut.println();
+        algs4IMPL.AB.StdOut.println();
 
         for (String s : st.keys())
             StdOut.println(s + " " + st.get(s));

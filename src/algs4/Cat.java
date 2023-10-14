@@ -27,7 +27,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.Out;
 
 /**
  *  The {@code Cat} class provides a client for concatenating the results
@@ -52,9 +53,9 @@ public class Cat {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Out out = new Out(args[args.length - 1]);
+        algs4IMPL.AB.Out out = new Out(args[args.length - 1]);
         for (int i = 0; i < args.length - 1; i++) {
-            edu.princeton.cs.algs4.In in = new In(args[i]);
+            algs4IMPL.AB.In in = new In(args[i]);
             String s = in.readAll();
             out.println(s);
             in.close();

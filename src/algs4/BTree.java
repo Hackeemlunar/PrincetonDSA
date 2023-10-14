@@ -15,6 +15,8 @@
 
 package algs4;
 
+import algs4IMPL.AB.StdOut;
+
 /**
  *  The {@code BTree} class represents an ordered symbol table of generic
  *  key-value pairs.
@@ -273,17 +275,17 @@ public class BTree<Key extends Comparable<Key>, Value>  {
         st.put("www.yahoo.com",        "216.109.118.65");
 
 
-        StdOut.println("cs.princeton.edu:  " + st.get("www.cs.princeton.edu"));
-        StdOut.println("hardvardsucks.com: " + st.get("www.harvardsucks.com"));
-        StdOut.println("simpsons.com:      " + st.get("www.simpsons.com"));
-        StdOut.println("apple.com:         " + st.get("www.apple.com"));
-        StdOut.println("ebay.com:          " + st.get("www.ebay.com"));
-        StdOut.println("dell.com:          " + st.get("www.dell.com"));
-        StdOut.println();
+        algs4IMPL.AB.StdOut.println("cs.princeton.edu:  " + st.get("www.cs.princeton.edu"));
+        algs4IMPL.AB.StdOut.println("hardvardsucks.com: " + st.get("www.harvardsucks.com"));
+        algs4IMPL.AB.StdOut.println("simpsons.com:      " + st.get("www.simpsons.com"));
+        algs4IMPL.AB.StdOut.println("apple.com:         " + st.get("www.apple.com"));
+        algs4IMPL.AB.StdOut.println("ebay.com:          " + st.get("www.ebay.com"));
+        algs4IMPL.AB.StdOut.println("dell.com:          " + st.get("www.dell.com"));
+        algs4IMPL.AB.StdOut.println();
 
-        StdOut.println("size:    " + st.size());
-        StdOut.println("height:  " + st.height());
-        StdOut.println(st);
+        algs4IMPL.AB.StdOut.println("size:    " + st.size());
+        algs4IMPL.AB.StdOut.println("height:  " + st.height());
+        algs4IMPL.AB.StdOut.println(st);
         StdOut.println();
     }
 

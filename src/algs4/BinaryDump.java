@@ -22,8 +22,9 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.HexDump;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.HexDump;
+import algs4IMPL.AB.PictureDump;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code BinaryDump} class provides a client for displaying the contents
@@ -67,11 +68,11 @@ public class BinaryDump {
                 BinaryStdIn.readBoolean();
                 continue;
             }
-            else if (count != 0 && count % bitsPerLine == 0) edu.princeton.cs.algs4.StdOut.println();
-            if (BinaryStdIn.readBoolean()) edu.princeton.cs.algs4.StdOut.print(1);
-            else                           edu.princeton.cs.algs4.StdOut.print(0);
+            else if (count != 0 && count % bitsPerLine == 0) algs4IMPL.AB.StdOut.println();
+            if (BinaryStdIn.readBoolean()) algs4IMPL.AB.StdOut.print(1);
+            else                           algs4IMPL.AB.StdOut.print(0);
         }
-        if (bitsPerLine != 0) edu.princeton.cs.algs4.StdOut.println();
+        if (bitsPerLine != 0) algs4IMPL.AB.StdOut.println();
         StdOut.println(count + " bits");
     }
 }

@@ -18,10 +18,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.Stopwatch;
-import edu.princeton.cs.algs4.ThreeSum;
+import algs4IMPL.AB.StdOut;
+import algs4IMPL.AB.StdRandom;
+import algs4IMPL.AB.Stopwatch;
+import algs4IMPL.AB.ThreeSum;
 
 /**
  *  The {@code DoublingRatio} class provides a client for measuring
@@ -51,7 +51,7 @@ public class DoublingRatio {
         for (int i = 0; i < n; i++) {
             a[i] = StdRandom.uniformInt(-MAXIMUM_INTEGER, MAXIMUM_INTEGER);
         }
-        edu.princeton.cs.algs4.Stopwatch timer = new Stopwatch();
+        algs4IMPL.AB.Stopwatch timer = new Stopwatch();
         int ignore = ThreeSum.count(a);
         return timer.elapsedTime();
     }

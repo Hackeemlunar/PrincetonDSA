@@ -30,6 +30,9 @@
 package algs4;
 
 import algs4IMPL.AB.LinkedBag;
+import algs4IMPL.AB.ResizingArrayBag;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -140,12 +143,12 @@ public class Bag<Item> implements Iterable<Item> {
      */
     public static void main(String[] args) {
         Bag<String> bag = new Bag<String>();
-        while (!StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             String item = StdIn.readString();
             bag.add(item);
         }
 
-        StdOut.println("size of bag = " + bag.size());
+        algs4IMPL.AB.StdOut.println("size of bag = " + bag.size());
         for (String s : bag) {
             StdOut.println(s);
         }

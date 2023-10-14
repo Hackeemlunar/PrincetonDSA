@@ -37,13 +37,7 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.DijkstraSP;
-import edu.princeton.cs.algs4.Edge;
-import edu.princeton.cs.algs4.EdgeWeightedGraph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.IndexMinPQ;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code DijkstraUndirectedSP} class represents a data type for solving
@@ -77,8 +71,8 @@ import edu.princeton.cs.algs4.StdOut;
  */
 public class DijkstraUndirectedSP {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
-    private edu.princeton.cs.algs4.Edge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
-    private edu.princeton.cs.algs4.IndexMinPQ<Double> pq;    // priority queue of vertices
+    private algs4IMPL.AB.Edge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
+    private algs4IMPL.AB.IndexMinPQ<Double> pq;    // priority queue of vertices
 
     /**
      * Computes a shortest-paths tree from the source vertex {@code s} to every
@@ -89,14 +83,14 @@ public class DijkstraUndirectedSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraUndirectedSP(edu.princeton.cs.algs4.EdgeWeightedGraph G, int s) {
-        for (edu.princeton.cs.algs4.Edge e : G.edges()) {
+    public DijkstraUndirectedSP(algs4IMPL.AB.EdgeWeightedGraph G, int s) {
+        for (algs4IMPL.AB.Edge e : G.edges()) {
             if (e.weight() < 0)
                 throw new IllegalArgumentException("edge " + e + " has negative weight");
         }
 
         distTo = new double[G.V()];
-        edgeTo = new edu.princeton.cs.algs4.Edge[G.V()];
+        edgeTo = new algs4IMPL.AB.Edge[G.V()];
 
         validateVertex(s);
 
@@ -109,7 +103,7 @@ public class DijkstraUndirectedSP {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.delMin();
-            for (edu.princeton.cs.algs4.Edge e : G.adj(v))
+            for (algs4IMPL.AB.Edge e : G.adj(v))
                 relax(e, v);
         }
 
@@ -118,7 +112,7 @@ public class DijkstraUndirectedSP {
     }
 
     // relax edge e and update pq if changed
-    private void relax(edu.princeton.cs.algs4.Edge e, int v) {
+    private void relax(algs4IMPL.AB.Edge e, int v) {
         int w = e.other(v);
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -164,12 +158,12 @@ public class DijkstraUndirectedSP {
      *         {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.Edge> pathTo(int v) {
+    public Iterable<algs4IMPL.AB.Edge> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.Edge> path = new Stack<edu.princeton.cs.algs4.Edge>();
+        algs4IMPL.AB.Stack<Edge> path = new Stack<Edge>();
         int x = v;
-        for (edu.princeton.cs.algs4.Edge e = edgeTo[v]; e != null; e = edgeTo[x]) {
+        for (algs4IMPL.AB.Edge e = edgeTo[v]; e != null; e = edgeTo[x]) {
             path.push(e);
             x = e.other(x);
         }
@@ -180,10 +174,10 @@ public class DijkstraUndirectedSP {
     // check optimality conditions:
     // (i) for all edges e = v-w:            distTo[w] <= distTo[v] + e.weight()
     // (ii) for all edge e = v-w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(edu.princeton.cs.algs4.EdgeWeightedGraph G, int s) {
+    private boolean check(algs4IMPL.AB.EdgeWeightedGraph G, int s) {
 
         // check that edge weights are non-negative
-        for (edu.princeton.cs.algs4.Edge e : G.edges()) {
+        for (algs4IMPL.AB.Edge e : G.edges()) {
             if (e.weight() < 0) {
                 System.err.println("negative edge weight detected");
                 return false;
@@ -205,7 +199,7 @@ public class DijkstraUndirectedSP {
 
         // check that all edges e = v-w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
-            for (edu.princeton.cs.algs4.Edge e : G.adj(v)) {
+            for (algs4IMPL.AB.Edge e : G.adj(v)) {
                 int w = e.other(v);
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
@@ -217,7 +211,7 @@ public class DijkstraUndirectedSP {
         // check that all edges e = v-w on SPT satisfy distTo[w] == distTo[v] + e.weight()
         for (int w = 0; w < G.V(); w++) {
             if (edgeTo[w] == null) continue;
-            edu.princeton.cs.algs4.Edge e = edgeTo[w];
+            algs4IMPL.AB.Edge e = edgeTo[w];
             if (w != e.either() && w != e.other(e.either())) return false;
             int v = e.other(w);
             if (distTo[v] + e.weight() != distTo[w]) {
@@ -241,8 +235,8 @@ public class DijkstraUndirectedSP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.EdgeWeightedGraph G = new EdgeWeightedGraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        algs4IMPL.AB.EdgeWeightedGraph G = new EdgeWeightedGraph(in);
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths
@@ -252,11 +246,11 @@ public class DijkstraUndirectedSP {
         // print shortest path
         for (int t = 0; t < G.V(); t++) {
             if (sp.hasPathTo(t)) {
-                edu.princeton.cs.algs4.StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
+                algs4IMPL.AB.StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
                 for (Edge e : sp.pathTo(t)) {
-                    edu.princeton.cs.algs4.StdOut.print(e + "   ");
+                    algs4IMPL.AB.StdOut.print(e + "   ");
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                algs4IMPL.AB.StdOut.println();
             }
             else {
                 StdOut.printf("%d to %d         no path\n", s, t);

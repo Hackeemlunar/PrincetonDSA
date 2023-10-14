@@ -30,10 +30,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.Graph;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.Stack;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DepthFirstPaths} class represents a data type for finding
@@ -65,7 +65,7 @@ public class DepthFirstPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstPaths(edu.princeton.cs.algs4.Graph G, int s) {
+    public DepthFirstPaths(algs4IMPL.AB.Graph G, int s) {
         this.s = s;
         edgeTo = new int[G.V()];
         marked = new boolean[G.V()];
@@ -74,7 +74,7 @@ public class DepthFirstPaths {
     }
 
     // depth first search from v
-    private void dfs(edu.princeton.cs.algs4.Graph G, int v) {
+    private void dfs(algs4IMPL.AB.Graph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
             if (!marked[w]) {
@@ -106,7 +106,7 @@ public class DepthFirstPaths {
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        edu.princeton.cs.algs4.Stack<Integer> path = new Stack<Integer>();
+        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
         for (int x = v; x != s; x = edgeTo[x])
             path.push(x);
         path.push(s);
@@ -126,19 +126,19 @@ public class DepthFirstPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Graph G = new Graph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        algs4IMPL.AB.Graph G = new Graph(in);
         int s = Integer.parseInt(args[1]);
         DepthFirstPaths dfs = new DepthFirstPaths(G, s);
 
         for (int v = 0; v < G.V(); v++) {
             if (dfs.hasPathTo(v)) {
-                edu.princeton.cs.algs4.StdOut.printf("%d to %d:  ", s, v);
+                algs4IMPL.AB.StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
-                    if (x == s) edu.princeton.cs.algs4.StdOut.print(x);
-                    else        edu.princeton.cs.algs4.StdOut.print("-" + x);
+                    if (x == s) algs4IMPL.AB.StdOut.print(x);
+                    else        algs4IMPL.AB.StdOut.print("-" + x);
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                algs4IMPL.AB.StdOut.println();
             }
 
             else {

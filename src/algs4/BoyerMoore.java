@@ -32,7 +32,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code BoyerMoore} class finds the first occurrence of a pattern string
@@ -160,16 +160,16 @@ public class BoyerMoore {
         int offset2 = boyermoore2.search(text);
 
         // print results
-        edu.princeton.cs.algs4.StdOut.println("text:    " + txt);
+        algs4IMPL.AB.StdOut.println("text:    " + txt);
 
-        edu.princeton.cs.algs4.StdOut.print("pattern: ");
+        algs4IMPL.AB.StdOut.print("pattern: ");
         for (int i = 0; i < offset1; i++)
-            edu.princeton.cs.algs4.StdOut.print(" ");
-        edu.princeton.cs.algs4.StdOut.println(pat);
+            algs4IMPL.AB.StdOut.print(" ");
+        algs4IMPL.AB.StdOut.println(pat);
 
-        edu.princeton.cs.algs4.StdOut.print("pattern: ");
+        algs4IMPL.AB.StdOut.print("pattern: ");
         for (int i = 0; i < offset2; i++)
-            edu.princeton.cs.algs4.StdOut.print(" ");
+            algs4IMPL.AB.StdOut.print(" ");
         StdOut.println(pat);
     }
 }

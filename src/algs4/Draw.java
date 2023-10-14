@@ -25,6 +25,8 @@
 
 package algs4;
 
+import algs4IMPL.AB.StdDraw;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -1042,7 +1044,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         // in case file is inside a .jar (classpath relative to StdDraw)
         if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-            URL url = StdDraw.class.getResource(filename);
+            URL url = algs4IMPL.AB.StdDraw.class.getResource(filename);
             if (url != null)
                 icon = new ImageIcon(url);
         }

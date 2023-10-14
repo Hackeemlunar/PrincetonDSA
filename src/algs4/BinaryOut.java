@@ -14,8 +14,6 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.BinaryIn;
-
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -330,7 +328,7 @@ public final class BinaryOut {
         // create binary output stream to write to file
         String filename = args[0];
         BinaryOut out = new BinaryOut(filename);
-        edu.princeton.cs.algs4.BinaryIn in  = new BinaryIn();
+        BinaryIn  in  = new BinaryIn();
 
         // read from standard input and write to file
         while (!in.isEmpty()) {

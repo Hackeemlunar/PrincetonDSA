@@ -25,8 +25,8 @@
 package algs4;
 
 import algs4IMPL.AB.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code Arbitrage} class provides a client that finds an arbitrage
@@ -68,13 +68,13 @@ public class Arbitrage {
     public static void main(String[] args) {
 
         // V currencies
-        int V = edu.princeton.cs.algs4.StdIn.readInt();
+        int V = algs4IMPL.AB.StdIn.readInt();
         String[] name = new String[V];
 
         // create complete network
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
+        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(V);
         for (int v = 0; v < V; v++) {
-            name[v] = edu.princeton.cs.algs4.StdIn.readString();
+            name[v] = algs4IMPL.AB.StdIn.readString();
             for (int w = 0; w < V; w++) {
                 double rate = StdIn.readDouble();
                 DirectedEdge e = new DirectedEdge(v, w, -Math.log(rate));
@@ -87,9 +87,9 @@ public class Arbitrage {
         if (spt.hasNegativeCycle()) {
             double stake = 1000.0;
             for (DirectedEdge e : spt.negativeCycle()) {
-                edu.princeton.cs.algs4.StdOut.printf("%10.5f %s ", stake, name[e.from()]);
+                algs4IMPL.AB.StdOut.printf("%10.5f %s ", stake, name[e.from()]);
                 stake *= Math.exp(-e.weight());
-                edu.princeton.cs.algs4.StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
+                algs4IMPL.AB.StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
             }
         }
         else {

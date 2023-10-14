@@ -28,11 +28,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.Queue;
+import algs4IMPL.AB.Stack;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code BreadthDirectedFirstPaths} class represents a data type for
@@ -65,7 +64,7 @@ public class BreadthFirstDirectedPaths {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public BreadthFirstDirectedPaths(edu.princeton.cs.algs4.Digraph G, int s) {
+    public BreadthFirstDirectedPaths(Digraph G, int s) {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
@@ -85,7 +84,7 @@ public class BreadthFirstDirectedPaths {
      * @throws IllegalArgumentException unless each vertex {@code v} in
      *         {@code sources} satisfies {@code 0 <= v < V}
      */
-    public BreadthFirstDirectedPaths(edu.princeton.cs.algs4.Digraph G, Iterable<Integer> sources) {
+    public BreadthFirstDirectedPaths(Digraph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
@@ -96,8 +95,8 @@ public class BreadthFirstDirectedPaths {
     }
 
     // BFS from single source
-    private void bfs(edu.princeton.cs.algs4.Digraph G, int s) {
-        edu.princeton.cs.algs4.Queue<Integer> q = new edu.princeton.cs.algs4.Queue<Integer>();
+    private void bfs(Digraph G, int s) {
+        algs4IMPL.AB.Queue<Integer> q = new algs4IMPL.AB.Queue<Integer>();
         marked[s] = true;
         distTo[s] = 0;
         q.enqueue(s);
@@ -115,8 +114,8 @@ public class BreadthFirstDirectedPaths {
     }
 
     // BFS from multiple sources
-    private void bfs(edu.princeton.cs.algs4.Digraph G, Iterable<Integer> sources) {
-        edu.princeton.cs.algs4.Queue<Integer> q = new Queue<Integer>();
+    private void bfs(Digraph G, Iterable<Integer> sources) {
+        algs4IMPL.AB.Queue<Integer> q = new Queue<Integer>();
         for (int s : sources) {
             marked[s] = true;
             distTo[s] = 0;
@@ -170,7 +169,7 @@ public class BreadthFirstDirectedPaths {
         validateVertex(v);
 
         if (!hasPathTo(v)) return null;
-        edu.princeton.cs.algs4.Stack<Integer> path = new Stack<Integer>();
+        algs4IMPL.AB.Stack<Integer> path = new Stack<Integer>();
         int x;
         for (x = v; distTo[x] != 0; x = edgeTo[x])
             path.push(x);
@@ -210,8 +209,8 @@ public class BreadthFirstDirectedPaths {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        Digraph G = new Digraph(in);
         // StdOut.println(G);
 
         int s = Integer.parseInt(args[1]);
@@ -219,12 +218,12 @@ public class BreadthFirstDirectedPaths {
 
         for (int v = 0; v < G.V(); v++) {
             if (bfs.hasPathTo(v)) {
-                edu.princeton.cs.algs4.StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
+                algs4IMPL.AB.StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
-                    if (x == s) edu.princeton.cs.algs4.StdOut.print(x);
-                    else        edu.princeton.cs.algs4.StdOut.print("->" + x);
+                    if (x == s) algs4IMPL.AB.StdOut.print(x);
+                    else        algs4IMPL.AB.StdOut.print("->" + x);
                 }
-                edu.princeton.cs.algs4.StdOut.println();
+                algs4IMPL.AB.StdOut.println();
             }
 
             else {

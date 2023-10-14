@@ -30,7 +30,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code Complex} class represents a complex number.
@@ -250,18 +250,18 @@ public class Complex {
         Complex a = new Complex(5.0, 6.0);
         Complex b = new Complex(-3.0, 4.0);
 
-        edu.princeton.cs.algs4.StdOut.println("a            = " + a);
-        edu.princeton.cs.algs4.StdOut.println("b            = " + b);
-        edu.princeton.cs.algs4.StdOut.println("Re(a)        = " + a.re());
-        edu.princeton.cs.algs4.StdOut.println("Im(a)        = " + a.im());
-        edu.princeton.cs.algs4.StdOut.println("b + a        = " + b.plus(a));
-        edu.princeton.cs.algs4.StdOut.println("a - b        = " + a.minus(b));
-        edu.princeton.cs.algs4.StdOut.println("a * b        = " + a.times(b));
-        edu.princeton.cs.algs4.StdOut.println("b * a        = " + b.times(a));
-        edu.princeton.cs.algs4.StdOut.println("a / b        = " + a.divides(b));
-        edu.princeton.cs.algs4.StdOut.println("(a / b) * b  = " + a.divides(b).times(b));
-        edu.princeton.cs.algs4.StdOut.println("conj(a)      = " + a.conjugate());
-        edu.princeton.cs.algs4.StdOut.println("|a|          = " + a.abs());
+        algs4IMPL.AB.StdOut.println("a            = " + a);
+        algs4IMPL.AB.StdOut.println("b            = " + b);
+        algs4IMPL.AB.StdOut.println("Re(a)        = " + a.re());
+        algs4IMPL.AB.StdOut.println("Im(a)        = " + a.im());
+        algs4IMPL.AB.StdOut.println("b + a        = " + b.plus(a));
+        algs4IMPL.AB.StdOut.println("a - b        = " + a.minus(b));
+        algs4IMPL.AB.StdOut.println("a * b        = " + a.times(b));
+        algs4IMPL.AB.StdOut.println("b * a        = " + b.times(a));
+        algs4IMPL.AB.StdOut.println("a / b        = " + a.divides(b));
+        algs4IMPL.AB.StdOut.println("(a / b) * b  = " + a.divides(b).times(b));
+        algs4IMPL.AB.StdOut.println("conj(a)      = " + a.conjugate());
+        algs4IMPL.AB.StdOut.println("|a|          = " + a.abs());
         StdOut.println("tan(a)       = " + a.tan());
     }
 

@@ -10,9 +10,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+import algs4IMPL.AB.StdOut;
+import algs4IMPL.AB.StdRandom;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -20,7 +19,7 @@ import java.util.NoSuchElementException;
 /**
  *  The {@code AdjMatrixEdgeWeightedDigraph} class represents an edge-weighted
  *  digraph of vertices named 0 through <em>V</em> - 1, where each
- *  directed edge is of type {@link edu.princeton.cs.algs4.DirectedEdge} and has a real-valued weight.
+ *  directed edge is of type {@link DirectedEdge} and has a real-valued weight.
  *  It supports the following two primary operations: add a directed edge
  *  to the digraph and iterate over all of edges incident from a given vertex.
  *  It also provides
@@ -72,8 +71,8 @@ public class AdjMatrixEdgeWeightedDigraph {
 
         // can be inefficient
         while (this.E != E) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
-            int w = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = algs4IMPL.AB.StdRandom.uniformInt(V);
+            int w = algs4IMPL.AB.StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(0, 100);
             addEdge(new edu.princeton.cs.algs4.DirectedEdge(v, w, weight));
         }
@@ -166,7 +165,7 @@ public class AdjMatrixEdgeWeightedDigraph {
         s.append(V + " " + E + NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v + ": ");
-            for (DirectedEdge e : adj(v)) {
+            for (edu.princeton.cs.algs4.DirectedEdge e : adj(v)) {
                 s.append(e + "  ");
             }
             s.append(NEWLINE);

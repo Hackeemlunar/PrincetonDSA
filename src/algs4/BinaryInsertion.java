@@ -24,8 +24,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code BinaryInsertion} class provides a static method for sorting an

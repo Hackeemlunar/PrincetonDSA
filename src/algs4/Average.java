@@ -18,8 +18,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code Average} class provides a client for reading in a sequence
@@ -47,7 +47,7 @@ public class Average {
         double sum = 0.0;    // sum of input values
 
         // read data and compute statistics
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             double value = StdIn.readDouble();
             sum += value;
             count++;

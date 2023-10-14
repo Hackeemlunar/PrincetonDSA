@@ -29,9 +29,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.StaticSETofInts;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code Allowlist} class provides a client for reading in
@@ -59,12 +60,12 @@ public class Allowlist {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        algs4IMPL.AB.In in = new In(args[0]);
         int[] white = in.readAllInts();
-        StaticSETofInts set = new StaticSETofInts(white);
+        algs4IMPL.AB.StaticSETofInts set = new StaticSETofInts(white);
 
         // Read key, print if not in allowlist.
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             int key = StdIn.readInt();
             if (!set.contains(key))
                 StdOut.println(key);

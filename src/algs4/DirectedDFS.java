@@ -23,10 +23,8 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Bag;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DirectedDFS} class represents a data type for
@@ -59,7 +57,7 @@ public class DirectedDFS {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DirectedDFS(edu.princeton.cs.algs4.Digraph G, int s) {
+    public DirectedDFS(Digraph G, int s) {
         marked = new boolean[G.V()];
         validateVertex(s);
         dfs(G, s);
@@ -75,7 +73,7 @@ public class DirectedDFS {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      *         for each vertex {@code s} in {@code sources}
      */
-    public DirectedDFS(edu.princeton.cs.algs4.Digraph G, Iterable<Integer> sources) {
+    public DirectedDFS(Digraph G, Iterable<Integer> sources) {
         marked = new boolean[G.V()];
         validateVertices(sources);
         for (int v : sources) {
@@ -83,7 +81,7 @@ public class DirectedDFS {
         }
     }
 
-    private void dfs(edu.princeton.cs.algs4.Digraph G, int v) {
+    private void dfs(Digraph G, int v) {
         count++;
         marked[v] = true;
         for (int w : G.adj(v)) {
@@ -147,11 +145,11 @@ public class DirectedDFS {
     public static void main(String[] args) {
 
         // read in digraph from command-line argument
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        Digraph G = new Digraph(in);
 
         // read in sources from command-line arguments
-        edu.princeton.cs.algs4.Bag<Integer> sources = new Bag<Integer>();
+        Bag<Integer> sources = new Bag<Integer>();
         for (int i = 1; i < args.length; i++) {
             int s = Integer.parseInt(args[i]);
             sources.add(s);
@@ -162,7 +160,7 @@ public class DirectedDFS {
 
         // print out vertices reachable from sources
         for (int v = 0; v < G.V(); v++) {
-            if (dfs.marked(v)) edu.princeton.cs.algs4.StdOut.print(v + " ");
+            if (dfs.marked(v)) algs4IMPL.AB.StdOut.print(v + " ");
         }
         StdOut.println();
     }

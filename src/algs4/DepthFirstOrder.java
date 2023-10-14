@@ -33,13 +33,7 @@
 
 package algs4;
 
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code DepthFirstOrder} class represents a data type for
@@ -64,8 +58,8 @@ public class DepthFirstOrder {
     private boolean[] marked;          // marked[v] = has v been marked in dfs?
     private int[] pre;                 // pre[v]    = preorder  number of v
     private int[] post;                // post[v]   = postorder number of v
-    private edu.princeton.cs.algs4.Queue<Integer> preorder;   // vertices in preorder
-    private edu.princeton.cs.algs4.Queue<Integer> postorder;  // vertices in postorder
+    private algs4IMPL.AB.Queue<Integer> preorder;   // vertices in preorder
+    private algs4IMPL.AB.Queue<Integer> postorder;  // vertices in postorder
     private int preCounter;            // counter or preorder numbering
     private int postCounter;           // counter for postorder numbering
 
@@ -73,11 +67,11 @@ public class DepthFirstOrder {
      * Determines a depth-first order for the digraph {@code G}.
      * @param G the digraph
      */
-    public DepthFirstOrder(edu.princeton.cs.algs4.Digraph G) {
+    public DepthFirstOrder(Digraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new edu.princeton.cs.algs4.Queue<Integer>();
-        preorder  = new edu.princeton.cs.algs4.Queue<Integer>();
+        postorder = new algs4IMPL.AB.Queue<Integer>();
+        preorder  = new algs4IMPL.AB.Queue<Integer>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             if (!marked[v]) dfs(G, v);
@@ -89,10 +83,10 @@ public class DepthFirstOrder {
      * Determines a depth-first order for the edge-weighted digraph {@code G}.
      * @param G the edge-weighted digraph
      */
-    public DepthFirstOrder(EdgeWeightedDigraph G) {
+    public DepthFirstOrder(algs4IMPL.AB.EdgeWeightedDigraph G) {
         pre    = new int[G.V()];
         post   = new int[G.V()];
-        postorder = new edu.princeton.cs.algs4.Queue<Integer>();
+        postorder = new algs4IMPL.AB.Queue<Integer>();
         preorder  = new Queue<Integer>();
         marked    = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
@@ -100,7 +94,7 @@ public class DepthFirstOrder {
     }
 
     // run DFS in digraph G from vertex v and compute preorder/postorder
-    private void dfs(edu.princeton.cs.algs4.Digraph G, int v) {
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         pre[v] = preCounter++;
         preorder.enqueue(v);
@@ -171,7 +165,7 @@ public class DepthFirstOrder {
      * @return the vertices in reverse postorder, as an iterable of vertices
      */
     public Iterable<Integer> reversePost() {
-        edu.princeton.cs.algs4.Stack<Integer> reverse = new Stack<Integer>();
+        algs4IMPL.AB.Stack<Integer> reverse = new Stack<Integer>();
         for (int v : postorder)
             reverse.push(v);
         return reverse;
@@ -185,7 +179,7 @@ public class DepthFirstOrder {
         int r = 0;
         for (int v : post()) {
             if (post(v) != r) {
-                edu.princeton.cs.algs4.StdOut.println("post(v) and post() inconsistent");
+                algs4IMPL.AB.StdOut.println("post(v) and post() inconsistent");
                 return false;
             }
             r++;
@@ -195,7 +189,7 @@ public class DepthFirstOrder {
         r = 0;
         for (int v : pre()) {
             if (pre(v) != r) {
-                edu.princeton.cs.algs4.StdOut.println("pre(v) and pre() inconsistent");
+                algs4IMPL.AB.StdOut.println("pre(v) and pre() inconsistent");
                 return false;
             }
             r++;
@@ -217,31 +211,31 @@ public class DepthFirstOrder {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Digraph G = new Digraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        Digraph G = new Digraph(in);
 
         DepthFirstOrder dfs = new DepthFirstOrder(G);
-        edu.princeton.cs.algs4.StdOut.println("   v  pre post");
-        edu.princeton.cs.algs4.StdOut.println("--------------");
+        algs4IMPL.AB.StdOut.println("   v  pre post");
+        algs4IMPL.AB.StdOut.println("--------------");
         for (int v = 0; v < G.V(); v++) {
-            edu.princeton.cs.algs4.StdOut.printf("%4d %4d %4d\n", v, dfs.pre(v), dfs.post(v));
+            algs4IMPL.AB.StdOut.printf("%4d %4d %4d\n", v, dfs.pre(v), dfs.post(v));
         }
 
-        edu.princeton.cs.algs4.StdOut.print("Preorder:  ");
+        algs4IMPL.AB.StdOut.print("Preorder:  ");
         for (int v : dfs.pre()) {
-            edu.princeton.cs.algs4.StdOut.print(v + " ");
+            algs4IMPL.AB.StdOut.print(v + " ");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.print("Postorder: ");
+        algs4IMPL.AB.StdOut.print("Postorder: ");
         for (int v : dfs.post()) {
-            edu.princeton.cs.algs4.StdOut.print(v + " ");
+            algs4IMPL.AB.StdOut.print(v + " ");
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.println();
 
-        edu.princeton.cs.algs4.StdOut.print("Reverse postorder: ");
+        algs4IMPL.AB.StdOut.print("Reverse postorder: ");
         for (int v : dfs.reversePost()) {
-            edu.princeton.cs.algs4.StdOut.print(v + " ");
+            algs4IMPL.AB.StdOut.print(v + " ");
         }
         StdOut.println();
 

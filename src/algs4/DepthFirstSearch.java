@@ -20,11 +20,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.DepthFirstPaths;
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.NonrecursiveDFS;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.Graph;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.NonrecursiveDFS;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DepthFirstSearch} class represents a data type for
@@ -58,14 +57,14 @@ public class DepthFirstSearch {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DepthFirstSearch(edu.princeton.cs.algs4.Graph G, int s) {
+    public DepthFirstSearch(algs4IMPL.AB.Graph G, int s) {
         marked = new boolean[G.V()];
         validateVertex(s);
         dfs(G, s);
     }
 
     // depth first search from v
-    private void dfs(edu.princeton.cs.algs4.Graph G, int v) {
+    private void dfs(algs4IMPL.AB.Graph G, int v) {
         count++;
         marked[v] = true;
         for (int w : G.adj(v)) {
@@ -107,17 +106,17 @@ public class DepthFirstSearch {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        edu.princeton.cs.algs4.Graph G = new Graph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        algs4IMPL.AB.Graph G = new Graph(in);
         int s = Integer.parseInt(args[1]);
         DepthFirstSearch search = new DepthFirstSearch(G, s);
         for (int v = 0; v < G.V(); v++) {
             if (search.marked(v))
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                algs4IMPL.AB.StdOut.print(v + " ");
         }
 
-        edu.princeton.cs.algs4.StdOut.println();
-        if (search.count() != G.V()) edu.princeton.cs.algs4.StdOut.println("NOT connected");
+        algs4IMPL.AB.StdOut.println();
+        if (search.count() != G.V()) algs4IMPL.AB.StdOut.println("NOT connected");
         else                         StdOut.println("connected");
     }
 

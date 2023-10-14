@@ -13,10 +13,8 @@
 package algs4;
 
 import algs4IMPL.AB.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.DijkstraSP;
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code DijkstraAllPairsSP} class represents a data type for solving the
@@ -39,7 +37,7 @@ import edu.princeton.cs.algs4.StdOut;
  *  @author Kevin Wayne
  */
 public class DijkstraAllPairsSP {
-    private edu.princeton.cs.algs4.DijkstraSP[] all;
+    private DijkstraSP[] all;
 
     /**
      * Computes a shortest paths tree from each vertex to every other vertex in
@@ -48,8 +46,8 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraAllPairsSP(EdgeWeightedDigraph G) {
-        all  = new edu.princeton.cs.algs4.DijkstraSP[G.V()];
+    public DijkstraAllPairsSP(algs4IMPL.AB.EdgeWeightedDigraph G) {
+        all  = new DijkstraSP[G.V()];
         for (int v = 0; v < G.V(); v++)
             all[v] = new DijkstraSP(G, v);
     }
@@ -63,7 +61,7 @@ public class DijkstraAllPairsSP {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      * @throws IllegalArgumentException unless {@code 0 <= t < V}
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> path(int s, int t) {
+    public Iterable<DirectedEdge> path(int s, int t) {
         validateVertex(s);
         validateVertex(t);
         return all[s].pathTo(t);
@@ -115,36 +113,36 @@ public class DijkstraAllPairsSP {
     public static void main(String[] args) {
 
         // read edge-weighted digraph
-        edu.princeton.cs.algs4.In in = new In(args[0]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        algs4IMPL.AB.In in = new In(args[0]);
+        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         // compute shortest paths between all pairs of vertices
         DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);
 
         // print all-pairs shortest path distances
-        edu.princeton.cs.algs4.StdOut.printf("  ");
+        algs4IMPL.AB.StdOut.printf("  ");
         for (int v = 0; v < G.V(); v++) {
-            edu.princeton.cs.algs4.StdOut.printf("%6d ", v);
+            algs4IMPL.AB.StdOut.printf("%6d ", v);
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.println();
         for (int v = 0; v < G.V(); v++) {
-            edu.princeton.cs.algs4.StdOut.printf("%3d: ", v);
+            algs4IMPL.AB.StdOut.printf("%3d: ", v);
             for (int w = 0; w < G.V(); w++) {
-                if (spt.hasPath(v, w)) edu.princeton.cs.algs4.StdOut.printf("%6.2f ", spt.dist(v, w));
-                else edu.princeton.cs.algs4.StdOut.printf("  Inf ");
+                if (spt.hasPath(v, w)) algs4IMPL.AB.StdOut.printf("%6.2f ", spt.dist(v, w));
+                else algs4IMPL.AB.StdOut.printf("  Inf ");
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            algs4IMPL.AB.StdOut.println();
         }
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.println();
 
         // print all-pairs shortest paths
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
                 if (spt.hasPath(v, w)) {
-                    edu.princeton.cs.algs4.StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
+                    algs4IMPL.AB.StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
                     for (DirectedEdge e : spt.path(v, w))
-                        edu.princeton.cs.algs4.StdOut.print(e + "  ");
-                    edu.princeton.cs.algs4.StdOut.println();
+                        algs4IMPL.AB.StdOut.print(e + "  ");
+                    algs4IMPL.AB.StdOut.println();
                 }
                 else {
                     StdOut.printf("%d to %d no path\n", v, w);

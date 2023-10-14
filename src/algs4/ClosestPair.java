@@ -15,9 +15,9 @@
 package algs4;
 
 import algs4IMPL.AB.FarthestPair;
-import edu.princeton.cs.algs4.Point2D;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.Point2D;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 import java.util.Arrays;
 
@@ -42,7 +42,7 @@ import java.util.Arrays;
 public class ClosestPair {
 
     // closest pair of points and their Euclidean distance
-    private edu.princeton.cs.algs4.Point2D best1, best2;
+    private algs4IMPL.AB.Point2D best1, best2;
     private double bestDistance = Double.POSITIVE_INFINITY;
 
     /**
@@ -52,7 +52,7 @@ public class ClosestPair {
      * @throws IllegalArgumentException if {@code points} is {@code null} or if any
      *         entry in {@code points[]} is {@code null}
      */
-    public ClosestPair(edu.princeton.cs.algs4.Point2D[] points) {
+    public ClosestPair(algs4IMPL.AB.Point2D[] points) {
         if (points == null) throw new IllegalArgumentException("constructor argument is null");
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) throw new IllegalArgumentException("array element " + i + " is null");
@@ -62,11 +62,11 @@ public class ClosestPair {
         if (n <= 1) return;
 
         // sort by x-coordinate (breaking ties by y-coordinate via stability)
-        edu.princeton.cs.algs4.Point2D[] pointsByX = new edu.princeton.cs.algs4.Point2D[n];
+        algs4IMPL.AB.Point2D[] pointsByX = new algs4IMPL.AB.Point2D[n];
         for (int i = 0; i < n; i++)
             pointsByX[i] = points[i];
-        Arrays.sort(pointsByX, edu.princeton.cs.algs4.Point2D.Y_ORDER);
-        Arrays.sort(pointsByX, edu.princeton.cs.algs4.Point2D.X_ORDER);
+        Arrays.sort(pointsByX, algs4IMPL.AB.Point2D.Y_ORDER);
+        Arrays.sort(pointsByX, algs4IMPL.AB.Point2D.X_ORDER);
 
         // check for coincident points
         for (int i = 0; i < n-1; i++) {
@@ -79,12 +79,12 @@ public class ClosestPair {
         }
 
         // sort by y-coordinate (but not yet sorted)
-        edu.princeton.cs.algs4.Point2D[] pointsByY = new edu.princeton.cs.algs4.Point2D[n];
+        algs4IMPL.AB.Point2D[] pointsByY = new algs4IMPL.AB.Point2D[n];
         for (int i = 0; i < n; i++)
             pointsByY[i] = pointsByX[i];
 
         // auxiliary array
-        edu.princeton.cs.algs4.Point2D[] aux = new edu.princeton.cs.algs4.Point2D[n];
+        algs4IMPL.AB.Point2D[] aux = new algs4IMPL.AB.Point2D[n];
 
         closest(pointsByX, pointsByY, aux, 0, n-1);
     }
@@ -93,11 +93,11 @@ public class ClosestPair {
     // precondition:  pointsByX[lo..hi] and pointsByY[lo..hi] are the same sequence of points
     // precondition:  pointsByX[lo..hi] sorted by x-coordinate
     // postcondition: pointsByY[lo..hi] sorted by y-coordinate
-    private double closest(edu.princeton.cs.algs4.Point2D[] pointsByX, edu.princeton.cs.algs4.Point2D[] pointsByY, edu.princeton.cs.algs4.Point2D[] aux, int lo, int hi) {
+    private double closest(algs4IMPL.AB.Point2D[] pointsByX, algs4IMPL.AB.Point2D[] pointsByY, algs4IMPL.AB.Point2D[] aux, int lo, int hi) {
         if (hi <= lo) return Double.POSITIVE_INFINITY;
 
         int mid = lo + (hi - lo) / 2;
-        edu.princeton.cs.algs4.Point2D median = pointsByX[mid];
+        algs4IMPL.AB.Point2D median = pointsByX[mid];
 
         // compute closest pair with both endpoints in left subarray or both in right subarray
         double delta1 = closest(pointsByX, pointsByY, aux, lo, mid);
@@ -139,7 +139,7 @@ public class ClosestPair {
      * @return one of the two points in the closest pair of points;
      *         {@code null} if no such point (because there are fewer than 2 points)
      */
-    public edu.princeton.cs.algs4.Point2D either() {
+    public algs4IMPL.AB.Point2D either() {
         return best1;
     }
 
@@ -149,7 +149,7 @@ public class ClosestPair {
      * @return the other point in the closest pair of points
      *         {@code null} if no such point (because there are fewer than 2 points)
      */
-    public edu.princeton.cs.algs4.Point2D other() {
+    public algs4IMPL.AB.Point2D other() {
         return best2;
     }
 
@@ -199,10 +199,10 @@ public class ClosestPair {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int n = edu.princeton.cs.algs4.StdIn.readInt();
-        edu.princeton.cs.algs4.Point2D[] points = new edu.princeton.cs.algs4.Point2D[n];
+        int n = algs4IMPL.AB.StdIn.readInt();
+        algs4IMPL.AB.Point2D[] points = new algs4IMPL.AB.Point2D[n];
         for (int i = 0; i < n; i++) {
-            double x = edu.princeton.cs.algs4.StdIn.readDouble();
+            double x = algs4IMPL.AB.StdIn.readDouble();
             double y = StdIn.readDouble();
             points[i] = new Point2D(x, y);
         }

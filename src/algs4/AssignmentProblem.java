@@ -11,10 +11,8 @@
 package algs4;
 
 import algs4IMPL.AB.EdgeWeightedDigraph;
-import edu.princeton.cs.algs4.DijkstraSP;
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+import algs4IMPL.AB.StdOut;
+import algs4IMPL.AB.StdRandom;
 
 /**
  *  The {@code AssignmentProblem} class represents a data type for computing
@@ -100,25 +98,25 @@ public class AssignmentProblem {
     private void augment() {
 
         // build residual graph
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n+2);
+        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(2*n+2);
         int s = 2*n, t = 2*n+1;
         for (int i = 0; i < n; i++) {
             if (xy[i] == UNMATCHED)
-                G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(s, i, 0.0));
+                G.addEdge(new DirectedEdge(s, i, 0.0));
         }
         for (int j = 0; j < n; j++) {
             if (yx[j] == UNMATCHED)
-                G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(n+j, t, py[j]));
+                G.addEdge(new DirectedEdge(n+j, t, py[j]));
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (xy[i] == j) G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(n+j, i, 0.0));
-                else            G.addEdge(new edu.princeton.cs.algs4.DirectedEdge(i, n+j, reducedCost(i, j)));
+                if (xy[i] == j) G.addEdge(new DirectedEdge(n+j, i, 0.0));
+                else            G.addEdge(new DirectedEdge(i, n+j, reducedCost(i, j)));
             }
         }
 
         // compute shortest path from s to every other vertex
-        edu.princeton.cs.algs4.DijkstraSP spt = new DijkstraSP(G, s);
+        DijkstraSP spt = new DijkstraSP(G, s);
 
         // augment along alternating path
         for (DirectedEdge e : spt.pathTo(t)) {
@@ -221,7 +219,7 @@ public class AssignmentProblem {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (reducedCost(i, j) < 0) {
-                    edu.princeton.cs.algs4.StdOut.println("Dual variables are not feasible");
+                    algs4IMPL.AB.StdOut.println("Dual variables are not feasible");
                     return false;
                 }
             }
@@ -235,7 +233,7 @@ public class AssignmentProblem {
         // check that all matched edges have 0-reduced cost
         for (int i = 0; i < n; i++) {
             if ((xy[i] != UNMATCHED) && (reducedCost(i, xy[i]) != 0)) {
-                edu.princeton.cs.algs4.StdOut.println("Primal and dual variables are not complementary slack");
+                algs4IMPL.AB.StdOut.println("Primal and dual variables are not complementary slack");
                 return false;
             }
         }
@@ -249,7 +247,7 @@ public class AssignmentProblem {
         boolean[] perm = new boolean[n];
         for (int i = 0; i < n; i++) {
             if (perm[xy[i]]) {
-                edu.princeton.cs.algs4.StdOut.println("Not a perfect matching");
+                algs4IMPL.AB.StdOut.println("Not a perfect matching");
                 return false;
             }
             perm[xy[i]] = true;
@@ -258,13 +256,13 @@ public class AssignmentProblem {
         // check that xy[] and yx[] are inverses
         for (int j = 0; j < n; j++) {
             if (xy[yx[j]] != j) {
-                edu.princeton.cs.algs4.StdOut.println("xy[] and yx[] are not inverses");
+                algs4IMPL.AB.StdOut.println("xy[] and yx[] are not inverses");
                 return false;
             }
         }
         for (int i = 0; i < n; i++) {
             if (yx[xy[i]] != i) {
-                edu.princeton.cs.algs4.StdOut.println("xy[] and yx[] are not inverses");
+                algs4IMPL.AB.StdOut.println("xy[] and yx[] are not inverses");
                 return false;
             }
         }
@@ -298,17 +296,17 @@ public class AssignmentProblem {
 
         // solve assignment problem
         AssignmentProblem assignment = new AssignmentProblem(weight);
-        edu.princeton.cs.algs4.StdOut.printf("weight = %.0f\n", assignment.weight());
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.printf("weight = %.0f\n", assignment.weight());
+        algs4IMPL.AB.StdOut.println();
 
         // print n-by-n matrix and optimal solution
         if (n >= 20) return;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (j == assignment.sol(i))
-                    edu.princeton.cs.algs4.StdOut.printf("*%.0f ", weight[i][j]);
+                    algs4IMPL.AB.StdOut.printf("*%.0f ", weight[i][j]);
                 else
-                    edu.princeton.cs.algs4.StdOut.printf(" %.0f ", weight[i][j]);
+                    algs4IMPL.AB.StdOut.printf(" %.0f ", weight[i][j]);
             }
             StdOut.println();
         }

@@ -12,8 +12,8 @@
 package algs4;
 
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code Accumulator} class is a data type for computing the running
@@ -110,15 +110,15 @@ public class Accumulator {
      */
     public static void main(String[] args) {
         Accumulator stats = new Accumulator();
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             double x = StdIn.readDouble();
             stats.addDataValue(x);
         }
 
-        edu.princeton.cs.algs4.StdOut.printf("n      = %d\n",   stats.count());
-        edu.princeton.cs.algs4.StdOut.printf("mean   = %.5f\n", stats.mean());
-        edu.princeton.cs.algs4.StdOut.printf("stddev = %.5f\n", stats.stddev());
-        edu.princeton.cs.algs4.StdOut.printf("var    = %.5f\n", stats.var());
+        algs4IMPL.AB.StdOut.printf("n      = %d\n",   stats.count());
+        algs4IMPL.AB.StdOut.printf("mean   = %.5f\n", stats.mean());
+        algs4IMPL.AB.StdOut.printf("stddev = %.5f\n", stats.stddev());
+        algs4IMPL.AB.StdOut.printf("var    = %.5f\n", stats.var());
         StdOut.println(stats);
     }
 }

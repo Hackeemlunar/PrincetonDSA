@@ -34,6 +34,9 @@
 package algs4;
 
 
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
+
 /**
  *  The {@code Count} class provides an {@link Alphabet} client for reading
  *  in a piece of text and computing the frequency of occurrence of each
@@ -63,7 +66,7 @@ public class Count {
         Alphabet alphabet = new Alphabet(args[0]);
         final int R = alphabet.radix();
         int[] count = new int[R];
-        while (StdIn.hasNextChar()) {
+        while (algs4IMPL.AB.StdIn.hasNextChar()) {
             char c = StdIn.readChar();
             if (alphabet.contains(c))
                 count[alphabet.toIndex(c)]++;

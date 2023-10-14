@@ -30,10 +30,10 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.SET;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.In;
+import algs4IMPL.AB.SET;
+import algs4IMPL.AB.StdIn;
+import algs4IMPL.AB.StdOut;
 
 /**
  *  The {@code AllowFilter} class provides a client for reading in an <em>allowlist</em>
@@ -54,17 +54,17 @@ public class AllowFilter {
     private AllowFilter() { }
 
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.SET<String> set = new SET<String>();
+        algs4IMPL.AB.SET<String> set = new SET<String>();
 
         // read in strings and add to set
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        algs4IMPL.AB.In in = new In(args[0]);
         while (!in.isEmpty()) {
             String word = in.readString();
             set.add(word);
         }
 
         // read in string from standard input, printing out all exceptions
-        while (!edu.princeton.cs.algs4.StdIn.isEmpty()) {
+        while (!algs4IMPL.AB.StdIn.isEmpty()) {
             String word = StdIn.readString();
             if (set.contains(word))
                 StdOut.println(word);

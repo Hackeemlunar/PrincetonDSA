@@ -12,13 +12,7 @@
 package algs4;
 
 
-import algs4IMPL.AB.GraphGenerator;
-import edu.princeton.cs.algs4.Bipartite;
-import edu.princeton.cs.algs4.Graph;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code BipartiteX} class represents a data type for
@@ -53,7 +47,7 @@ public class BipartiteX {
     private boolean[] color;       // color[v] gives vertices on one side of bipartition
     private boolean[] marked;      // marked[v] = true iff v has been visited in DFS
     private int[] edgeTo;          // edgeTo[v] = last edge on path to v
-    private edu.princeton.cs.algs4.Queue<Integer> cycle;  // odd-length cycle
+    private algs4IMPL.AB.Queue<Integer> cycle;  // odd-length cycle
 
     /**
      * Determines whether an undirected graph is bipartite and finds either a
@@ -61,7 +55,7 @@ public class BipartiteX {
      *
      * @param  G the graph
      */
-    public BipartiteX(edu.princeton.cs.algs4.Graph G) {
+    public BipartiteX(algs4IMPL.AB.Graph G) {
         isBipartite = true;
         color  = new boolean[G.V()];
         marked = new boolean[G.V()];
@@ -75,8 +69,8 @@ public class BipartiteX {
         assert check(G);
     }
 
-    private void bfs(edu.princeton.cs.algs4.Graph G, int s) {
-        edu.princeton.cs.algs4.Queue<Integer> q = new edu.princeton.cs.algs4.Queue<Integer>();
+    private void bfs(algs4IMPL.AB.Graph G, int s) {
+        algs4IMPL.AB.Queue<Integer> q = new algs4IMPL.AB.Queue<Integer>();
         color[s] = WHITE;
         marked[s] = true;
         q.enqueue(s);
@@ -98,7 +92,7 @@ public class BipartiteX {
                     // then (w-x path) + (x-v path) + (edge v-w) is an odd-length cycle
                     // Note: distTo[v] == distTo[w];
                     cycle = new Queue<Integer>();
-                    edu.princeton.cs.algs4.Stack<Integer> stack = new Stack<Integer>();
+                    algs4IMPL.AB.Stack<Integer> stack = new Stack<Integer>();
                     int x = v, y = w;
                     while (x != y) {
                         stack.push(x);
@@ -156,7 +150,7 @@ public class BipartiteX {
         return cycle;
     }
 
-    private boolean check(edu.princeton.cs.algs4.Graph G) {
+    private boolean check(algs4IMPL.AB.Graph G) {
         // graph is bipartite
         if (isBipartite) {
             for (int v = 0; v < G.V(); v++) {
@@ -207,25 +201,25 @@ public class BipartiteX {
         // V2 vertices on right side, and E edges; then add F random edges
         Graph G = GraphGenerator.bipartite(V1, V2, E);
         for (int i = 0; i < F; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V1 + V2);
+            int v = algs4IMPL.AB.StdRandom.uniformInt(V1 + V2);
             int w = StdRandom.uniformInt(V1 + V2);
             G.addEdge(v, w);
         }
 
-        edu.princeton.cs.algs4.StdOut.println(G);
+        algs4IMPL.AB.StdOut.println(G);
 
 
         BipartiteX b = new BipartiteX(G);
         if (b.isBipartite()) {
-            edu.princeton.cs.algs4.StdOut.println("Graph is bipartite");
+            algs4IMPL.AB.StdOut.println("Graph is bipartite");
             for (int v = 0; v < G.V(); v++) {
-                edu.princeton.cs.algs4.StdOut.println(v + ": " + b.color(v));
+                algs4IMPL.AB.StdOut.println(v + ": " + b.color(v));
             }
         }
         else {
-            edu.princeton.cs.algs4.StdOut.print("Graph has an odd-length cycle: ");
+            algs4IMPL.AB.StdOut.print("Graph has an odd-length cycle: ");
             for (int x : b.oddCycle()) {
-                edu.princeton.cs.algs4.StdOut.print(x + " ");
+                algs4IMPL.AB.StdOut.print(x + " ");
             }
             StdOut.println();
         }

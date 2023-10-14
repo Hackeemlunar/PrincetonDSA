@@ -10,14 +10,7 @@
 
 package algs4;
 
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.DirectedCycle;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.Topological;
-import edu.princeton.cs.algs4.TopologicalX;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code DirectedCycleX} class represents a data type for
@@ -47,9 +40,9 @@ import edu.princeton.cs.algs4.TopologicalX;
  */
 
 public class DirectedCycleX {
-    private edu.princeton.cs.algs4.Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
+    private algs4IMPL.AB.Stack<Integer> cycle;     // the directed cycle; null if digraph is acyclic
 
-    public DirectedCycleX(edu.princeton.cs.algs4.Digraph G) {
+    public DirectedCycleX(Digraph G) {
 
         // indegrees of remaining vertices
         int[] indegree = new int[G.V()];
@@ -58,7 +51,7 @@ public class DirectedCycleX {
         }
 
         // initialize queue to contain all vertices with indegree = 0
-        edu.princeton.cs.algs4.Queue<Integer> queue = new Queue<Integer>();
+        algs4IMPL.AB.Queue<Integer> queue = new Queue<Integer>();
         for (int v = 0; v < G.V(); v++)
             if (indegree[v] == 0) queue.enqueue(v);
 
@@ -153,25 +146,25 @@ public class DirectedCycleX {
 
         // add F extra edges
         for (int i = 0; i < F; i++) {
-            int v = edu.princeton.cs.algs4.StdRandom.uniformInt(V);
+            int v = algs4IMPL.AB.StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
             G.addEdge(v, w);
         }
 
-        edu.princeton.cs.algs4.StdOut.println(G);
+        algs4IMPL.AB.StdOut.println(G);
 
 
         DirectedCycleX finder = new DirectedCycleX(G);
         if (finder.hasCycle()) {
-            edu.princeton.cs.algs4.StdOut.print("Directed cycle: ");
+            algs4IMPL.AB.StdOut.print("Directed cycle: ");
             for (int v : finder.cycle()) {
-                edu.princeton.cs.algs4.StdOut.print(v + " ");
+                algs4IMPL.AB.StdOut.print(v + " ");
             }
-            edu.princeton.cs.algs4.StdOut.println();
+            algs4IMPL.AB.StdOut.println();
         }
 
         else {
-            edu.princeton.cs.algs4.StdOut.println("No directed cycle");
+            algs4IMPL.AB.StdOut.println("No directed cycle");
         }
         StdOut.println();
     }

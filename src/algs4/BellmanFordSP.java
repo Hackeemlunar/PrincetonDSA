@@ -31,13 +31,7 @@
 
 package algs4;
 
-import algs4IMPL.AB.EdgeWeightedDigraph;
-import algs4IMPL.AB.EdgeWeightedDirectedCycle;
-import edu.princeton.cs.algs4.DirectedEdge;
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
+import algs4IMPL.AB.*;
 
 /**
  *  The {@code BellmanFordSP} class represents a data type for solving the
@@ -76,11 +70,11 @@ public class BellmanFordSP {
     private static final double EPSILON = 1E-14;
 
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
-    private edu.princeton.cs.algs4.DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
+    private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
-    private edu.princeton.cs.algs4.Queue<Integer> queue;          // queue of vertices to relax
+    private algs4IMPL.AB.Queue<Integer> queue;          // queue of vertices to relax
     private int cost;                      // number of calls to relax()
-    private Iterable<edu.princeton.cs.algs4.DirectedEdge> cycle;  // negative cycle (or null if no such cycle)
+    private Iterable<DirectedEdge> cycle;  // negative cycle (or null if no such cycle)
 
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
@@ -89,9 +83,9 @@ public class BellmanFordSP {
      * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public BellmanFordSP(EdgeWeightedDigraph G, int s) {
+    public BellmanFordSP(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
         distTo  = new double[G.V()];
-        edgeTo  = new edu.princeton.cs.algs4.DirectedEdge[G.V()];
+        edgeTo  = new DirectedEdge[G.V()];
         onQueue = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
@@ -111,8 +105,8 @@ public class BellmanFordSP {
     }
 
     // relax vertex v and put other endpoints on queue if changed
-    private void relax(EdgeWeightedDigraph G, int v) {
-        for (edu.princeton.cs.algs4.DirectedEdge e : G.adj(v)) {
+    private void relax(algs4IMPL.AB.EdgeWeightedDigraph G, int v) {
+        for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
             if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
@@ -144,19 +138,19 @@ public class BellmanFordSP {
      * @return a negative cycle reachable from the source vertex {@code s}
      *    as an iterable of edges, and {@code null} if there is no such cycle
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> negativeCycle() {
+    public Iterable<DirectedEdge> negativeCycle() {
         return cycle;
     }
 
     // by finding a cycle in predecessor graph
     private void findNegativeCycle() {
         int V = edgeTo.length;
-        EdgeWeightedDigraph spt = new EdgeWeightedDigraph(V);
+        algs4IMPL.AB.EdgeWeightedDigraph spt = new algs4IMPL.AB.EdgeWeightedDigraph(V);
         for (int v = 0; v < V; v++)
             if (edgeTo[v] != null)
                 spt.addEdge(edgeTo[v]);
 
-        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
+        algs4IMPL.AB.EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
         cycle = finder.cycle();
     }
 
@@ -197,13 +191,13 @@ public class BellmanFordSP {
      *         from the source vertex {@code s}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<edu.princeton.cs.algs4.DirectedEdge> pathTo(int v) {
+    public Iterable<DirectedEdge> pathTo(int v) {
         validateVertex(v);
         if (hasNegativeCycle())
             throw new UnsupportedOperationException("Negative cost cycle exists");
         if (!hasPathTo(v)) return null;
-        edu.princeton.cs.algs4.Stack<edu.princeton.cs.algs4.DirectedEdge> path = new Stack<edu.princeton.cs.algs4.DirectedEdge>();
-        for (edu.princeton.cs.algs4.DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        algs4IMPL.AB.Stack<DirectedEdge> path = new Stack<DirectedEdge>();
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
         return path;
@@ -214,12 +208,12 @@ public class BellmanFordSP {
     //     or
     // (ii)  for all edges e = v->w:            distTo[w] <= distTo[v] + e.weight()
     // (ii') for all edges e = v->w on the SPT: distTo[w] == distTo[v] + e.weight()
-    private boolean check(EdgeWeightedDigraph G, int s) {
+    private boolean check(algs4IMPL.AB.EdgeWeightedDigraph G, int s) {
 
         // has a negative cycle
         if (hasNegativeCycle()) {
             double weight = 0.0;
-            for (edu.princeton.cs.algs4.DirectedEdge e : negativeCycle()) {
+            for (DirectedEdge e : negativeCycle()) {
                 weight += e.weight();
             }
             if (weight >= 0.0) {
@@ -246,7 +240,7 @@ public class BellmanFordSP {
 
             // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
             for (int v = 0; v < G.V(); v++) {
-                for (edu.princeton.cs.algs4.DirectedEdge e : G.adj(v)) {
+                for (DirectedEdge e : G.adj(v)) {
                     int w = e.to();
                     if (distTo[v] + e.weight() < distTo[w]) {
                         System.err.println("edge " + e + " not relaxed");
@@ -258,7 +252,7 @@ public class BellmanFordSP {
             // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
             for (int w = 0; w < G.V(); w++) {
                 if (edgeTo[w] == null) continue;
-                edu.princeton.cs.algs4.DirectedEdge e = edgeTo[w];
+                DirectedEdge e = edgeTo[w];
                 int v = e.from();
                 if (w != e.to()) return false;
                 if (distTo[v] + e.weight() != distTo[w]) {
@@ -268,8 +262,8 @@ public class BellmanFordSP {
             }
         }
 
-        edu.princeton.cs.algs4.StdOut.println("Satisfies optimality conditions");
-        edu.princeton.cs.algs4.StdOut.println();
+        algs4IMPL.AB.StdOut.println("Satisfies optimality conditions");
+        algs4IMPL.AB.StdOut.println();
         return true;
     }
 
@@ -286,27 +280,27 @@ public class BellmanFordSP {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        edu.princeton.cs.algs4.In in = new In(args[0]);
+        algs4IMPL.AB.In in = new In(args[0]);
         int s = Integer.parseInt(args[1]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+        algs4IMPL.AB.EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
         BellmanFordSP sp = new BellmanFordSP(G, s);
 
         // print negative cycle
         if (sp.hasNegativeCycle()) {
-            for (edu.princeton.cs.algs4.DirectedEdge e : sp.negativeCycle())
-                edu.princeton.cs.algs4.StdOut.println(e);
+            for (DirectedEdge e : sp.negativeCycle())
+                algs4IMPL.AB.StdOut.println(e);
         }
 
         // print shortest paths
         else {
             for (int v = 0; v < G.V(); v++) {
                 if (sp.hasPathTo(v)) {
-                    edu.princeton.cs.algs4.StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v));
+                    algs4IMPL.AB.StdOut.printf("%d to %d (%5.2f)  ", s, v, sp.distTo(v));
                     for (DirectedEdge e : sp.pathTo(v)) {
-                        edu.princeton.cs.algs4.StdOut.print(e + "   ");
+                        algs4IMPL.AB.StdOut.print(e + "   ");
                     }
-                    edu.princeton.cs.algs4.StdOut.println();
+                    algs4IMPL.AB.StdOut.println();
                 }
                 else {
                     StdOut.printf("%d to %d           no path\n", s, v);
