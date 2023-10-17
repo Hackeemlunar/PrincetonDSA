@@ -24,6 +24,8 @@
 package algs4;
 
 
+import xyz.hacklunar.util.ReadFile;
+
 /**
  *  The {@code UF} class represents a <em>union–find data type</em>
  *  (also known as the <em>disjoint-sets data type</em>).
@@ -188,14 +190,17 @@ public class UF {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        int n = StdIn.readInt();
+        String[] fileData = ReadFile.readAsStringArray(args[0]);
+        int n = Integer.parseInt(fileData[0]);
         UF uf = new UF(n);
-        while (!StdIn.isEmpty()) {
-            int p = StdIn.readInt();
-            int q = StdIn.readInt();
+        for (int i = 1; i < fileData.length; i++){
+            String[] line = fileData[i].split(" ");
+            int p = Integer.parseInt(line[0]);
+            int q = Integer.parseInt(line[1]);
             if (uf.find(p) == uf.find(q)) continue;
             uf.union(p, q);
             StdOut.println(p + " " + q);
+            StdOut.println("Array size is: " + fileData.length);
         }
         StdOut.println(uf.count() + " components");
     }

@@ -12,6 +12,8 @@
 package algs4;
 
 
+import xyz.hacklunar.util.ReadFile;
+
 /**
  *  The {@code Accumulator} class is a data type for computing the running
  *  mean, sample standard deviation, and sample variance of a stream of real
@@ -107,8 +109,9 @@ public class Accumulator {
      */
     public static void main(String[] args) {
         Accumulator stats = new Accumulator();
-        while (!StdIn.isEmpty()) {
-            double x = StdIn.readDouble();
+        String[] inp = ReadFile.readAsStringArray(args[0]);
+        for (String num : inp) {
+            double x = Double.parseDouble(num.trim());
             stats.addDataValue(x);
         }
 
