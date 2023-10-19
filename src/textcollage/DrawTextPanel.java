@@ -1,33 +1,26 @@
 package textcollage;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
+import java.util.*;
+import java.util.List;
+import java.util.stream.IntStream;
 import javax.swing.BorderFactory;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.xml.stream.events.StartDocument;
 
 /**
  * A panel that contains a large drawing area where strings
@@ -41,6 +34,7 @@ public class DrawTextPanel extends JPanel {
     private ArrayList<DrawTextItem> strings = new ArrayList<DrawTextItem>(); // ArrayList to store multiple text items
 
     private Color currentTextColor = Color.BLACK; // Color applied to new strings.
+    boolean animationToggle;
 
     private Canvas canvas; // the drawing area.
     private JTextField input; // where the user inputs the string that will be added to the canvas
@@ -176,6 +170,17 @@ public class DrawTextPanel extends JPanel {
             optionsMenu.setMnemonic('P');
             menuBar.add(optionsMenu);
 
+            JMenu animationMenu = new JMenu("Animation");
+            optionsMenu.setMnemonic('A');
+            menuBar.add(animationMenu);
+
+            JMenuItem start = new JMenuItem("Start...");
+            start.addActionListener(menuHandler);
+            JMenuItem stop = new JMenuItem("Stop...");
+            stop.addActionListener(menuHandler);
+            animationMenu.add(start);
+            animationMenu.add(stop);
+
             JMenuItem colorItem = new JMenuItem("Text Color...");
             colorItem.setAccelerator(KeyStroke.getKeyStroke("ctrl T"));
             colorItem.setMnemonic('T');
@@ -207,6 +212,13 @@ public class DrawTextPanel extends JPanel {
             case "Text Color...":
                 changeColor();
                 break;
+            case "Start...":
+                animationToggle = true;
+                animations();
+                break;
+            case "Stop...":
+                animationToggle = false;
+                break;
         }
 
     }
@@ -235,15 +247,65 @@ public class DrawTextPanel extends JPanel {
     }
 
     private void openFile() {
-        var fileChooser = new SimpleFileChooser();
+        strings.clear();
+        File file = fileChooser.getInputFile();
         fileChooser.getInputFile(this, "Select File to Open");
+        DrawTextItem item;
+        try (Scanner input = new Scanner(file)){
+            String line = input.nextLine();
+            String[] word = line.split("-");
+            System.out.println(word[0]);
+            canvas.setBackground(new Color(Integer.parseInt(word[0]), Integer.parseInt(word[1]),
+                    Integer.parseInt(word[2]))); // Sets the background of the image
+            // Get the data of the image stored as text. Each line represent one image
+            while (input.hasNext()) {
+                line = input.nextLine();
+                item = parsePicture(line);
+                strings.add(item);
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e.toString());
+        } finally {
+            canvas.repaint();
+        }
+
+    }
+
+    private static DrawTextItem parsePicture(String line) {
+        String[] words = line.split("-");
+        String textString = words[0];
+        double magnification = Double.parseDouble(words[1]);
+        double rotationAngle = Double.parseDouble(words[2]);
+        double backgroundTransparency = Double.parseDouble(words[3]);
+        int red = Integer.parseInt(words[4]);
+        int green = Integer.parseInt(words[5]);
+        int blue = Integer.parseInt(words[6]);
+        int xcoord = Integer.parseInt(words[7]);
+        int ycoord = Integer.parseInt(words[8]);
+        return drawTextItem(textString,magnification,rotationAngle,backgroundTransparency,
+                red,green,blue,xcoord,ycoord);
+    }
+
+    private static DrawTextItem drawTextItem(String textString, double magnification, double rotationAngle,
+                                             double backgroundTransparency, int red, int green,
+                                             int blue, int xcoord, int ycoord) {
+        var item = new DrawTextItem(textString);
+        Color color = new Color(red,green,blue);
+        item.setTextColor(color);
+        item.setX(xcoord);
+        item.setY(ycoord);
+        item.setMagnification(magnification);
+        item.setRotationAngle(rotationAngle);
+        item.setBackgroundTransparency(backgroundTransparency);
+        return item;
     }
 
     private void saveFile() {
         File saveFile = fileChooser.getOutputFile(this, "Select where to save the image");
         StringBuilder builder = new StringBuilder();
         try(PrintWriter writer = new PrintWriter(saveFile)) {
-            String canvasBackground = canvas.getBackground().getRed() + " "+canvas.getBackground().getBlue()+" "+
+            String canvasBackground = canvas.getBackground().getRed() + "-"+canvas.getBackground().getBlue()+"-"+
                     canvas.getBackground().getBlue()+"\n";
             writer.write(canvasBackground);
             for (DrawTextItem item : strings) {
@@ -270,6 +332,71 @@ public class DrawTextPanel extends JPanel {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+
+    public void animations(){
+        strings.clear();
+        List<String> words = getFileContents();
+        Random random = new Random();
+        for (int i = 0; i < 50; i++) {
+            String textString = words.get(random.nextInt(words.size()));
+            createItems(random, textString);
+            words.remove(textString);
+        }
+
+        while ( animationToggle) {
+            String textString = words.get(random.nextInt(words.size()));
+            createItems(random, textString);
+            canvas.repaint();
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
+
+
+
+    private void createItems(Random random, String textString) {
+        double magnification = random.nextDouble(2.0);
+        double rotationAngle = random.nextDouble(360.0);
+        double backgroundTransparency = random.nextDouble(1.0);
+        int red = random.nextInt(255);
+        int green = random.nextInt(255);
+        int blue = random.nextInt(255);
+        int xcoord = canvas.getX() / random.nextInt(1,10);
+        int ycoord = canvas.getY() / random.nextInt(1,10);
+        DrawTextItem item = drawTextItem(textString,magnification,rotationAngle,backgroundTransparency,
+                red,green,blue,xcoord,ycoord);
+
+        Color color = new Color(random.nextInt(100,255), random.nextInt(150,255),
+                random.nextInt(200,255));
+        canvas.setBackground(color);
+
+        strings.add(item);
+    }
+
+    // Gets the words in a file selected by a user for animations
+    private List<String> getFileContents() {
+        File file = fileChooser.getInputFile();
+        fileChooser.getInputFile(this, "Select File to Open");
+        DrawTextItem item;
+        List<String> texts = new ArrayList<>(50);
+        try (Scanner input = new Scanner(file)){
+            String line = input.nextLine();
+            while (input.hasNext()) {
+                texts.addAll(Arrays.asList(line.split(" ")));
+                line = input.nextLine();
+            }
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e.toString());
+        }
+        return texts;
     }
 }
 
